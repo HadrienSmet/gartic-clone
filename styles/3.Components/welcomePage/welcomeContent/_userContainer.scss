@@ -1,0 +1,134 @@
+.user {
+    width: 60%;
+    &__header {
+        width: 100%;
+        display: flex;
+        gap: 6px;
+        justify-content: space-evenly;
+        span {
+            width: 100%;
+            border-radius: 25px 25px 0 0;
+            padding: 15px 0px 10px;
+            margin-bottom: 6px;
+
+            color: $clr-1-op06;
+            background-color: $third-shade;
+
+            text-transform: uppercase;
+            text-align: center;
+            font-family: "main-fonts";
+            font-size: $font-bigger-size;
+            &.active {
+                margin-bottom: 0px;
+                padding: 15px 0 20px;
+                color: $fourth-color;
+                letter-spacing: 2px;
+                text-shadow: $regular-txt-shadow;
+            }
+        }
+    }
+    &__content {
+        padding: 40px;
+        background-color: $third-shade;
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        &__avatar-container {
+            position: relative;
+
+            min-width: 158px;
+            height: 158px;
+            border: 5px solid $clr-1;
+            border-radius: 50%;
+            img {
+                position: absolute;
+                left: 1px;
+                bottom: 4px;
+
+                height: 182px;
+                width: 156px;
+            }
+        }
+        &__avatar-button {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background-color: $clr-1;
+            border: 3px solid $clr-1;
+            &:hover {
+                background-color: $fifth-color;
+            }
+            svg {
+                color: $third-color;
+                font-size: 30px;
+            }
+        }
+        &__pseudo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: calc(80% - 158px);
+            h2 {
+                font-size: $font-bigger-size;
+                text-align: center;
+                color: $clr-1;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                line-height: 36px;
+                font-family: "main-fonts";
+            }
+            input {
+                width: calc(70% - 30px);
+                padding: 15px 15px;
+                border: 3px solid $clr-1;
+                border-radius: 7px;
+                background-color: $clr-1-op06;
+                color: $clr-1 !important;
+                font-family: "main-fonts";
+                font-size: $font-bigger-size;
+                &::placeholder {
+                    color: $clr-1 !important;
+                }
+                &:focus-visible {
+                    outline: none;
+                }
+            }
+        }
+    }
+    &__button-container {
+        background-color: $third-shade;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 35px;
+        border-radius: 0px 0px 25px 25px;
+        margin-bottom: 25px;
+    }
+    &__button {
+        padding: 8px 25px;
+        background-color: $clr-1;
+        border-radius: 7px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 8px 0px 0px $third-color;
+        &:hover {
+            background-color: $sixth-color;
+        }
+        span {
+            text-transform: uppercase;
+            font-size: $font-bigger-size;
+            font-family: "main-fonts";
+            color: $third-color;
+        }
+    }
+}
