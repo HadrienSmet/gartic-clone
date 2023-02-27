@@ -1,0 +1,34 @@
+.welcome-footer {
+    padding: 0 40px;
+    width: calc(100% - 80px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    ul {
+        display: flex;
+        gap: 20px;
+        li {
+            cursor: pointer;
+            position: relative;
+            text-transform: uppercase;
+            font-family: "bold-fonts";
+            color: $clr-1-op06;
+            &:not(:last-child)::after {
+                content: "";
+                position: absolute;
+                height: 100%;
+                width: 2px;
+                background-color: $clr-1-op06;
+                top: 0;
+                right: -10px;
+                cursor: default;
+            }
+        }
+    }
+    strong {
+        color: $fourth-color;
+        letter-spacing: 2px;
+        text-shadow: $regular-txt-shadow;
+        font-size: $font-bigger-size;
+    }
+}

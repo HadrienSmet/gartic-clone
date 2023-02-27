@@ -1,0 +1,8 @@
+@keyframes circleStrokeAnimation {
+    0% {
+        stroke-dashoffset: 330;
+    }
+    100% {
+        stroke-dashoffset: 60;
+    }
+}

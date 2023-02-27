@@ -1,11 +1,14 @@
 .user {
     width: 60%;
+    height: 100%;
+    position: relative;
     &__header {
         width: 100%;
         display: flex;
         gap: 6px;
         justify-content: space-evenly;
         span {
+            cursor: pointer;
             width: 100%;
             border-radius: 25px 25px 0 0;
             padding: 15px 0px 10px;
@@ -31,8 +34,10 @@
         padding: 40px;
         background-color: $third-shade;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
+        align-items: center;
         gap: 30px;
+        height: calc(100% - 274px);
         &__avatar-container {
             position: relative;
 
@@ -103,6 +108,20 @@
                 }
             }
         }
+        &__message-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            h3 {
+                text-transform: uppercase;
+                font-size: $font-bigger-size;
+                color: $clr-1;
+            }
+            svg {
+                font-size: 40px;
+                color: $clr-1;
+            }
+        }
     }
     &__button-container {
         background-color: $third-shade;
@@ -114,6 +133,7 @@
         margin-bottom: 25px;
     }
     &__button {
+        cursor: pointer;
         padding: 8px 25px;
         background-color: $clr-1;
         border-radius: 7px;

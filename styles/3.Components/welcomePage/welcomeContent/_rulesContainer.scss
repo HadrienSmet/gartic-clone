@@ -1,4 +1,114 @@
 .rules {
+    padding: 15px 40px 20px;
     width: 40%;
-    background-color: $third-shade;
+    border: 3px solid $third-shade;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+    align-items: center;
+    color: $clr-1;
+    h2 {
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: $font-bigger-size;
+        color: $fourth-color;
+        text-shadow: $regular-txt-shadow;
+        margin: 0;
+    }
+    &-content {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .icons-container {
+            height: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+        }
+        h3 {
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: $font-bigger-size;
+            text-align: center;
+        }
+        p {
+            text-align: center;
+            font-size: $font-regular-size;
+        }
+    }
+    &-steps-indicator {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        gap: 25px;
+        margin: 0;
+        li {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 15px;
+            height: 15px;
+            background-color: $clr-1;
+            border-radius: 50%;
+            &.active svg circle {
+                stroke-dashoffset: 60;
+                animation: circleStrokeAnimation 22s linear;
+            }
+            svg {
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                transform-origin: center;
+                transform: rotate(270deg) translate(2.7px, 3.5px);
+                circle {
+                    width: 10px;
+                    height: 10px;
+                    fill: none;
+                    stroke: $clr-1;
+                    stroke-width: 3;
+                    stroke-linecap: round;
+                    stroke-dasharray: 330;
+                    stroke-dashoffset: 330;
+                    transform-origin: center center;
+                    transform: translate(3px, 3px);
+                }
+            }
+        }
+    }
+}
+#phone-icon {
+    transform: translate(-20px, 10px) rotate(120deg);
+}
+#phoneVolume-icon {
+    transform: translateX(20px) rotateY(180deg) rotateZ(-10deg) scale(1.4);
+}
+#pen-icon {
+    transform: translateY(45px) rotate(270deg);
+}
+#brush-icon {
+    transform: translateX(-25px) rotateY(180deg) rotateZ(15deg);
+}
+#palette-icon {
+    transform: rotate(30deg);
+}
+#meh-icon {
+    transform: translate(50%, 45px);
+}
+#bulb-icon {
+    transform: translate(30px, -50%) rotate(40deg);
+}
+#beam-icon {
+    transform: translateY(15px) rotate(-20deg);
+}
+#squint-icon {
+    transform: translateY(-15px) rotate(15deg);
+}
+#friends-icon {
+    transform: translate(-15px, 35px);
+}
+#sphere-icon {
+    transform: translateY(-15px) scale(1.4);
 }
