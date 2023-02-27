@@ -80,18 +80,34 @@ const rulesArray = [
     },
 ];
 
-const RulesContainer = () => {
+const useRulesContainer = () => {
     const firstAnimatedRef = useRef<HTMLLIElement | null>(null);
+    let rulesIndexes;
+    useEffect(() => {
+        firstAnimatedRef.current?.classList.add("active");
+    }, []);
+    return {
+        firstAnimatedRef,
+    };
+};
+
+const RulesContainer = () => {
     const [ruleIndex, setRuleIndex] = useState(0);
+    const { firstAnimatedRef } = useRulesContainer();
 
     const handleRuleIndex = (e: MouseEvent) => {
         const target = e.target as Element;
+        target.classList.add("active");
         const newIndex = parseInt(target.id.split("-")[1]) - 1;
         setRuleIndex(() => newIndex);
     };
 
     useEffect(() => {
         const rulesIndexes = document.querySelectorAll(".rule-index");
+        rulesIndexes.forEach((rule) => {
+            if (rule.id.split("-")[1] !== `${ruleIndex + 1}`)
+                rule.classList.remove("active");
+        });
         const interval = setInterval(() => {
             rulesIndexes.forEach((rule) => {
                 rule.classList.remove("active");
@@ -111,9 +127,6 @@ const RulesContainer = () => {
         };
     }, [ruleIndex]);
 
-    useEffect(() => {
-        firstAnimatedRef.current?.classList.add("active");
-    }, []);
     return (
         <div className="rules">
             <h2>Comment jouer</h2>

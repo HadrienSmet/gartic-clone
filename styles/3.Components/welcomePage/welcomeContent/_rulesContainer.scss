@@ -63,6 +63,7 @@
                 height: 40px;
                 transform-origin: center;
                 transform: rotate(270deg) translate(2.7px, 3.5px);
+                pointer-events: none;
                 circle {
                     width: 10px;
                     height: 10px;
