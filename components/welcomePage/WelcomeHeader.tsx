@@ -1,12 +1,30 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ImSphere } from "react-icons/im";
 import { FaTwitch } from "react-icons/fa";
 
 const WelcomeHeader = () => {
+    const [isBrowser, setIsBrowser] = useState(false);
+    const showLanguagesModal = () => {
+        const modalContainer = isBrowser
+            ? document.querySelector(".languages-modal__container")
+            : null;
+        const modalLayout = isBrowser
+            ? document.querySelector(".languages-modal__layout")
+            : null;
+        modalContainer?.classList.add("active");
+        modalLayout?.classList.add("active");
+    };
+    useEffect(() => {
+        setIsBrowser(true);
+    }, []);
+
     return (
         <section className="welcome-header">
-            <div className="welcome-header__country-container">
+            <div
+                className="welcome-header__country-container"
+                onClick={showLanguagesModal}
+            >
                 <ImSphere />
                 <span>FR</span>
             </div>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, MouseEvent } from "react";
 import {
     FaPenAlt,
     FaPencilAlt,
@@ -83,20 +83,26 @@ const rulesArray = [
 const RulesContainer = () => {
     const firstAnimatedRef = useRef<HTMLLIElement | null>(null);
     const [ruleIndex, setRuleIndex] = useState(0);
+
+    const handleRuleIndex = (e: MouseEvent) => {
+        const target = e.target as Element;
+        const newIndex = parseInt(target.id.split("-")[1]) - 1;
+        setRuleIndex(() => newIndex);
+    };
+
     useEffect(() => {
         const rulesIndexes = document.querySelectorAll(".rule-index");
         const interval = setInterval(() => {
             rulesIndexes.forEach((rule) => {
                 rule.classList.remove("active");
             });
-
             if (ruleIndex < 5) {
                 setRuleIndex((curr) => (curr += 1));
             } else {
                 setRuleIndex(0);
             }
             const animatedCircle = document.getElementById(
-                `${ruleIndex + 2 > 6 ? 1 : ruleIndex + 2}`
+                `li-${ruleIndex + 2 > 6 ? 1 : ruleIndex + 2}`
             );
             animatedCircle?.classList.add("active");
         }, 7000);
@@ -117,33 +123,58 @@ const RulesContainer = () => {
                 <p>{rulesArray[ruleIndex].description}</p>
             </div>
             <ul className="rules-steps-indicator">
-                <li ref={firstAnimatedRef} className="rule-index" id="1">
-                    <svg>
+                <li
+                    onClick={(e) => handleRuleIndex(e)}
+                    ref={firstAnimatedRef}
+                    className="rule-index"
+                    id="li-1"
+                >
+                    <svg id="svg-1">
                         <circle cx="14" cy="14" r="14"></circle>
                     </svg>
                 </li>
-                <li className="rule-index" id="2">
-                    <svg>
+                <li
+                    onClick={(e) => handleRuleIndex(e)}
+                    className="rule-index"
+                    id="li-2"
+                >
+                    <svg id="svg-2">
                         <circle cx="14" cy="14" r="14"></circle>
                     </svg>
                 </li>
-                <li className="rule-index" id="3">
-                    <svg>
+                <li
+                    onClick={(e) => handleRuleIndex(e)}
+                    className="rule-index"
+                    id="li-3"
+                >
+                    <svg id="svg-3">
                         <circle cx="14" cy="14" r="14"></circle>
                     </svg>
                 </li>
-                <li className="rule-index" id="4">
-                    <svg>
+                <li
+                    onClick={(e) => handleRuleIndex(e)}
+                    className="rule-index"
+                    id="li-4"
+                >
+                    <svg id="svg-4">
                         <circle cx="14" cy="14" r="14"></circle>
                     </svg>
                 </li>
-                <li className="rule-index" id="5">
-                    <svg>
+                <li
+                    onClick={(e) => handleRuleIndex(e)}
+                    className="rule-index"
+                    id="li-5"
+                >
+                    <svg id="svg-5">
                         <circle cx="14" cy="14" r="14"></circle>
                     </svg>
                 </li>
-                <li className="rule-index" id="6">
-                    <svg>
+                <li
+                    onClick={(e) => handleRuleIndex(e)}
+                    className="rule-index"
+                    id="li-6"
+                >
+                    <svg id="svg-6">
                         <circle cx="14" cy="14" r="14"></circle>
                     </svg>
                 </li>

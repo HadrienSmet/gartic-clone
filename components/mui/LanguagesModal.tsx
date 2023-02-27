@@ -1,29 +1,130 @@
-import React from "react";
-import { FaTimes } from "react-icons/fa";
+import React, { MouseEvent, useEffect, useRef, useState } from "react";
+import { FaCheck, FaTimes } from "react-icons/fa";
 
 const LanguagesModal = () => {
+    const layoutRef = useRef<HTMLDivElement | null>(null);
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const [isBrowser, setIsbrowser] = useState(false);
+    const removeLanguagesModal = () => {
+        layoutRef.current?.classList.remove("active");
+        containerRef.current?.classList.remove("active");
+    };
+    const handleMainLanguage = (e: MouseEvent) => {
+        console.log(isBrowser);
+
+        const languages = isBrowser
+            ? document.querySelectorAll(".language")
+            : null;
+        console.log(languages);
+
+        const target = e.target as Element;
+        languages?.forEach((language) => {
+            language.classList.remove("active");
+        });
+        target.classList.add("active");
+    };
+    useEffect(() => {
+        setIsbrowser(true);
+    }, []);
     return (
-        <div className="languages-modal__layout">
-            <div className="languages-modal__container">
+        <div ref={layoutRef} className="languages-modal__layout">
+            <div ref={containerRef} className="languages-modal__container">
                 <div className="languages-modal__header">
                     <h4>langues</h4>
-                    <FaTimes />
+                    <FaTimes onClick={removeLanguagesModal} />
                 </div>
                 <ul className="languages-modal__content">
-                    <li>Français</li>
-                    <li>Belge</li>
-                    <li>Brusseleir</li>
-                    <li>Wallon</li>
-                    <li>Corse</li>
-                    <li>Breton</li>
-                    <li>Basque</li>
-                    <li>Alsacien</li>
-                    <li>Québecois</li>
-                    <li>Suisse</li>
-                    <li>Provençal</li>
-                    <li>Ancien français</li>
+                    <li
+                        onClick={(e) => handleMainLanguage(e)}
+                        className="language active"
+                    >
+                        <FaCheck />
+                        <span>Français</span>
+                    </li>
+                    <li
+                        onClick={(e) => handleMainLanguage(e)}
+                        className="language"
+                    >
+                        <FaCheck />
+                        <span>Belge</span>
+                    </li>
+                    <li
+                        onClick={(e) => handleMainLanguage(e)}
+                        className="language"
+                    >
+                        <FaCheck />
+                        <span>Brusseleir</span>
+                    </li>
+                    <li
+                        onClick={(e) => handleMainLanguage(e)}
+                        className="language"
+                    >
+                        <FaCheck />
+                        <span>Wallon</span>
+                    </li>
+                    <li
+                        onClick={(e) => handleMainLanguage(e)}
+                        className="language"
+                    >
+                        <FaCheck />
+                        <span>Corse</span>
+                    </li>
+                    <li
+                        onClick={(e) => handleMainLanguage(e)}
+                        className="language"
+                    >
+                        <FaCheck />
+                        <span>Breton</span>
+                    </li>
+                    <li
+                        onClick={(e) => handleMainLanguage(e)}
+                        className="language"
+                    >
+                        <FaCheck />
+                        <span>Basque</span>
+                    </li>
+                    <li
+                        onClick={(e) => handleMainLanguage(e)}
+                        className="language"
+                    >
+                        <FaCheck />
+                        <span>Alsacien</span>
+                    </li>
+                    <li
+                        onClick={(e) => handleMainLanguage(e)}
+                        className="language"
+                    >
+                        <FaCheck />
+                        <span>Québecois</span>
+                    </li>
+                    <li
+                        onClick={(e) => handleMainLanguage(e)}
+                        className="language"
+                    >
+                        <FaCheck />
+                        <span>Suisse</span>
+                    </li>
+                    <li
+                        onClick={(e) => handleMainLanguage(e)}
+                        className="language"
+                    >
+                        <FaCheck />
+                        <span>Provençal</span>
+                    </li>
+                    <li
+                        onClick={(e) => handleMainLanguage(e)}
+                        className="language"
+                    >
+                        <FaCheck />
+                        <span>Vieux français</span>
+                    </li>
                 </ul>
-                <button className="languages-modal__button">confirmer</button>
+                <button
+                    className="languages-modal__button"
+                    onClick={removeLanguagesModal}
+                >
+                    confirmer
+                </button>
             </div>
         </div>
     );
