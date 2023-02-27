@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     width: calc(100% - 50px);
+    height: 178px;
     padding: 15px 25px;
     font-family: "main-fonts";
     &__country-container {
@@ -42,8 +43,11 @@
         }
     }
     &__logo-container {
+        position: absolute;
         color: $clr-1;
         text-transform: uppercase;
+        left: 50%;
+        transform: translateX(-50%);
         h1 {
             text-align: center;
             font-size: $font-regular-size;

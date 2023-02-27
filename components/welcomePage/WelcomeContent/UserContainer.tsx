@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, {
+    ChangeEvent,
     MouseEvent,
     MutableRefObject,
     useEffect,
@@ -8,15 +9,28 @@ import React, {
 } from "react";
 import { FaRedoAlt, FaTimes } from "react-icons/fa";
 
+type UserDataType = {
+    pseudo: string;
+    imgUrl: string;
+};
+
 const useUserContainer = () => {
     const anonymRef = useRef<HTMLSpanElement | null>(null);
     const authRef = useRef<HTMLSpanElement | null>(null);
     const [avatarIndex, setAvatardIndex] = useState<number>(0);
     const [loginState, setLoginState] = useState("anonym");
+    const [userData, setUserData] = useState<UserDataType>({
+        pseudo: "",
+        imgUrl: "",
+    });
 
     const handleNewAvatar = () => {
         const newIndex = Math.floor(Math.random() * 15);
         setAvatardIndex(newIndex);
+        setUserData({
+            pseudo: userData.pseudo,
+            imgUrl: `/images/gartic-avatar-${newIndex}.svg`,
+        });
     };
 
     const handleUserContainerNav = (e: MouseEvent) => {
@@ -36,6 +50,16 @@ const useUserContainer = () => {
         anonymRef.current?.classList.add("active");
     }, []);
 
+    const handlePseudo = (e: ChangeEvent<HTMLInputElement>) => {
+        setUserData({
+            pseudo: e.target.value,
+            imgUrl: userData.imgUrl,
+        });
+    };
+
+    const handleSubmission = () => {
+        console.log(userData);
+    };
     return {
         anonymRef,
         authRef,
@@ -43,6 +67,8 @@ const useUserContainer = () => {
         loginState,
         handleNewAvatar,
         handleUserContainerNav,
+        handlePseudo,
+        handleSubmission,
     };
 };
 
@@ -54,7 +80,10 @@ const UserContainer = () => {
         loginState,
         handleNewAvatar,
         handleUserContainerNav,
+        handlePseudo,
+        handleSubmission,
     } = useUserContainer();
+
     return (
         <div className="user">
             <div className="user__header">
@@ -92,7 +121,11 @@ const UserContainer = () => {
                         </div>
                         <div className="user__content__pseudo-container">
                             <h2>choisis un personnage et un surnom</h2>
-                            <input type="text" placeholder="PseudoCool3166" />
+                            <input
+                                type="text"
+                                placeholder="PseudoCool3166"
+                                onBlur={(e) => handlePseudo(e)}
+                            />
                         </div>
                     </>
                 ) : (
@@ -113,7 +146,7 @@ const UserContainer = () => {
                 )}
             </div>
             <div className="user__button-container">
-                <div className="user__button">
+                <div className="user__button" onClick={handleSubmission}>
                     <Image
                         src="/images/gartic_play.svg"
                         alt="play icon"
