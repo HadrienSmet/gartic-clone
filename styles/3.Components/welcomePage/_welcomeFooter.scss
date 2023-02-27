@@ -1,7 +1,16 @@
+@media screen and (min-width: 768px) {
+    .welcome-footer {
+        display: flex;
+    }
+}
+@media screen and (max-width: 767px) {
+    .welcome-footer {
+        display: none;
+    }
+}
 .welcome-footer {
     padding: 0 40px;
     width: calc(100% - 80px);
-    display: flex;
     justify-content: space-between;
     align-items: center;
     ul {

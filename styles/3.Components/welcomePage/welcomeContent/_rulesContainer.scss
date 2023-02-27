@@ -1,9 +1,18 @@
+@media screen and (max-width: 768px) {
+    .rules {
+        display: flex;
+    }
+}
+@media screen and (max-width: 767px) {
+    .rules {
+        display: none;
+    }
+}
 .rules {
     padding: 15px 40px 20px;
     width: 40%;
     border: 3px solid $third-shade;
     border-radius: 25px;
-    display: flex;
     flex-direction: column;
     margin-bottom: 25px;
     align-items: center;

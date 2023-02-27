@@ -1,8 +1,19 @@
+@media screen and (min-width: 768px) {
+    .welcome-content {
+        padding: 0 40px;
+        width: calc(100% - 80px);
+        height: calc(100% - 272px);
+    }
+}
+@media screen and (max-width: 767px) {
+    .welcome-content {
+        width: calc(100% - 40px);
+        padding: 0 20px;
+        height: calc(100% - 150px);
+    }
+}
 .welcome-content {
     display: flex;
     justify-content: space-between;
-    padding: 0 40px;
     gap: 30px;
-    width: calc(100% - 80px);
-    height: calc(100% - 272px);
 }
