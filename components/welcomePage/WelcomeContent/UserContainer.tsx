@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, {
     ChangeEvent,
     MouseEvent,
@@ -23,6 +24,7 @@ const useUserContainer = () => {
         pseudo: "",
         imgUrl: "",
     });
+    const router = useRouter();
 
     const handleNewAvatar = () => {
         const newIndex = Math.floor(Math.random() * 15);
@@ -59,7 +61,7 @@ const useUserContainer = () => {
 
     const handleSubmission = () => {
         console.log(userData);
-        window.location.href = "http://localhost:3000/room";
+        router.push("/room");
     };
     return {
         anonymRef,

@@ -9,11 +9,14 @@ $fifth-color: rgb(214, 187, 235);
 $sixth-color: #cbb6e9;
 $seventh-color: rgb(137, 111, 255);
 
+$shade-color: rgb(38, 28, 92);
+
 $first-shade: rgba(29, 29, 27, 0.15);
-$second-shade: rgba(38, 28, 92, 0.3);
+$second-shade: rgba($shade-color, 0.3);
 $third-shade: rgba(80, 24, 81, 0.25);
 $fourth-shade: rgba(29, 29, 27, 0.45);
 $fifth-shade: rgba(0, 0, 0, 0.9);
+$sixth-shade: rgba($shade-color, 0.5);
 
 $clr-1-op06: rgba(255, 255, 255, 0.6);
 $clr-1-op015: rgba(255, 255, 255, 0.15);
@@ -25,3 +28,11 @@ $regular-txt-shadow: 3px 0px 0px $third-color, 2.2px 2.2px 0px $third-color,
     0px 3px 0px $third-color, -2.2px 2.2px 0px $third-color,
     -3px 0px 0px $third-color, -2.5px -2.5px 0px $third-color,
     0px -3px 0px $third-color, 2.5px -2.5px 0px $third-color;
+
+$dark-txt-shadow: 3px 0px 0px darken($third-color, 5),
+    2.2px 2.2px 0px darken($third-color, 5), 0px 3px 0px darken($third-color, 5),
+    -2.2px 2.2px 0px darken($third-color, 5),
+    -3px 0px 0px darken($third-color, 5),
+    -2.5px -2.5px 0px darken($third-color, 5),
+    0px -3px 0px darken($third-color, 5),
+    2.5px -2.5px 0px darken($third-color, 5);

@@ -11,6 +11,13 @@ body,
 
 body {
     background: linear-gradient(200deg, $first-color 0%, $second-color 100%);
+    &.room-bg {
+        background-image: linear-gradient(
+            215deg,
+            rgb(116, 84, 249) 0%,
+            rgb(115, 17, 176) 85%
+        );
+    }
 }
 
 #__next {
