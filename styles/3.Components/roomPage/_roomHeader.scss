@@ -1,5 +1,5 @@
 @media screen and (min-width: 768px) {
-    .welcome-header {
+    .room-header {
         justify-content: space-between;
         height: 178px;
         &__country-container {
@@ -9,17 +9,19 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
+            img {
+                position: absolute;
+                top: -35px;
+                transform: translateX(-50%) scale(0.75);
+            }
         }
         &__streamers-container {
             display: flex;
         }
-        &__mobile-infos {
-            display: none;
-        }
     }
 }
 @media screen and (max-width: 767px) {
-    .welcome-header {
+    .room-header {
         justify-content: center;
         height: 75px;
         &__country-container {
@@ -50,7 +52,7 @@
         }
     }
 }
-.welcome-header {
+.room-header {
     display: flex;
     width: calc(100% - 50px);
     padding: 15px 25px;

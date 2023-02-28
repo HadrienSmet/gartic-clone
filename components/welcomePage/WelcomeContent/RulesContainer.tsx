@@ -12,6 +12,7 @@ import {
     FaLightbulb,
     FaMehBlank,
     FaUserFriends,
+    FaTimes,
 } from "react-icons/fa";
 import { ImSphere } from "react-icons/im";
 
@@ -94,6 +95,7 @@ const useRulesContainer = () => {
 const RulesContainer = () => {
     const [ruleIndex, setRuleIndex] = useState(0);
     const { firstAnimatedRef } = useRulesContainer();
+    const rulesRef = useRef<HTMLDivElement | null>(null);
 
     const handleRuleIndex = (e: MouseEvent) => {
         const target = e.target as Element;
@@ -127,9 +129,17 @@ const RulesContainer = () => {
         };
     }, [ruleIndex]);
 
+    const removeRulesModal = () => {
+        rulesRef.current?.classList.remove("active");
+    };
+
     return (
-        <div className="rules">
+        <div ref={rulesRef} className="rules">
             <h2>Comment jouer</h2>
+            <FaTimes
+                className="rules__modal-remover"
+                onClick={removeRulesModal}
+            />
             <div className="rules-content">
                 {rulesArray[ruleIndex].icons}
                 <h3>{rulesArray[ruleIndex].title}</h3>
@@ -143,7 +153,7 @@ const RulesContainer = () => {
                     id="li-1"
                 >
                     <svg id="svg-1">
-                        <circle cx="14" cy="14" r="14"></circle>
+                        <circle cx="10" cy="10" r="10"></circle>
                     </svg>
                 </li>
                 <li
@@ -152,7 +162,7 @@ const RulesContainer = () => {
                     id="li-2"
                 >
                     <svg id="svg-2">
-                        <circle cx="14" cy="14" r="14"></circle>
+                        <circle cx="10" cy="10" r="10"></circle>
                     </svg>
                 </li>
                 <li
@@ -161,7 +171,7 @@ const RulesContainer = () => {
                     id="li-3"
                 >
                     <svg id="svg-3">
-                        <circle cx="14" cy="14" r="14"></circle>
+                        <circle cx="10" cy="10" r="10"></circle>
                     </svg>
                 </li>
                 <li
@@ -170,7 +180,7 @@ const RulesContainer = () => {
                     id="li-4"
                 >
                     <svg id="svg-4">
-                        <circle cx="14" cy="14" r="14"></circle>
+                        <circle cx="10" cy="10" r="10"></circle>
                     </svg>
                 </li>
                 <li
@@ -179,7 +189,7 @@ const RulesContainer = () => {
                     id="li-5"
                 >
                     <svg id="svg-5">
-                        <circle cx="14" cy="14" r="14"></circle>
+                        <circle cx="10" cy="10" r="10"></circle>
                     </svg>
                 </li>
                 <li
@@ -188,7 +198,7 @@ const RulesContainer = () => {
                     id="li-6"
                 >
                     <svg id="svg-6">
-                        <circle cx="14" cy="14" r="14"></circle>
+                        <circle cx="10" cy="10" r="10"></circle>
                     </svg>
                 </li>
             </ul>

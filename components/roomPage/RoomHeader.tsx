@@ -1,9 +1,9 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { ImInfo, ImSphere } from "react-icons/im";
+import { ImSphere } from "react-icons/im";
 import { FaTwitch } from "react-icons/fa";
 
-const useWelcomeHeader = () => {
+const useRoomHeader = () => {
     const [isBrowser, setIsBrowser] = useState(false);
 
     const showLanguagesModal = () => {
@@ -17,48 +17,41 @@ const useWelcomeHeader = () => {
         modalLayout?.classList.add("active");
     };
 
-    const showRulesModal = () => {
-        const mobileRules = isBrowser ? document.querySelector(".rules") : null;
-        mobileRules?.classList.add("active");
-    };
-
     useEffect(() => {
         setIsBrowser(true);
     }, []);
 
     return {
         showLanguagesModal,
-        showRulesModal,
     };
 };
 
-const WelcomeHeader = () => {
-    const { showLanguagesModal, showRulesModal } = useWelcomeHeader();
+const RoomHeader = () => {
+    const { showLanguagesModal } = useRoomHeader();
 
     return (
-        <section className="welcome-header">
+        <section className="room-header">
             <div
-                className="welcome-header__country-container"
+                className="room-header__country-container"
                 onClick={showLanguagesModal}
             >
                 <ImSphere />
                 <span>FR</span>
             </div>
-            <div className="welcome-header__logo-container">
+            <div className="room-header__logo-container">
                 <Image
                     src="/images/gartic-logo.png"
                     alt="logo"
                     width={300}
                     height={150}
                 />
-                <h1>téléphone sans fil</h1>
             </div>
-            <div className="welcome-header__streamers-container">
-                <div className="welcome-header__streamers-container__first-row">
+            <div className="room-header__streamers-container">
+                <div className="room-header__streamers-container__first-row">
                     <FaTwitch />
                     <p>Streamers en direct</p>
                 </div>
-                <div className="welcome-header__streamer-picture">
+                <div className="room-header__streamer-picture">
                     <Image
                         src="/images/gartic-avatar-12.svg"
                         alt="streamer picture"
@@ -67,12 +60,8 @@ const WelcomeHeader = () => {
                     />
                 </div>
             </div>
-            <ImInfo
-                className="welcome-header__mobile-infos"
-                onClick={showRulesModal}
-            />
         </section>
     );
 };
 
-export default WelcomeHeader;
+export default RoomHeader;

@@ -1,5 +1,6 @@
 @media screen and (min-width: 768px) {
     .user {
+        width: 60%;
         &__header {
             span {
                 border-radius: 25px 25px 0 0;
@@ -7,7 +8,7 @@
             }
         }
         &__content {
-            width: 60%;
+            width: calc(100% - 80px);
             height: calc(100% - 274px);
             padding: 40px;
             justify-content: center;
@@ -20,6 +21,13 @@
                     bottom: 4px;
                     height: 182px;
                     width: 156px;
+                }
+            }
+            &__avatar-button {
+                width: 44px;
+                height: 44px;
+                svg {
+                    font-size: 30px;
                 }
             }
             &__pseudo-container {
@@ -74,6 +82,13 @@
                     bottom: 2px;
                     width: 114px;
                     height: 138px;
+                }
+            }
+            &__avatar-button {
+                width: 35px;
+                height: 35px;
+                svg {
+                    font-size: 25px;
                 }
             }
             &__pseudo-container {
@@ -161,8 +176,8 @@
             right: 0;
             bottom: 0;
 
-            width: 44px;
-            height: 44px;
+            // width: 44px;
+            // height: 44px;
             border-radius: 50%;
 
             display: flex;
@@ -176,7 +191,7 @@
             }
             svg {
                 color: $third-color;
-                font-size: 30px;
+                // font-size: 30px;
             }
         }
         &__pseudo-container {

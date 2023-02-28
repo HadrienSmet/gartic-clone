@@ -59,6 +59,7 @@ const useUserContainer = () => {
 
     const handleSubmission = () => {
         console.log(userData);
+        window.location.href = "http://localhost:3000/room";
     };
     return {
         anonymRef,

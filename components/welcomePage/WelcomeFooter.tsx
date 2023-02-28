@@ -3,7 +3,7 @@ import React from "react";
 
 const WelcomeFooter = () => {
     return (
-        <div className="welcome-footer">
+        <section className="welcome-footer">
             <a
                 href="https://garticphone.com/fr"
                 aria-label="Lien vers le vrai site"
@@ -26,7 +26,7 @@ const WelcomeFooter = () => {
             <a href="https://hadrien-smet-my-portfolio.vercel.app/">
                 <strong>Hadri</strong>
             </a>
-        </div>
+        </section>
     );
 };
 

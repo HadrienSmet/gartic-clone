@@ -1,20 +1,68 @@
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
     .rules {
         display: flex;
+        width: 40%;
+        border: 3px solid $third-shade;
+        border-radius: 25px;
+        margin-bottom: 25px;
+        h2 {
+            text-shadow: $regular-txt-shadow;
+        }
+        &__modal-remover {
+            display: none;
+        }
+        &-content {
+            h3 {
+                font-size: $font-bigger-size;
+            }
+            p {
+                font-size: $font-regular-size;
+            }
+        }
+        &-steps-indicator {
+            li::before {
+                transform: translate(1px, 2px);
+            }
+        }
     }
 }
 @media screen and (max-width: 767px) {
     .rules {
         display: none;
+        &.active {
+            display: flex;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: $fifth-shade;
+        }
+        &__modal-remover {
+            position: absolute;
+            font-size: 30px;
+            right: 10px;
+        }
+        &-content {
+            h3 {
+                color: lighten($first-color, 20);
+                // color: $fifth-color;
+                font-size: 1em;
+            }
+            p {
+                font-size: 1em;
+            }
+        }
+        &-steps-indicator {
+            li::before {
+                transform: translate(1px, 1.5px);
+            }
+        }
     }
 }
 .rules {
     padding: 15px 40px 20px;
-    width: 40%;
-    border: 3px solid $third-shade;
-    border-radius: 25px;
     flex-direction: column;
-    margin-bottom: 25px;
     align-items: center;
     color: $clr-1;
     h2 {
@@ -22,7 +70,7 @@
         letter-spacing: 2px;
         font-size: $font-bigger-size;
         color: $fourth-color;
-        text-shadow: $regular-txt-shadow;
+        text-align: center;
         margin: 0;
     }
     &-content {
@@ -40,12 +88,10 @@
         h3 {
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            font-size: $font-bigger-size;
             text-align: center;
         }
         p {
             text-align: center;
-            font-size: $font-regular-size;
         }
     }
     &-steps-indicator {
@@ -54,37 +100,51 @@
         width: 100%;
         gap: 25px;
         margin: 0;
+        padding: 0;
         li {
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 15px;
-            height: 15px;
-            background-color: $clr-1;
-            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            position: relative;
             &.active svg circle {
                 stroke-dashoffset: 60;
-                animation: circleStrokeAnimation 22s linear;
+                animation: circleStrokeAnimation 31s linear;
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                left: 5px;
+                top: 5px;
+                width: 14px;
+                height: 14px;
+                background-color: $clr-1;
+                border-radius: 50%;
+                // transform: translate(2px, 2px);
             }
             svg {
                 position: absolute;
-                width: 40px;
-                height: 40px;
+                width: 25px;
+                height: 25px;
                 transform-origin: center;
-                transform: rotate(270deg) translate(3.2px, 2.2px);
+                transform: rotate(-90deg) translate(3px, 0px);
+                // transform: translate(6px, 6px);
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 pointer-events: none;
                 circle {
-                    width: 10px;
-                    height: 10px;
+                    position: absolute;
                     fill: none;
                     stroke: $clr-1;
-                    stroke-width: 3;
+                    stroke-width: 2;
                     stroke-linecap: round;
                     stroke-dasharray: 330;
                     stroke-dashoffset: 330;
                     transform-origin: center center;
-                    transform: translate(3px, 3px);
+                    transform: translate(1px, 1px);
                 }
             }
         }
