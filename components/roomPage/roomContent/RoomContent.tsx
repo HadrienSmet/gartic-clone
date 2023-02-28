@@ -6,13 +6,12 @@ import SettingsContainer from "./SettingsContainer";
 const RoomContent = () => {
     useEffect(() => {
         const body = document.querySelector("body");
-        // if (body)
         body!.classList.add("room-bg");
     }, []);
     return (
         <section className="room-content">
             <PlayersContainer />
-            <div className="room-content__setting-buttons-column">
+            <div className="room-content__right-column">
                 <SettingsContainer />
                 <ButtonsRow />
             </div>
