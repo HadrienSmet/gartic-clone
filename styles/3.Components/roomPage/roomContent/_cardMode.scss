@@ -1,4 +1,40 @@
 .card-mode {
-    width: 33%;
-    height: 120px;
+    width: calc(33% - 19px);
+    height: 124px;
+    background-color: $clr-1-op07;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    overflow: hidden;
+    h3 {
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+    p {
+        color: $first-color;
+        text-align: center;
+    }
+    img {
+        margin-top: 8px;
+        transition: 0.2s;
+    }
+    h3,
+    p {
+        transition: 0.3s;
+    }
+    &:hover {
+        background-color: $clr-1;
+        img {
+            transform: scale(0);
+        }
+        h3,
+        p {
+            transform: translateY(-70px);
+        }
+    }
 }

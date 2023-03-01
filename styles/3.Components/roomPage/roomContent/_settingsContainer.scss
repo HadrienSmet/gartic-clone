@@ -5,6 +5,7 @@
         display: flex;
         gap: 8px;
         span {
+            cursor: pointer;
             width: 50%;
             padding: 20px 0 5px;
             margin-bottom: 8px;
@@ -26,6 +27,8 @@
         background-color: $sixth-shade;
         display: flex;
         flex-wrap: wrap;
+        gap: 8px;
         border-radius: 0 0 20px 20px;
+        padding: 20px;
     }
 }

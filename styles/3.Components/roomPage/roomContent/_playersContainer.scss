@@ -32,6 +32,9 @@
             &::after {
                 display: none !important;
             }
+            &:focus-visible {
+                outline: none;
+            }
             option {
                 color: black;
                 text-align: center;
