@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ButtonsRow from "./ButtonsRow";
 import PlayersContainer from "./PlayersContainer";
-import SettingsContainer from "./SettingsContainer";
+import SettingsContainer from "./settingsContainer/SettingsContainer";
 
 const RoomContent = () => {
     useEffect(() => {

@@ -1,43 +1,14 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { ImSphere } from "react-icons/im";
-import { FaTwitch } from "react-icons/fa";
-
-const useRoomHeader = () => {
-    const [isBrowser, setIsBrowser] = useState(false);
-
-    const showLanguagesModal = () => {
-        const modalContainer = isBrowser
-            ? document.querySelector(".languages-modal__container")
-            : null;
-        const modalLayout = isBrowser
-            ? document.querySelector(".languages-modal__layout")
-            : null;
-        modalContainer?.classList.add("active");
-        modalLayout?.classList.add("active");
-    };
-
-    useEffect(() => {
-        setIsBrowser(true);
-    }, []);
-
-    return {
-        showLanguagesModal,
-    };
-};
+import Link from "next/link";
+import { FaPlay, FaTwitch } from "react-icons/fa";
 
 const RoomHeader = () => {
-    const { showLanguagesModal } = useRoomHeader();
-
     return (
         <section className="room-header">
-            <div
-                className="room-header__country-container"
-                onClick={showLanguagesModal}
-            >
-                <ImSphere />
-                <span>FR</span>
-            </div>
+            <Link href={"/"} className="room-header__back-button">
+                <FaPlay />
+                <span>retour</span>
+            </Link>
             <div className="room-header__logo-container">
                 <Image
                     src="/images/gartic-logo.png"

@@ -86,8 +86,12 @@
             align-items: center;
             border: 1px solid rgb(99, 75, 201);
             margin-right: 5px;
-            border-radius: 45px 0px 0px 45px;
+            border-radius: 45px 8px 8px 45px;
             background-color: rgba(76, 46, 172, 0.6);
+            &.busy {
+                background-color: $clr-1-op07;
+                border: none;
+            }
             img {
                 transform: translateY(-4px);
             }

@@ -24,6 +24,7 @@
         }
     }
     &__content {
+        min-height: 436px;
         background-color: $sixth-shade;
         display: flex;
         flex-wrap: wrap;

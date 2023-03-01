@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { FaPlay } from "react-icons/fa";
+import { useUserContext } from "@/context/UserContext";
 
 const numberArr: number[] = [];
 for (let i = 1; i < 15; i++) {
@@ -8,6 +9,7 @@ for (let i = 1; i < 15; i++) {
 }
 
 const PlayersContainer = () => {
+    const { userData } = useUserContext();
     return (
         <div className="players-container">
             <h2>Joueurs 1/14</h2>
@@ -20,17 +22,33 @@ const PlayersContainer = () => {
                 <FaPlay />
             </div>
             <ul>
-                {numberArr.map((number) => (
-                    <li className="player" key={"li-" + number}>
-                        <Image
-                            src={"/images/gartic-avt_empty.png"}
-                            alt="Avatar vide"
-                            height={53}
-                            width={46}
-                        />{" "}
-                        <span>vide</span>
-                    </li>
-                ))}
+                {numberArr.map((number) => {
+                    if (number !== 1) {
+                        return (
+                            <li className="player" key={"li-" + number}>
+                                <Image
+                                    src={"/images/gartic-avt_empty.png"}
+                                    alt="Avatar vide"
+                                    height={53}
+                                    width={46}
+                                />{" "}
+                                <span>vide</span>
+                            </li>
+                        );
+                    } else {
+                        return (
+                            <li className="player busy" key={"li-" + number}>
+                                <Image
+                                    src={userData!.avatar}
+                                    alt="Avatar vide"
+                                    height={53}
+                                    width={46}
+                                />{" "}
+                                <span>{userData!.pseudo}</span>
+                            </li>
+                        );
+                    }
+                })}
             </ul>
         </div>
     );

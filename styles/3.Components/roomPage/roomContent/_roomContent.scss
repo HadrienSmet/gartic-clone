@@ -6,5 +6,9 @@
     height: calc(100% - 170px);
     &__right-column {
         width: 66%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 25px;
     }
 }

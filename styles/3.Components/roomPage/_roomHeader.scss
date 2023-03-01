@@ -2,8 +2,10 @@
     .room-header {
         justify-content: space-between;
         height: 138px;
-        &__country-container {
+        &__back-button {
             display: flex;
+            align-items: center;
+            gap: 12px;
         }
         &__logo-container {
             position: absolute;
@@ -24,7 +26,7 @@
     .room-header {
         justify-content: center;
         height: 75px;
-        &__country-container {
+        &__back-button {
             display: none;
         }
         &__logo-container {
@@ -57,19 +59,19 @@
     width: calc(100% - 50px);
     padding: 15px 25px;
     font-family: "main-fonts";
-    &__country-container {
+    &__back-button {
         cursor: pointer;
         position: relative;
         justify-content: space-between;
 
         min-width: 70px;
         height: 28px;
-        padding: 8px;
+        padding: 12px;
 
         border: 2px solid $clr-1-op06;
         border-radius: 7px;
         background-color: $second-shade;
-        color: $clr-1;
+        color: $clr-1-op06;
         &:hover::after {
             opacity: 1;
         }
@@ -86,11 +88,13 @@
             transition: 0.15s ease-in-out;
         }
         svg {
-            font-size: 26px;
+            font-size: 24px;
+            transform: rotate(180deg);
         }
         span {
             font-size: $font-regular-size;
             font-size-adjust: none;
+            text-transform: uppercase;
         }
     }
     &__logo-container {

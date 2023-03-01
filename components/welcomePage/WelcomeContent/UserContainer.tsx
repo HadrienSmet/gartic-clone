@@ -3,36 +3,29 @@ import { useRouter } from "next/router";
 import React, {
     ChangeEvent,
     MouseEvent,
-    MutableRefObject,
     useEffect,
     useRef,
     useState,
 } from "react";
 import { FaRedoAlt, FaTimes } from "react-icons/fa";
-
-type UserDataType = {
-    pseudo: string;
-    imgUrl: string;
-};
+import { useUserContext } from "../../../context/UserContext";
 
 const useUserContainer = () => {
     const anonymRef = useRef<HTMLSpanElement | null>(null);
     const authRef = useRef<HTMLSpanElement | null>(null);
     const [avatarIndex, setAvatardIndex] = useState<number>(0);
     const [loginState, setLoginState] = useState("anonym");
-    const [userData, setUserData] = useState<UserDataType>({
-        pseudo: "",
-        imgUrl: "",
-    });
     const router = useRouter();
+    const { userData, setUserData } = useUserContext();
 
     const handleNewAvatar = () => {
         const newIndex = Math.floor(Math.random() * 15);
         setAvatardIndex(newIndex);
-        setUserData({
-            pseudo: userData.pseudo,
-            imgUrl: `/images/gartic-avatar-${newIndex}.svg`,
-        });
+        if (setUserData)
+            setUserData({
+                pseudo: userData?.pseudo ? userData.pseudo : "",
+                avatar: `/images/gartic-avatar-${newIndex}.svg`,
+            });
     };
 
     const handleUserContainerNav = (e: MouseEvent) => {
@@ -53,10 +46,11 @@ const useUserContainer = () => {
     }, []);
 
     const handlePseudo = (e: ChangeEvent<HTMLInputElement>) => {
-        setUserData({
-            pseudo: e.target.value,
-            imgUrl: userData.imgUrl,
-        });
+        if (setUserData)
+            setUserData({
+                pseudo: e.target.value,
+                avatar: userData?.avatar ? userData.avatar : "",
+            });
     };
 
     const handleSubmission = () => {
