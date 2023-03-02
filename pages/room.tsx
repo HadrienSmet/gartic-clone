@@ -1,10 +1,28 @@
 import LanguagesModal from "@/components/mui/LanguagesModal";
 import RoomContent from "@/components/roomPage/roomContent/RoomContent";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 import RoomHeader from "../components/roomPage/RoomHeader";
+import { io } from "socket.io-client";
 
 const room = () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+        // const socket = io("http://localhost:3000");
+        const socket = io("http://localhost:3000", {
+            path: "/api/socket",
+        });
+        socket.on("connect", () => {
+            console.log("connected to the server");
+        });
+        socket.on("diconnect", () => {
+            console.log("disconnected to the server");
+        });
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
     return (
         <>
             <Head>
