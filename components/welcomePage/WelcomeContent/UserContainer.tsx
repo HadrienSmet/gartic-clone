@@ -43,13 +43,20 @@ const useUserContainer = () => {
 
     useEffect(() => {
         anonymRef.current?.classList.add("active");
-    }, []);
+        let newIndex = Math.floor(Math.random() * 15);
+        setAvatardIndex(() => newIndex);
+        setUserData!({
+            pseudo: userData!.pseudo,
+            avatar: `/images/gartic-avatar-${newIndex}.svg`,
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [setUserData]);
 
     const handlePseudo = (e: ChangeEvent<HTMLInputElement>) => {
         if (setUserData)
             setUserData({
                 pseudo: e.target.value,
-                avatar: userData?.avatar ? userData.avatar : "",
+                avatar: userData!.avatar,
             });
     };
 
@@ -106,8 +113,8 @@ const UserContainer = () => {
                             <Image
                                 src={`/images/gartic-avatar-${avatarIndex}.svg`}
                                 alt="character icon"
-                                width={180}
-                                height={180}
+                                width={156}
+                                height={182}
                             />
                             <div
                                 className="user__content__avatar-button"

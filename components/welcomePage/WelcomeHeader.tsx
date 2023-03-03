@@ -46,6 +46,7 @@ const WelcomeHeader = () => {
             </div>
             <div className="welcome-header__logo-container">
                 <Image
+                    priority
                     src="/images/gartic-logo.png"
                     alt="logo"
                     width={300}
@@ -62,8 +63,8 @@ const WelcomeHeader = () => {
                     <Image
                         src="/images/gartic-avatar-12.svg"
                         alt="streamer picture"
-                        width={50}
-                        height={50}
+                        width={6}
+                        height={7}
                     />
                 </div>
             </div>

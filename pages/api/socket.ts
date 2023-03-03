@@ -20,7 +20,7 @@ const SocketHandler = async (
             path: "/api/socket",
         });
 
-        res.socket.server.io;
+        res.socket.server.io = io;
     }
     res.end();
 };

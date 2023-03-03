@@ -1,4 +1,5 @@
 import UserContext from "@/context/UserContext";
+import UsersContext from "@/context/UsersContext";
 import React, { ReactNode } from "react";
 
 type Props = {
@@ -7,7 +8,9 @@ type Props = {
 const Layout = ({ children }: Props) => {
     return (
         <>
-            <UserContext>{children}</UserContext>
+            <UserContext>
+                <UsersContext>{children}</UsersContext>
+            </UserContext>
         </>
     );
 };

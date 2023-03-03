@@ -15,6 +15,15 @@ const ButtonsRow = () => {
             </button>
             <button>
                 <Image
+                    src={"/images/gartic_link.svg"}
+                    alt="illu d'un lien"
+                    width={29}
+                    height={30}
+                />
+                <span>rejoindre</span>
+            </button>
+            <button>
+                <Image
                     src={"/images/gartic_play.svg"}
                     alt="illu d'un boutton play"
                     width={29}
