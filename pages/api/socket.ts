@@ -3,6 +3,7 @@ import { Server as NetServer } from "http";
 import { NextApiRequest } from "next";
 import { NextApiResponseServerIO } from "@/types/next";
 import socket from "@/utils/socket";
+import { Socket } from "socket.io-client";
 
 export const config = {
     api: {
@@ -22,6 +23,9 @@ const SocketHandler = async (
         });
 
         io.on("connection", (socket) => {
+            console.log("l25: " + socket.id);
+            io.emit("socket-id", socket.id);
+
             socket.on("join-room", (room) => {
                 socket.leave(socket.id);
                 socket.join(room);

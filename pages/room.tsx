@@ -2,42 +2,52 @@
 import LanguagesModal from "@/components/mui/LanguagesModal";
 import RoomContent from "@/components/roomPage/roomContent/RoomContent";
 import Head from "next/head";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import RoomHeader from "../components/roomPage/RoomHeader";
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 import { useUserContext } from "@/context/UserContext";
 import { useUsersContext } from "@/context/UsersContext";
 
-const socket = io("http://localhost:3000", {
-    path: "/api/socket",
-});
+// const socket = io("http://localhost:3000", {
+//     path: "/api/socket",
+// });
 const room = () => {
+    const [socket, setSocket] = useState<Socket>();
     const { userData, setUserData } = useUserContext();
     const { usersData, setUsersData } = useUsersContext();
     useEffect(() => {
-        console.log("useEffect working");
-
-        socket.on("connect", () => {
-            console.log(`connected to the server with id: ${socket.id}`);
-            setUsersData!({
-                roomId: socket.id,
-                users: [
-                    {
-                        pseudo: userData!.pseudo,
-                        avatar: userData!.avatar,
-                    },
-                ],
+        if (!socket) {
+            const newSocket = io("http://localhost:3000", {
+                path: "/api/socket",
             });
-        });
-        socket.on("diconnect", () => {
-            console.log("disconnected to the server");
-        });
-        socket.on("connect_error", (error) => {
-            console.error(error); // Vérifiez l'erreur de connexion
-        });
+            console.log("useEffect working");
+
+            newSocket.on("connect", () => {
+                console.log(`connected to the server with id: ${newSocket.id}`);
+                setUsersData!({
+                    roomId: newSocket.id,
+                    users: [
+                        {
+                            pseudo: userData!.pseudo,
+                            avatar: userData!.avatar,
+                        },
+                    ],
+                });
+            });
+            newSocket.on("socket-id", (socketId) => {
+                console.log("My socket ID is: " + socketId);
+            });
+            newSocket.on("diconnect", () => {
+                console.log("disconnected to the server");
+            });
+            newSocket.on("connect_error", (error) => {
+                console.error(error); // Vérifiez l'erreur de connexion
+            });
+            setSocket(newSocket);
+        }
 
         return () => {
-            socket.disconnect();
+            socket?.disconnect();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

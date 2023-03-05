@@ -1,12 +1,18 @@
 import Image from "next/image";
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useUsersContext } from "@/context/UsersContext";
 import { FaCheck, FaTimes } from "react-icons/fa";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:3000", {
+    path: "/api/socket",
+});
 
 const ButtonsRow = () => {
     const [roomLink, setRoomLink] = useState("");
     const copyRef = useRef<HTMLSpanElement | null>(null);
     const modalRef = useRef<HTMLDivElement | null>(null);
+    const inputRef = useRef<HTMLInputElement | null>(null);
     const { usersData } = useUsersContext();
 
     const handleInvitation = () => {
@@ -29,8 +35,12 @@ const ButtonsRow = () => {
     };
 
     const handleJoinRoom = () => {
-        console.log(roomLink);
+        hideMeModal();
+        socket.emit("join-room", roomLink);
+        setRoomLink("");
+        inputRef.current!.value = "";
     };
+
     return (
         <div className="room-content__buttons-row">
             <button onClick={handleInvitation}>
@@ -52,6 +62,7 @@ const ButtonsRow = () => {
                         <FaTimes onClick={hideMeModal} />
                     </div>
                     <input
+                        ref={inputRef}
                         type="text"
                         name="link"
                         id="link"
