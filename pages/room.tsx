@@ -1,16 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import LanguagesModal from "@/components/mui/LanguagesModal";
-import RoomContent from "@/components/roomPage/roomContent/RoomContent";
+import { useEffect, useState } from "react";
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
-import RoomHeader from "../components/roomPage/RoomHeader";
 import { io, Socket } from "socket.io-client";
+import RoomHeader from "@/components/roomPage/RoomHeader";
+import RoomContent from "@/components/roomPage/roomContent/RoomContent";
 import { useUserContext } from "@/context/UserContext";
 import { useUsersContext } from "@/context/UsersContext";
 
-// const socket = io("http://localhost:3000", {
-//     path: "/api/socket",
-// });
 const room = () => {
     const [socket, setSocket] = useState<Socket>();
     const { userData, setUserData } = useUserContext();
@@ -19,24 +15,34 @@ const room = () => {
         if (!socket) {
             const newSocket = io("http://localhost:3000", {
                 path: "/api/socket",
+                query: userData,
             });
-            console.log("useEffect working");
 
             newSocket.on("connect", () => {
-                console.log(`connected to the server with id: ${newSocket.id}`);
                 setUsersData!({
-                    roomId: newSocket.id,
+                    roomId: newSocket.id + "-room",
                     users: [
                         {
                             pseudo: userData!.pseudo,
                             avatar: userData!.avatar,
+                            socketId: newSocket.id,
                         },
                     ],
                 });
             });
-            newSocket.on("socket-id", (socketId) => {
-                console.log("My socket ID is: " + socketId);
+
+            newSocket.on("new-player", (userData) => {
+                setUsersData!({
+                    roomId: usersData!.roomId,
+                    users: [...usersData!.users, userData],
+                });
             });
+            newSocket.on("players-list", (room, players) =>
+                setUsersData!({
+                    roomId: room,
+                    users: [...players],
+                })
+            );
             newSocket.on("diconnect", () => {
                 console.log("disconnected to the server");
             });
@@ -67,8 +73,7 @@ const room = () => {
             </Head>
             <main className="room">
                 <RoomHeader />
-                <RoomContent />
-                <LanguagesModal />
+                <RoomContent socket={socket} />
             </main>
         </>
     );

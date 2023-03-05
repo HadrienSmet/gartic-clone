@@ -1,7 +1,8 @@
 import Image from "next/image";
 import React from "react";
 import { FaPlay } from "react-icons/fa";
-import { useUserContext } from "@/context/UserContext";
+// import { useUserContext } from "@/context/UserContext";
+import { useUsersContext } from "@/context/UsersContext";
 
 const numberArr: number[] = [];
 for (let i = 1; i < 15; i++) {
@@ -9,7 +10,8 @@ for (let i = 1; i < 15; i++) {
 }
 
 const PlayersContainer = () => {
-    const { userData } = useUserContext();
+    // const { userData } = useUserContext();
+    const { usersData } = useUsersContext();
     return (
         <div className="players-container">
             <h2>Joueurs 1/14</h2>
@@ -22,8 +24,19 @@ const PlayersContainer = () => {
                 <FaPlay />
             </div>
             <ul>
+                {usersData?.users.map((user) => (
+                    <li className="player busy" key={"li-" + user.pseudo}>
+                        <Image
+                            src={user.avatar}
+                            alt="Avatar vide"
+                            height={53}
+                            width={46}
+                        />{" "}
+                        <span>{user.pseudo}</span>
+                    </li>
+                ))}
                 {numberArr.map((number) => {
-                    if (number !== 1) {
+                    if (number > usersData!.users.length) {
                         return (
                             <li className="player" key={"li-" + number}>
                                 <Image
@@ -33,18 +46,6 @@ const PlayersContainer = () => {
                                     width={46}
                                 />{" "}
                                 <span>vide</span>
-                            </li>
-                        );
-                    } else {
-                        return (
-                            <li className="player busy" key={"li-" + number}>
-                                <Image
-                                    src={userData!.avatar}
-                                    alt="Avatar vide"
-                                    height={53}
-                                    width={46}
-                                />{" "}
-                                <span>{userData!.pseudo}</span>
                             </li>
                         );
                     }

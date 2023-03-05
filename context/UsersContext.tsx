@@ -10,6 +10,7 @@ import {
 type UserDataType = {
     pseudo: string;
     avatar: string;
+    socketId: string;
 };
 
 type UsersDataType = {
@@ -28,6 +29,7 @@ const defaultValue = {
             {
                 pseudo: "",
                 avatar: "",
+                socketId: "",
             },
         ],
     },
@@ -50,6 +52,7 @@ const UsersContext = ({ children }: Props) => {
             {
                 pseudo: "",
                 avatar: "",
+                socketId: "",
             },
         ],
     });

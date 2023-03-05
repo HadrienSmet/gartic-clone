@@ -1,19 +1,22 @@
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
-import { useUsersContext } from "@/context/UsersContext";
+import { Socket } from "socket.io-client";
+
 import { FaCheck, FaTimes } from "react-icons/fa";
-import { io } from "socket.io-client";
+import { useUsersContext } from "@/context/UsersContext";
+import { useUserContext } from "@/context/UserContext";
 
-const socket = io("http://localhost:3000", {
-    path: "/api/socket",
-});
+type ButtonsRowProps = {
+    socket: Socket | undefined;
+};
 
-const ButtonsRow = () => {
+const ButtonsRow = ({ socket }: ButtonsRowProps) => {
     const [roomLink, setRoomLink] = useState("");
     const copyRef = useRef<HTMLSpanElement | null>(null);
     const modalRef = useRef<HTMLDivElement | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const { usersData } = useUsersContext();
+    const { userData } = useUserContext();
 
     const handleInvitation = () => {
         navigator.clipboard.writeText(usersData!.roomId);
@@ -36,7 +39,7 @@ const ButtonsRow = () => {
 
     const handleJoinRoom = () => {
         hideMeModal();
-        socket.emit("join-room", roomLink);
+        socket!.emit("join-room", roomLink, usersData?.roomId, userData);
         setRoomLink("");
         inputRef.current!.value = "";
     };

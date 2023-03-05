@@ -1,9 +1,14 @@
 import React, { useEffect } from "react";
+import { Socket } from "socket.io-client";
 import ButtonsRow from "./ButtonsRow";
 import PlayersContainer from "./PlayersContainer";
 import SettingsContainer from "./settingsContainer/SettingsContainer";
 
-const RoomContent = () => {
+type RoomProps = {
+    socket: Socket | undefined;
+};
+
+const RoomContent = ({ socket }: RoomProps) => {
     useEffect(() => {
         const body = document.querySelector("body");
         body!.classList.add("room-bg");
@@ -13,7 +18,7 @@ const RoomContent = () => {
             <PlayersContainer />
             <div className="room-content__right-column">
                 <SettingsContainer />
-                <ButtonsRow />
+                <ButtonsRow socket={socket} />
             </div>
         </section>
     );
