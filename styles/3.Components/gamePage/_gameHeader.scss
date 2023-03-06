@@ -3,17 +3,16 @@
     padding: 10px 40px;
     display: flex;
     justify-content: space-between;
+    img {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
     &__step-indicator {
         color: $clr-1;
         font-size: 7vh;
     }
     svg {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        path {
-            position: absolute;
-        }
+        transform: scale(0.5) translate(50%, -50%);
     }
 }
