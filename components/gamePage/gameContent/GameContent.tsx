@@ -1,7 +1,22 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+const placeHoldersArray = [
+    "Bob l'éponge lave sa vaisselle",
+    "Un escargot et son baluchon partant à l'aventure",
+    "Un pirate tombe amoureux d'une sirène",
+    "Un singe fait un wheeling en moto",
+    "Mario répare sa plomberie",
+];
 
 const GameContent = () => {
+    const [placeHolderIndex, setPlaceHolderIndex] = useState(0);
+
+    useEffect(() => {
+        const newIndex = Math.floor(Math.random() * placeHoldersArray.length);
+        setPlaceHolderIndex(newIndex);
+    }, []);
+
     return (
         <div className="game-content">
             <Image
@@ -12,7 +27,10 @@ const GameContent = () => {
             />
             <h1>écris une phrase</h1>
             <div className="game-content__input-container">
-                <input type="text" />
+                <input
+                    type="text"
+                    placeholder={placeHoldersArray[placeHolderIndex]}
+                />
                 <button>
                     <Image
                         src="/images/gartic_ready.svg"

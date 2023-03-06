@@ -10,26 +10,39 @@
     }
     h1 {
         text-transform: uppercase;
-        font-size: $font-bigger-size;
+        font-size: $font-biggest-size;
         color: $fourth-color;
         text-shadow: $regular-txt-shadow;
+        letter-spacing: 2px;
     }
     &__input-container {
         width: calc(80% - 200px);
         display: flex;
         justify-content: space-between;
         input {
-            width: 70%;
+            width: 65%;
+            padding: 10px 25px;
             background-color: $clr-1-op03;
             border: 4px solid $clr-1-op07;
             border-radius: 8px;
+
+            font-family: "main-fonts";
+            font-size: $font-regular-size;
+            text-transform: uppercase;
+            color: $clr-1 !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            &::placeholder {
+                color: $clr-1-op07;
+            }
         }
         button {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 15px;
-            width: 27%;
+            width: 25%;
             background-color: $clr-1;
             box-shadow: 0px 10px 0px 1px $third-color;
             border: none;
