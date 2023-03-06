@@ -1,0 +1,46 @@
+.game-content {
+    height: calc(100% - 170px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    > img {
+        transform: scale(2);
+    }
+    h1 {
+        text-transform: uppercase;
+        font-size: $font-bigger-size;
+        color: $fourth-color;
+        text-shadow: $regular-txt-shadow;
+    }
+    &__input-container {
+        width: calc(80% - 200px);
+        display: flex;
+        justify-content: space-between;
+        input {
+            width: 70%;
+            background-color: $clr-1-op03;
+            border: 4px solid $clr-1-op07;
+            border-radius: 8px;
+        }
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            width: 27%;
+            background-color: $clr-1;
+            box-shadow: 0px 10px 0px 1px $third-color;
+            border: none;
+            border-radius: 8px;
+            padding: 15px 25px;
+            span {
+                font-family: "main-fonts";
+                text-transform: uppercase;
+                font-size: $font-regular-size;
+                color: $third-color;
+            }
+        }
+    }
+}

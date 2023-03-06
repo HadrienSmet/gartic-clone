@@ -3,6 +3,8 @@
 @import "./2.Utils/keyframes";
 @import "./2.Utils/variables";
 @import "./3.Components/mui/languagesModal";
+@import "./3.Components/gamePage/gameContent";
+@import "./3.Components/gamePage/gameHeader";
 @import "./3.Components/roomPage/roomHeader";
 @import "./3.Components/roomPage/roomContent/buttonsRow";
 @import "./3.Components/roomPage/roomContent/cardMode";
@@ -14,5 +16,6 @@
 @import "./3.Components/welcomePage/welcomeContent/rulesContainer";
 @import "./3.Components/welcomePage/welcomeContent/userContainer";
 @import "./3.Components/welcomePage/welcomeContent/welcomeContent";
+@import "./4.pages/game";
 @import "./4.pages/room";
 @import "./4.pages/welcome";

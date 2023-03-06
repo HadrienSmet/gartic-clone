@@ -1,9 +1,22 @@
+import Image from "next/image";
 import React from "react";
+import { FaTimes } from "react-icons/fa";
 
 const PersonalisationContent = () => {
     return (
-        <div className="settings-container__content">
-            <p>Pas encore codé</p>
+        <div className="settings-container__content personalised">
+            <div className="user__content__avatar-container">
+                <Image
+                    src={`/images/gartic-avatar-7.svg`}
+                    alt="character icon"
+                    width={180}
+                    height={180}
+                />
+            </div>
+            <div className="user__content__message-container">
+                <h3>pas encore codé</h3>
+                <FaTimes />
+            </div>
         </div>
     );
 };

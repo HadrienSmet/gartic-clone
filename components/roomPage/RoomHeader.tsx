@@ -26,8 +26,8 @@ const RoomHeader = () => {
                     <Image
                         src="/images/gartic-avatar-12.svg"
                         alt="streamer picture"
-                        width={50}
-                        height={50}
+                        width={6}
+                        height={7}
                     />
                 </div>
             </div>

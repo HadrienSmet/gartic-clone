@@ -18,6 +18,9 @@ body {
             rgb(115, 17, 176) 85%
         );
     }
+    &.game-bg {
+        background: linear-gradient(290deg, $first-color 0%, $second-color 80%);
+    }
 }
 
 #__next {

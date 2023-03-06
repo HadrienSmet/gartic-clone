@@ -30,7 +30,7 @@ const ButtonsRow = ({ socket }: ButtonsRowProps) => {
         modalRef.current?.classList.add("active");
     };
     const hideMeModal = () => {
-        modalRef.current?.classList.remove("active");
+        modalRef.current!.classList.remove("active");
     };
 
     const handleRoomLink = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,28 +58,28 @@ const ButtonsRow = ({ socket }: ButtonsRowProps) => {
                     lien copié
                 </span>
             </button>
-            <button>
-                <div ref={modalRef} className="join-room-form">
-                    <div className="join-room-form__header">
-                        <h3>Copie le lien de ton ami!</h3>
-                        <FaTimes onClick={hideMeModal} />
-                    </div>
-                    <input
-                        ref={inputRef}
-                        type="text"
-                        name="link"
-                        id="link"
-                        onBlur={(e) => handleRoomLink(e)}
-                    />
-                    <span onClick={handleJoinRoom}>rejoindre</span>
+            <div ref={modalRef} className="join-room-form">
+                <div className="join-room-form__header">
+                    <h3>Copie le lien de ton ami!</h3>
+                    <FaTimes onClick={() => hideMeModal()} />
                 </div>
+                <input
+                    ref={inputRef}
+                    type="text"
+                    name="link"
+                    id="link"
+                    onBlur={(e) => handleRoomLink(e)}
+                />
+                <span onClick={handleJoinRoom}>rejoindre</span>
+            </div>
+            <button onClick={showMeModal}>
                 <Image
                     src={"/images/gartic_link.svg"}
                     alt="illu d'un lien"
                     width={29}
                     height={30}
                 />
-                <span onClick={showMeModal}>rejoindre</span>
+                <span>rejoindre</span>
             </button>
             <button>
                 <Image

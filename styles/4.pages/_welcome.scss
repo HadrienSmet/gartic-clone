@@ -1,4 +1,5 @@
 @media screen and (min-width: 768px) {
+    .game,
     .room,
     .welcome {
         width: 70%;
@@ -6,12 +7,14 @@
     }
 }
 @media screen and (max-width: 767px) {
+    .game,
     .room,
     .welcome {
         width: 100%;
         height: 100%;
     }
 }
+.game,
 .room,
 .welcome {
     border: 4px $first-shade solid;
