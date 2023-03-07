@@ -78,6 +78,7 @@ const DrawingContent = () => {
                         </div>
                     </fieldset>
                     <div className="stroke-settings__opacity-modificator">
+                        <span className="low-opacity"></span>
                         <input
                             type="range"
                             name="opacity"
@@ -85,6 +86,7 @@ const DrawingContent = () => {
                             min={1}
                             max={100}
                         />
+                        <span className="strong-opacity"></span>
                     </div>
                 </div>
                 <button>

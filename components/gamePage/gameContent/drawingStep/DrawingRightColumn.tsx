@@ -37,9 +37,6 @@ const DrawingRightColumn = () => {
                 <div className="tool">
                     <FaPencilAlt />
                 </div>
-                <div className="tool">
-                    <FaPencilAlt />
-                </div>
             </div>
         </div>
     );

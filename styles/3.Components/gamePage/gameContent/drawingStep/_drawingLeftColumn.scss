@@ -9,7 +9,7 @@
         margin: 0;
     }
     .color-container {
-        width: calc((70% - 40px) * 0.15 - 28px);
+        width: calc((70% - 40px) * 0.14 - 28px);
         padding: 15px;
         display: flex;
         flex-direction: column;
@@ -31,7 +31,7 @@
             gap: 8px;
             .color {
                 width: calc(33% - 8px);
-                height: calc((70vw * 0.15 - 30px) * 0.33 - 8px);
+                height: calc((70vw * 0.14 - 30px) * 0.33 - 8px);
                 border: 1px solid $clr-1-op07;
                 border-radius: 5px;
             }
