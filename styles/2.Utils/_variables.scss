@@ -1,5 +1,6 @@
 $clr-1: rgb(255, 255, 255);
 $clr-2: rgb(68, 68, 68);
+$clr-3: rgb(196 196 196);
 
 $first-color: rgba(92, 30, 166, 1);
 $second-color: rgba(200, 67, 94, 1);
@@ -39,3 +40,8 @@ $dark-txt-shadow: 3px 0px 0px darken($third-color, 5),
     -2.5px -2.5px 0px darken($third-color, 5),
     0px -3px 0px darken($third-color, 5),
     2.5px -2.5px 0px darken($third-color, 5);
+
+$shadow-looking-like-book: $clr-3 0px 2px 0px 0px, $clr-1 0px 4px 0px 0px,
+    $clr-3 0px 6px 0px 0px, $clr-1 0px 8px 0px 0px, $clr-3 0px 10px 0px 0px,
+    $clr-1 0px 12px 0px 0px, $clr-3 0px 14px 0px 0px, $clr-1 0px 16px 0px 0px,
+    rgb(22 12 48) 0px 18px 0px 0px;

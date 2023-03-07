@@ -12,7 +12,7 @@ const GameHeader = () => {
                 width={300}
                 height={150}
             />
-            <TimeIndicator totalTime={20} />
+            <TimeIndicator />
         </div>
     );
 };

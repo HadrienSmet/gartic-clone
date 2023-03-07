@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-
-type Props = {
-    totalTime: number;
-};
+import { useGameContext } from "@/context/GameContext";
 
 let interval: NodeJS.Timer;
 
-const TimeIndicator = ({ totalTime }: Props) => {
+const TimeIndicator = () => {
+    const { gameData, setGameData } = useGameContext();
+    const totalTime = gameData!.time;
     const [timeRemaining, setTimeRemaining] = useState(totalTime);
 
     const endAngle = ((timeRemaining / totalTime) * 2 - 0.5) * Math.PI;
@@ -23,16 +22,29 @@ const TimeIndicator = ({ totalTime }: Props) => {
         const decreaseRemainingTime = () => {
             if (timeRemaining === 0) {
                 clearInterval(interval);
+                if (gameData!.gameState === "writte") {
+                    setGameData!({
+                        gameState: "draw",
+                        time: gameData!.time,
+                    });
+                } else {
+                    setGameData!({
+                        gameState: "writte",
+                        time: gameData!.time,
+                    });
+                }
             } else {
                 setTimeRemaining((curr) => curr - 1);
             }
         };
 
-        interval = setInterval(decreaseRemainingTime, 1000);
+        interval = setInterval(decreaseRemainingTime, 10);
 
         return () => {
             clearInterval(interval);
         };
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [timeRemaining, totalTime]);
 
     return (
