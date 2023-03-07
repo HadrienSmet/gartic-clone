@@ -1,0 +1,109 @@
+.drawing-step__content {
+    &__header {
+        padding: 20px;
+        width: calc(100% - 40px);
+        background-color: $first-color;
+        border-radius: 20px 20px 0 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+        &-rings {
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            width: 518px;
+            height: 59px;
+        }
+        .first-row {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            svg {
+                font-size: 30px;
+                color: $clr-1;
+            }
+        }
+        h1 {
+            font-size: $font-regular-size;
+            margin: 0;
+        }
+        h2 {
+            margin: 0;
+            text-transform: uppercase;
+            font-size: $font-bigger-size;
+            color: $clr-1;
+            text-shadow: $dark-txt-shadow;
+        }
+    }
+    &__main {
+        position: relative;
+        height: 65%;
+        min-height: 424px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $clr-1;
+        border-radius: 0 0 20px 20px;
+        box-shadow: $shadow-looking-like-book;
+        &::before {
+            content: "";
+            position: absolute;
+            height: calc(100% + 3px);
+            width: 1px;
+            top: 0;
+            left: 0;
+            background-color: $third-color;
+        }
+        &::after {
+            content: "";
+            position: absolute;
+            height: calc(100% + 3px);
+            width: 1px;
+            top: 0;
+            right: 0;
+            background-color: $third-color;
+        }
+        img {
+            position: absolute;
+            transform: scale(2.5);
+        }
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    &__footer {
+        margin-top: 25px;
+        .stroke-settings {
+            display: flex;
+            padding: 10px;
+            background-color: $seventh-shade;
+            border-radius: 10px;
+            &__size-modificator {
+                padding: 8px;
+                border: none;
+                display: flex;
+                gap: 20px;
+                border: 2px solid $eighth-shade;
+                border-radius: 8px;
+                > div {
+                    width: 40px;
+                    height: 40px;
+                    border: 2px solid $eighth-shade;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                input {
+                    appearance: none;
+                }
+            }
+        }
+    }
+}
