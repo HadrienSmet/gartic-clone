@@ -1,4 +1,4 @@
-.game-content {
+.writting-step {
     height: calc(100% - 170px);
     display: flex;
     flex-direction: column;
@@ -9,11 +9,7 @@
         transform: scale(2);
     }
     h1 {
-        text-transform: uppercase;
         font-size: $font-biggest-size;
-        color: $fourth-color;
-        text-shadow: $regular-txt-shadow;
-        letter-spacing: 2px;
     }
     &__input-container {
         width: calc(80% - 200px);

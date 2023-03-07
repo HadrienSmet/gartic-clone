@@ -18,7 +18,7 @@ const WrittingStep = () => {
     }, []);
 
     return (
-        <>
+        <div className="writting-step">
             <Image
                 src="/images/gartic-rule-1.webp"
                 alt="illustration d'un vieux téléphone à cadran"
@@ -41,7 +41,7 @@ const WrittingStep = () => {
                     <span>terminé !</span>
                 </button>
             </div>
-        </>
+        </div>
     );
 };
 

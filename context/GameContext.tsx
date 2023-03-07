@@ -18,7 +18,7 @@ type Props = {
 
 const defaultValue = {
     gameData: {
-        gameState: "writte",
+        gameState: "draw",
         time: 60,
     },
     setGameData: () => {},
@@ -35,8 +35,8 @@ export const useGameContext = () => {
 
 const GameContext = ({ children }: Props) => {
     const [gameData, setGameData] = useState<GameDataType>({
-        gameState: "writte",
-        time: 6000,
+        gameState: "draw",
+        time: 600000000,
     });
 
     return (
