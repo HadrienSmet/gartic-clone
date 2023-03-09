@@ -106,9 +106,19 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    &.active {
+                        border-color: $clr-1;
+                        label {
+                            background-color: $clr-1;
+                        }
+                    }
                 }
                 input {
                     appearance: none;
+                    pointer-events: none;
+                }
+                label {
+                    pointer-events: none;
                 }
                 > .smallest-size label {
                     position: absolute;

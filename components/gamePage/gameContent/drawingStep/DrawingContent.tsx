@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { MouseEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import { FaDownload, FaVolumeUp } from "react-icons/fa";
 
 type DrawingContentProps = {
@@ -10,16 +10,24 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
     const [isDrawing, setIsDrawing] = useState(false);
-    const [cursor, setCursor] = useState({
-        x: 0,
-        y: 0,
-    });
+    const [currentSize, setCurrentSize] = useState(15);
+    const [currentOpacity, setCurrentOpacity] = useState(1);
 
-    const handleCursor = (e: MouseEvent) => {
-        setCursor({
-            x: e.clientX,
-            y: e.clientY,
+    const handleStrokeSize = (e: MouseEvent) => {
+        const sizes = document.querySelectorAll(".size");
+        sizes.forEach((size) => {
+            size.classList.remove("active");
         });
+        const target = e.target as Element;
+        target.classList.add("active");
+        setCurrentSize(parseInt(target.id.split("-")[1]));
+    };
+
+    const handleStrokeOpacity = (e: ChangeEvent) => {
+        const target = e.target as HTMLInputElement;
+        const opacity = parseInt(target.value) / 100;
+
+        setCurrentOpacity(opacity);
     };
 
     const startDrawing = (e: MouseEvent) => {
@@ -29,7 +37,7 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
         setIsDrawing(true);
     };
 
-    const stopDrawing = (e: MouseEvent) => {
+    const stopDrawing = () => {
         ctxRef.current!.closePath();
         setIsDrawing(false);
     };
@@ -38,20 +46,27 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
         if (!isDrawing) {
             return;
         }
-        console.log(e);
-
         const { offsetX, offsetY } = e.nativeEvent;
         ctxRef.current!.lineTo(offsetX, offsetY);
         ctxRef.current!.stroke();
     };
 
     useEffect(() => {
+        const splittedColor = currentColor.split("(")[1].split(",");
+
         const context = canvasRef.current!.getContext("2d");
         context!.lineCap = "round";
-        context!.strokeStyle = currentColor;
-        context!.lineWidth = 5;
+        context!.strokeStyle = `
+                rgba(
+                    ${splittedColor[0]}, 
+                    ${splittedColor[1]}, 
+                    ${splittedColor[2].split(")")[0]}, 
+                    ${currentOpacity}
+                )
+            `;
+        context!.lineWidth = currentSize;
         ctxRef.current = context;
-    }, [currentColor]);
+    }, [currentColor, currentSize, currentOpacity]);
 
     return (
         <div className="drawing-step__content">
@@ -88,8 +103,8 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                 />
                 <canvas
                     ref={canvasRef}
-                    width={758}
-                    height={424}
+                    width={940}
+                    height={555}
                     onMouseDown={startDrawing}
                     onMouseUp={stopDrawing}
                     onMouseMove={draw}
@@ -98,7 +113,11 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
             <div className="drawing-step__content__footer">
                 <div className="stroke-settings">
                     <fieldset className="stroke-settings__size-modificator">
-                        <div className="smallest-size">
+                        <div
+                            className="smallest-size size"
+                            id="size-5"
+                            onClick={(e) => handleStrokeSize(e)}
+                        >
                             <input
                                 type="radio"
                                 name="smallest-size"
@@ -106,7 +125,11 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                             />
                             <label htmlFor="smallest-size"></label>
                         </div>
-                        <div className="small-size">
+                        <div
+                            className="small-size size"
+                            id="size-10"
+                            onClick={(e) => handleStrokeSize(e)}
+                        >
                             <input
                                 type="radio"
                                 name="small-size"
@@ -114,7 +137,11 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                             />
                             <label htmlFor="small-size"></label>
                         </div>
-                        <div className="medium-size">
+                        <div
+                            className="medium-size size active"
+                            id="size-15"
+                            onClick={(e) => handleStrokeSize(e)}
+                        >
                             <input
                                 type="radio"
                                 name="medium-size"
@@ -122,11 +149,19 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                             />
                             <label htmlFor="medium-size"></label>
                         </div>
-                        <div className="big-size">
+                        <div
+                            className="big-size size"
+                            id="size-20"
+                            onClick={(e) => handleStrokeSize(e)}
+                        >
                             <input type="radio" name="big-size" id="big-size" />
                             <label htmlFor="big-size"></label>
                         </div>
-                        <div className="biggest-size">
+                        <div
+                            className="biggest-size size"
+                            id="size-25"
+                            onClick={(e) => handleStrokeSize(e)}
+                        >
                             <input
                                 type="radio"
                                 name="biggest-size"
@@ -141,8 +176,10 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                             type="range"
                             name="opacity"
                             id="opacity"
-                            min={1}
+                            min={10}
                             max={100}
+                            defaultValue={100}
+                            onChange={(e) => handleStrokeOpacity(e)}
                         />
                         <span className="strong-opacity"></span>
                     </div>
