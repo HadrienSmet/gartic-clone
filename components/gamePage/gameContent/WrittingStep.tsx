@@ -26,7 +26,7 @@ const WrittingStep = () => {
                 height={119}
             />
             <h1>écris une phrase</h1>
-            <div className="game-content__input-container">
+            <div className="writting-step__input-container">
                 <input
                     type="text"
                     placeholder={placeHoldersArray[placeHolderIndex]}

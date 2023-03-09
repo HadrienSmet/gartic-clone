@@ -1,8 +1,58 @@
 import Image from "next/image";
-import React from "react";
+import React, { MouseEvent, useEffect, useRef, useState } from "react";
 import { FaDownload, FaVolumeUp } from "react-icons/fa";
 
-const DrawingContent = () => {
+type DrawingContentProps = {
+    currentColor: string;
+};
+
+const DrawingContent = ({ currentColor }: DrawingContentProps) => {
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+    const [isDrawing, setIsDrawing] = useState(false);
+    const [cursor, setCursor] = useState({
+        x: 0,
+        y: 0,
+    });
+
+    const handleCursor = (e: MouseEvent) => {
+        setCursor({
+            x: e.clientX,
+            y: e.clientY,
+        });
+    };
+
+    const startDrawing = (e: MouseEvent) => {
+        const { offsetX, offsetY } = e.nativeEvent;
+        ctxRef.current!.beginPath();
+        ctxRef.current!.moveTo(offsetX, offsetY);
+        setIsDrawing(true);
+    };
+
+    const stopDrawing = (e: MouseEvent) => {
+        ctxRef.current!.closePath();
+        setIsDrawing(false);
+    };
+
+    const draw = (e: MouseEvent) => {
+        if (!isDrawing) {
+            return;
+        }
+        console.log(e);
+
+        const { offsetX, offsetY } = e.nativeEvent;
+        ctxRef.current!.lineTo(offsetX, offsetY);
+        ctxRef.current!.stroke();
+    };
+
+    useEffect(() => {
+        const context = canvasRef.current!.getContext("2d");
+        context!.lineCap = "round";
+        context!.strokeStyle = currentColor;
+        context!.lineWidth = 5;
+        ctxRef.current = context;
+    }, [currentColor]);
+
     return (
         <div className="drawing-step__content">
             <div className="drawing-step__content__header">
@@ -30,12 +80,20 @@ const DrawingContent = () => {
             </div>
             <div className="drawing-step__content__main">
                 <Image
+                    priority
                     src={"/images/gartic-bgcanvas.svg"}
                     alt="logo de Gartic Phone"
                     width={267}
                     height={150}
                 />
-                <canvas width={758} height={424}></canvas>
+                <canvas
+                    ref={canvasRef}
+                    width={758}
+                    height={424}
+                    onMouseDown={startDrawing}
+                    onMouseUp={stopDrawing}
+                    onMouseMove={draw}
+                ></canvas>
             </div>
             <div className="drawing-step__content__footer">
                 <div className="stroke-settings">

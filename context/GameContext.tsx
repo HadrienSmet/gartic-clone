@@ -36,7 +36,7 @@ export const useGameContext = () => {
 const GameContext = ({ children }: Props) => {
     const [gameData, setGameData] = useState<GameDataType>({
         gameState: "draw",
-        time: 600000000,
+        time: 60000000000,
     });
 
     return (

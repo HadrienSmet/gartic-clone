@@ -6,11 +6,13 @@
         transform: scale(0.5) translateY(-50%);
     }
     .tools-container {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
         background-color: $seventh-shade;
         border-radius: 12px;
         padding: 15px;
-        // width: calc((70% - 40px) * 0.14 - 28px);
-        width: calc(100% - 30px);
+        width: calc((70% - 40px) * 0.14 - 28px);
         display: flex;
         flex-wrap: wrap;
         gap: 8px;

@@ -69,10 +69,12 @@
             background-color: $third-color;
         }
         img {
+            pointer-events: none;
             position: absolute;
             transform: scale(2.5);
         }
         canvas {
+            z-index: 1;
             width: 100%;
             height: 100%;
         }

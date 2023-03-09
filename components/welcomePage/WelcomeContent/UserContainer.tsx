@@ -61,8 +61,7 @@ const useUserContainer = () => {
     };
 
     const handleSubmission = () => {
-        console.log(userData);
-        router.push("/room");
+        if (userData?.pseudo !== "") router.push("/room");
     };
     return {
         anonymRef,
