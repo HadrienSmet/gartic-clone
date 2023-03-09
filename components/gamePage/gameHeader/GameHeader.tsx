@@ -8,14 +8,16 @@ const GameHeader = () => {
         <>
             {gameData!.gameState === "writte" && (
                 <div className="game-header">
-                    <div className="game-header__step-indicator">1/4</div>
+                    <div className="game-header__step-indicator">
+                        {gameData!.currentRound}/{gameData!.players.length}
+                    </div>
                     <Image
                         src={"/images/gartic-logo.png"}
                         alt="Logo de Gartic phone"
                         width={300}
                         height={150}
                     />
-                    <TimeIndicator />
+                    <TimeIndicator totalTime={gameData!.writtingTime} />
                 </div>
             )}
         </>

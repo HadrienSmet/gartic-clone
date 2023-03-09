@@ -1,4 +1,5 @@
 import { MouseEvent } from "react";
+import { useGameContext } from "@/context/GameContext";
 
 type LeftColumnProps = {
     currentColor: string;
@@ -30,9 +31,12 @@ const DrawingLeftColumn = ({
     currentColor,
     handleCurrentColor,
 }: LeftColumnProps) => {
+    const { gameData } = useGameContext();
     return (
         <div className="drawing-step__left-column">
-            <h2>1/1</h2>
+            <h2>
+                {gameData!.currentRound}/{gameData!.players.length}
+            </h2>
             <div className="color-container">
                 <ul className="color-container__choices">
                     {colors.map((color) => (

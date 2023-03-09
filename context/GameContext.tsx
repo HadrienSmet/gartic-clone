@@ -7,9 +7,18 @@ import {
     useState,
 } from "react";
 
+type UserDataType = {
+    pseudo: string;
+    avatar: string;
+    socketId: string;
+};
+
 type GameDataType = {
+    players: UserDataType[];
     gameState: string;
-    time: number;
+    currentRound: number;
+    writtingTime: number;
+    drawingTime: number;
 };
 
 type Props = {
@@ -18,8 +27,11 @@ type Props = {
 
 const defaultValue = {
     gameData: {
-        gameState: "draw",
-        time: 60,
+        players: [],
+        gameState: "writte",
+        currentRound: 1,
+        writtingTime: 600,
+        drawingTime: 1800,
     },
     setGameData: () => {},
 } as {
@@ -35,8 +47,11 @@ export const useGameContext = () => {
 
 const GameContext = ({ children }: Props) => {
     const [gameData, setGameData] = useState<GameDataType>({
-        gameState: "draw",
-        time: 60000000000,
+        players: [],
+        gameState: "writte",
+        currentRound: 1,
+        writtingTime: 600,
+        drawingTime: 1800,
     });
 
     return (

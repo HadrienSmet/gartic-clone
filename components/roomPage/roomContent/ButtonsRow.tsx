@@ -5,6 +5,8 @@ import { Socket } from "socket.io-client";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { useUsersContext } from "@/context/UsersContext";
 import { useUserContext } from "@/context/UserContext";
+import { useGameContext } from "@/context/GameContext";
+import { useRouter } from "next/router";
 
 type ButtonsRowProps = {
     socket: Socket | undefined;
@@ -15,8 +17,10 @@ const ButtonsRow = ({ socket }: ButtonsRowProps) => {
     const copyRef = useRef<HTMLSpanElement | null>(null);
     const modalRef = useRef<HTMLDivElement | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
+    const { gameData, setGameData } = useGameContext();
     const { usersData } = useUsersContext();
     const { userData } = useUserContext();
+    const router = useRouter();
 
     const handleInvitation = () => {
         navigator.clipboard.writeText(usersData!.roomId);
@@ -42,6 +46,17 @@ const ButtonsRow = ({ socket }: ButtonsRowProps) => {
         socket!.emit("join-room", roomLink, usersData?.roomId, userData);
         setRoomLink("");
         inputRef.current!.value = "";
+    };
+
+    const startGame = () => {
+        setGameData!({
+            players: [...usersData!.users],
+            gameState: gameData!.gameState,
+            currentRound: gameData!.currentRound,
+            writtingTime: gameData!.writtingTime,
+            drawingTime: gameData!.drawingTime,
+        });
+        router.push("/game");
     };
 
     return (
@@ -81,7 +96,7 @@ const ButtonsRow = ({ socket }: ButtonsRowProps) => {
                 />
                 <span>rejoindre</span>
             </button>
-            <button>
+            <button onClick={startGame}>
                 <Image
                     src={"/images/gartic_play.svg"}
                     alt="illu d'un boutton play"

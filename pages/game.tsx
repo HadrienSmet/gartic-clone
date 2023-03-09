@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import GameContent from "@/components/gamePage/gameContent/GameContent";
 import GameHeader from "@/components/gamePage/gameHeader/GameHeader";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 const game = () => {
     useEffect(() => {

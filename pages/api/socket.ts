@@ -50,17 +50,10 @@ const SocketHandler = async (
             });
 
             socket.on("disconnect", () => {
-                console.log(
-                    `${pseudo} with avatar ${avatar} has left the room with ID ${socket.id}`
-                );
-
-                // Retirer le joueur de la liste des joueurs de la room
                 const index = players[room].findIndex(
                     (p) => p.socketId === socket.id
                 );
                 if (index !== -1) players[room].splice(index, 1);
-
-                // Envoyer la liste des joueurs de la room à tous les joueurs de la room
                 io.in(room).emit("players-list", room, players[room]);
             });
         });

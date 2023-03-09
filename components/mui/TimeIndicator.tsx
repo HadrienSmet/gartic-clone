@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useGameContext } from "@/context/GameContext";
+import { useRouter } from "next/router";
+
+type TimerProps = {
+    totalTime: number;
+};
 
 let interval: NodeJS.Timer;
 
-const TimeIndicator = () => {
+const TimeIndicator = ({ totalTime }: TimerProps) => {
     const { gameData, setGameData } = useGameContext();
-    const totalTime = gameData!.time;
     const [timeRemaining, setTimeRemaining] = useState(totalTime);
+    const router = useRouter();
 
     const endAngle = ((timeRemaining / totalTime) * 2 - 0.5) * Math.PI;
     const isClockwise = timeRemaining > totalTime / 2 ? 1 : 0;
@@ -22,16 +27,26 @@ const TimeIndicator = () => {
         const decreaseRemainingTime = () => {
             if (timeRemaining === 0) {
                 clearInterval(interval);
-                if (gameData!.gameState === "writte") {
-                    setGameData!({
-                        gameState: "draw",
-                        time: gameData!.time,
-                    });
+                if (gameData!.currentRound === gameData!.players.length) {
+                    router.push("results");
                 } else {
-                    setGameData!({
-                        gameState: "writte",
-                        time: gameData!.time,
-                    });
+                    if (gameData!.gameState === "writte") {
+                        setGameData!({
+                            players: gameData!.players,
+                            gameState: "draw",
+                            currentRound: gameData!.currentRound + 1,
+                            writtingTime: gameData!.writtingTime,
+                            drawingTime: gameData!.drawingTime,
+                        });
+                    } else {
+                        setGameData!({
+                            players: gameData!.players,
+                            gameState: "writte",
+                            currentRound: gameData!.currentRound + 1,
+                            writtingTime: gameData!.writtingTime,
+                            drawingTime: gameData!.drawingTime,
+                        });
+                    }
                 }
             } else {
                 setTimeRemaining((curr) => curr - 1);
