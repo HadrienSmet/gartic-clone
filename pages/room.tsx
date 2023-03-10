@@ -61,15 +61,6 @@ const room = () => {
                 const userIndex = players.findIndex(
                     (player: Player) => player.pseudo === userData!.pseudo
                 );
-                console.log({
-                    players: players,
-                    playerIndex: userIndex,
-                    gameState: gameData!.gameState,
-                    currentRound: gameData!.currentRound,
-                    writtingTime: gameData!.writtingTime,
-                    drawingTime: gameData!.drawingTime,
-                    series: gameData!.series,
-                });
 
                 setGameData!({
                     players: players,

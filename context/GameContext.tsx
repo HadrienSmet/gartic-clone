@@ -10,7 +10,7 @@ import {
 type UserDataType = {
     pseudo: string;
     avatar: string;
-    socketId: string;
+    socketId?: string;
 };
 
 type CanvasConfig = {
@@ -34,7 +34,10 @@ type RoundDataType = {
     content: string | CanvasConfig;
 };
 
-type SerieType = RoundDataType[];
+type SerieType = {
+    id: number;
+    content: RoundDataType[];
+};
 
 type SeriesType = SerieType[];
 

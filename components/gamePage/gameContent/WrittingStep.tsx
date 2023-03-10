@@ -1,6 +1,9 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useGameContext } from "@/context/GameContext";
+import { useSocketContext } from "@/context/SocketContext";
+import { useUserContext } from "@/context/UserContext";
+import { useUsersContext } from "@/context/UsersContext";
 
 const placeHoldersArray = [
     "Bob l'éponge lave sa vaisselle",
@@ -12,12 +15,43 @@ const placeHoldersArray = [
 
 const WrittingStep = () => {
     const [placeHolderIndex, setPlaceHolderIndex] = useState(0);
-    const { gameData } = useGameContext();
+    const [sentence, setSentence] = useState("");
+    const [isReady, setIsReady] = useState(false);
+    const { userData } = useUserContext();
+    const { usersData } = useUsersContext();
+    const { gameData, setGameData } = useGameContext();
+    const { socket, setSocket } = useSocketContext();
 
     useEffect(() => {
         const newIndex = Math.floor(Math.random() * placeHoldersArray.length);
         setPlaceHolderIndex(newIndex);
+        setIsReady(false);
     }, []);
+
+    const handleSentence = (e: ChangeEvent) => {
+        const target = e.target as HTMLInputElement;
+        setSentence(target.value);
+    };
+
+    const saveSentence = () => {
+        if (!isReady) {
+            const dataObject = {
+                author: {
+                    pseudo: userData!.pseudo,
+                    avatar: userData!.avatar,
+                },
+                content: sentence,
+            };
+            socket!.emit(
+                "player-ready",
+                gameData!.playerIndex,
+                gameData!.currentRound,
+                dataObject,
+                usersData!.roomId
+            );
+        }
+        setIsReady(true);
+    };
 
     return (
         <div className="writting-step">
@@ -39,8 +73,9 @@ const WrittingStep = () => {
                 <input
                     type="text"
                     placeholder={placeHoldersArray[placeHolderIndex]}
+                    onBlur={(e) => handleSentence(e)}
                 />
-                <button>
+                <button onClick={saveSentence}>
                     <Image
                         src="/images/gartic_ready.svg"
                         alt="illustration symbolisant que vous êtes prêt"

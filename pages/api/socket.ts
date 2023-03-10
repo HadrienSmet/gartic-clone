@@ -54,6 +54,15 @@ const SocketHandler = async (
                 io.in(roomId).emit("game-starting", players);
             });
 
+            socket.on("player-ready", (playerIndex, round, content, roomId) => {
+                io.in(roomId).emit(
+                    "player-saved-content",
+                    playerIndex,
+                    round,
+                    content
+                );
+            });
+
             socket.on("disconnect", () => {
                 const index = players[room].findIndex(
                     (p) => p.socketId === socket.id
