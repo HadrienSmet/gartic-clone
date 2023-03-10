@@ -64,6 +64,7 @@ const room = () => {
 
                 setGameData!({
                     players: players,
+                    playersReady: gameData!.playersReady,
                     playerIndex: userIndex,
                     gameState: gameData!.gameState,
                     currentRound: gameData!.currentRound,

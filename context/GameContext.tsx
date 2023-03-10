@@ -43,6 +43,7 @@ type SeriesType = SerieType[];
 
 type GameDataType = {
     players: UserDataType[];
+    playersReady: number[];
     playerIndex: number;
     gameState: string;
     currentRound: number;
@@ -58,6 +59,7 @@ type Props = {
 const defaultValue = {
     gameData: {
         players: [],
+        playersReady: [],
         playerIndex: 0,
         gameState: "writte",
         currentRound: 1,
@@ -80,6 +82,7 @@ export const useGameContext = () => {
 const GameContext = ({ children }: Props) => {
     const [gameData, setGameData] = useState<GameDataType>({
         players: [],
+        playersReady: [],
         playerIndex: 0,
         gameState: "writte",
         currentRound: 1,

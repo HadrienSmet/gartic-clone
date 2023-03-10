@@ -30,27 +30,18 @@ const TimeIndicator = ({ totalTime }: TimerProps) => {
                 if (gameData!.currentRound === gameData!.players.length) {
                     router.push("results");
                 } else {
-                    if (gameData!.gameState === "writte") {
-                        setGameData!({
-                            players: gameData!.players,
-                            playerIndex: gameData!.playerIndex,
-                            gameState: "draw",
-                            currentRound: gameData!.currentRound + 1,
-                            writtingTime: gameData!.writtingTime,
-                            drawingTime: gameData!.drawingTime,
-                            series: [],
-                        });
-                    } else {
-                        setGameData!({
-                            players: gameData!.players,
-                            playerIndex: gameData!.playerIndex,
-                            gameState: "writte",
-                            currentRound: gameData!.currentRound + 1,
-                            writtingTime: gameData!.writtingTime,
-                            drawingTime: gameData!.drawingTime,
-                            series: [],
-                        });
-                    }
+                    const nextRound =
+                        gameData!.gameState === "writte" ? "draw" : "writte";
+                    setGameData!({
+                        players: gameData!.players,
+                        playersReady: [],
+                        playerIndex: gameData!.playerIndex,
+                        gameState: nextRound,
+                        currentRound: gameData!.currentRound + 1,
+                        writtingTime: gameData!.writtingTime,
+                        drawingTime: gameData!.drawingTime,
+                        series: gameData!.series,
+                    });
                 }
             } else {
                 setTimeRemaining((curr) => curr - 1);
