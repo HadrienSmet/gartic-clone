@@ -1,6 +1,6 @@
 import { ChangeEvent, useRef, useState } from "react";
 import Image from "next/image";
-import { Socket } from "socket.io-client";
+import { Socket, io } from "socket.io-client";
 
 import { FaTimes } from "react-icons/fa";
 import { useUsersContext } from "@/context/UsersContext";
@@ -49,19 +49,11 @@ const ButtonsRow = ({ socket }: ButtonsRowProps) => {
     };
 
     const startGame = () => {
-        const userIndex = usersData!.users.findIndex(
-            (user) => user.pseudo === userData!.pseudo
+        socket!.emit(
+            "start-btn-been-pressed",
+            usersData!.roomId,
+            usersData?.users
         );
-        setGameData!({
-            players: [...usersData!.users],
-            playerIndex: userIndex,
-            gameState: gameData!.gameState,
-            currentRound: gameData!.currentRound,
-            writtingTime: gameData!.writtingTime,
-            drawingTime: gameData!.drawingTime,
-            series: gameData!.series,
-        });
-        router.push("/game");
     };
 
     return (

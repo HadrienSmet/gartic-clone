@@ -34,6 +34,7 @@ const SocketHandler = async (
                 avatar: typeof avatar === "string" ? avatar : "",
                 socketId: socket.id,
             };
+
             socket.join(socket.id + "-room");
             const room = socket.id + "-room";
             if (!players[room]) players[room] = [];
@@ -47,6 +48,10 @@ const SocketHandler = async (
                 socket.to(room).emit("new-player", userData);
                 players[room].push(player);
                 io.in(room).emit("players-list", room, players[room]);
+            });
+
+            socket.on("start-btn-been-pressed", (roomId, players) => {
+                io.in(roomId).emit("game-starting", players);
             });
 
             socket.on("disconnect", () => {
