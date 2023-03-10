@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useGameContext } from "@/context/GameContext";
 import { useRouter } from "next/router";
 
@@ -33,18 +33,22 @@ const TimeIndicator = ({ totalTime }: TimerProps) => {
                     if (gameData!.gameState === "writte") {
                         setGameData!({
                             players: gameData!.players,
+                            playerIndex: gameData!.playerIndex,
                             gameState: "draw",
                             currentRound: gameData!.currentRound + 1,
                             writtingTime: gameData!.writtingTime,
                             drawingTime: gameData!.drawingTime,
+                            series: [],
                         });
                     } else {
                         setGameData!({
                             players: gameData!.players,
+                            playerIndex: gameData!.playerIndex,
                             gameState: "writte",
                             currentRound: gameData!.currentRound + 1,
                             writtingTime: gameData!.writtingTime,
                             drawingTime: gameData!.drawingTime,
+                            series: [],
                         });
                     }
                 }

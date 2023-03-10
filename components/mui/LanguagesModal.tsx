@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect, useRef, useState } from "react";
+import { MouseEvent, useEffect, useRef, useState } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
 
 const LanguagesModal = () => {
@@ -10,12 +10,9 @@ const LanguagesModal = () => {
         containerRef.current?.classList.remove("active");
     };
     const handleMainLanguage = (e: MouseEvent) => {
-        console.log(isBrowser);
-
         const languages = isBrowser
             ? document.querySelectorAll(".language")
             : null;
-        console.log(languages);
 
         const target = e.target as Element;
         languages?.forEach((language) => {

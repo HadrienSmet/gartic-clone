@@ -1,16 +1,20 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Head from "next/head";
-import { io, Socket } from "socket.io-client";
-import RoomHeader from "@/components/roomPage/RoomHeader";
-import RoomContent from "@/components/roomPage/roomContent/RoomContent";
+import { io } from "socket.io-client";
+
 import { useUserContext } from "@/context/UserContext";
 import { useUsersContext } from "@/context/UsersContext";
+import { useSocketContext } from "@/context/SocketContext";
+
+import RoomHeader from "@/components/roomPage/RoomHeader";
+import RoomContent from "@/components/roomPage/roomContent/RoomContent";
 
 const room = () => {
-    const [socket, setSocket] = useState<Socket>();
-    const { userData, setUserData } = useUserContext();
+    const { userData } = useUserContext();
     const { usersData, setUsersData } = useUsersContext();
+    const { socket, setSocket } = useSocketContext();
+
     useEffect(() => {
         if (!socket) {
             const newSocket = io("http://localhost:3000", {

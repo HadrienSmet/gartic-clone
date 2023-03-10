@@ -1,9 +1,33 @@
+import { useGameContext } from "@/context/GameContext";
 import Image from "next/image";
-import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
+import {
+    ChangeEvent,
+    MouseEvent,
+    MutableRefObject,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 import { FaDownload, FaVolumeUp } from "react-icons/fa";
 
 type DrawingContentProps = {
     currentColor: string;
+};
+
+type CanvasConfig = {
+    lineWidth?: number;
+    strokeStyle?: string | CanvasGradient | CanvasPattern;
+    fillStyle?: string | CanvasGradient | CanvasPattern;
+    font?: string;
+    textAlign?: CanvasTextAlign;
+    textBaseline?: CanvasTextBaseline;
+    lineCap?: CanvasLineCap;
+    lineJoin?: CanvasLineJoin;
+    miterLimit?: number;
+    shadowColor?: string;
+    shadowBlur?: number;
+    shadowOffsetX?: number;
+    shadowOffsetY?: number;
 };
 
 const DrawingContent = ({ currentColor }: DrawingContentProps) => {
@@ -12,6 +36,7 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
     const [isDrawing, setIsDrawing] = useState(false);
     const [currentSize, setCurrentSize] = useState(15);
     const [currentOpacity, setCurrentOpacity] = useState(1);
+    const { gameData, setGameData } = useGameContext();
 
     const handleStrokeSize = (e: MouseEvent) => {
         const sizes = document.querySelectorAll(".size");
@@ -49,6 +74,35 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
         const { offsetX, offsetY } = e.nativeEvent;
         ctxRef.current!.lineTo(offsetX, offsetY);
         ctxRef.current!.stroke();
+    };
+
+    const saveContext = (
+        ctxRef: MutableRefObject<CanvasRenderingContext2D | null>
+    ) => {
+        let config: CanvasConfig = {};
+        config.fillStyle = ctxRef.current!.fillStyle;
+        config.strokeStyle = ctxRef.current!.strokeStyle;
+        config.lineWidth = ctxRef.current!.lineWidth;
+        config.lineCap = ctxRef.current!.lineCap;
+        config.lineJoin = ctxRef.current!.lineJoin;
+        config.miterLimit = ctxRef.current!.miterLimit;
+        config.font = ctxRef.current!.font;
+        config.textAlign = ctxRef.current!.textAlign;
+        config.textBaseline = ctxRef.current!.textBaseline;
+        config.shadowColor = ctxRef.current!.shadowColor;
+        config.shadowBlur = ctxRef.current!.shadowBlur;
+        config.shadowOffsetX = ctxRef.current!.shadowOffsetX;
+        config.shadowOffsetY = ctxRef.current!.shadowOffsetY;
+
+        setGameData!({
+            players: gameData!.players,
+            playerIndex: gameData!.playerIndex,
+            gameState: gameData!.gameState,
+            currentRound: gameData!.currentRound,
+            writtingTime: gameData!.writtingTime,
+            drawingTime: gameData!.drawingTime,
+            series: [...gameData!.series],
+        });
     };
 
     useEffect(() => {
@@ -184,7 +238,7 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                         <span className="strong-opacity"></span>
                     </div>
                 </div>
-                <button>
+                <button onClick={() => saveContext(ctxRef)}>
                     <Image
                         src="/images/gartic_ready.svg"
                         alt="Symbole illustrant le fait que l'utilisateur est prêt"

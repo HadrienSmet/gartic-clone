@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useGameContext } from "@/context/GameContext";
 
 const placeHoldersArray = [
     "Bob l'éponge lave sa vaisselle",
@@ -11,6 +12,7 @@ const placeHoldersArray = [
 
 const WrittingStep = () => {
     const [placeHolderIndex, setPlaceHolderIndex] = useState(0);
+    const { gameData } = useGameContext();
 
     useEffect(() => {
         const newIndex = Math.floor(Math.random() * placeHoldersArray.length);
@@ -19,13 +21,20 @@ const WrittingStep = () => {
 
     return (
         <div className="writting-step">
-            <Image
-                src="/images/gartic-rule-1.webp"
-                alt="illustration d'un vieux téléphone à cadran"
-                width={128}
-                height={119}
-            />
-            <h1>écris une phrase</h1>
+            {gameData!.currentRound === 1 ? (
+                <>
+                    <Image
+                        src="/images/gartic-rule-1.webp"
+                        alt="illustration d'un vieux téléphone à cadran"
+                        width={128}
+                        height={119}
+                    />
+                    <h1>écris une phrase</h1>
+                </>
+            ) : (
+                <h2>Y aura l{"'"}image de ton pote ici!!</h2>
+            )}
+
             <div className="writting-step__input-container">
                 <input
                     type="text"

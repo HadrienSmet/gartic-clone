@@ -13,12 +13,39 @@ type UserDataType = {
     socketId: string;
 };
 
+type CanvasConfig = {
+    lineWidth?: number;
+    strokeStyle?: string | CanvasGradient | CanvasPattern;
+    fillStyle?: string | CanvasGradient | CanvasPattern;
+    font?: string;
+    textAlign?: CanvasTextAlign;
+    textBaseline?: CanvasTextBaseline;
+    lineCap?: CanvasLineCap;
+    lineJoin?: CanvasLineJoin;
+    miterLimit?: number;
+    shadowColor?: string;
+    shadowBlur?: number;
+    shadowOffsetX?: number;
+    shadowOffsetY?: number;
+};
+
+type RoundDataType = {
+    author: UserDataType;
+    content: string | CanvasConfig;
+};
+
+type SerieType = RoundDataType[];
+
+type SeriesType = SerieType[];
+
 type GameDataType = {
     players: UserDataType[];
+    playerIndex: number;
     gameState: string;
     currentRound: number;
     writtingTime: number;
     drawingTime: number;
+    series: SeriesType;
 };
 
 type Props = {
@@ -28,10 +55,12 @@ type Props = {
 const defaultValue = {
     gameData: {
         players: [],
+        playerIndex: 0,
         gameState: "writte",
         currentRound: 1,
         writtingTime: 600,
         drawingTime: 1800,
+        series: [],
     },
     setGameData: () => {},
 } as {
@@ -48,10 +77,12 @@ export const useGameContext = () => {
 const GameContext = ({ children }: Props) => {
     const [gameData, setGameData] = useState<GameDataType>({
         players: [],
+        playerIndex: 0,
         gameState: "writte",
         currentRound: 1,
-        writtingTime: 600,
-        drawingTime: 1800,
+        writtingTime: 60000000,
+        drawingTime: 18000000,
+        series: [],
     });
 
     return (
