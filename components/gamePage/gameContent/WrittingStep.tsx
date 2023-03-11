@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useGameContext } from "@/context/GameContext";
 import { useSocketContext } from "@/context/SocketContext";
 import { useUserContext } from "@/context/UserContext";
@@ -11,6 +11,7 @@ const placeHoldersArray = [
     "Un pirate tombe amoureux d'une sirène",
     "Un singe fait un wheeling en moto",
     "Mario répare sa plomberie",
+    "Gollum demande Frodon en mariage",
 ];
 
 const WrittingStep = () => {
@@ -19,8 +20,19 @@ const WrittingStep = () => {
     const [isReady, setIsReady] = useState(false);
     const { userData } = useUserContext();
     const { usersData } = useUsersContext();
-    const { gameData, setGameData } = useGameContext();
-    const { socket, setSocket } = useSocketContext();
+    const { gameData } = useGameContext();
+    const { socket } = useSocketContext();
+    const rightSerie = gameData!.series.findIndex(
+        (serie) =>
+            serie.id ===
+            (gameData!.playerIndex + gameData!.currentRound) %
+                gameData!.players.length
+    );
+    const oldDraw =
+        gameData!.currentRound === 1
+            ? ""
+            : gameData!.series[rightSerie].content[gameData!.currentRound - 2]
+                  .content;
 
     useEffect(() => {
         const newIndex = Math.floor(Math.random() * placeHoldersArray.length);
@@ -58,6 +70,7 @@ const WrittingStep = () => {
             {gameData!.currentRound === 1 ? (
                 <>
                     <Image
+                        id="first-round-picture"
                         src="/images/gartic-rule-1.webp"
                         alt="illustration d'un vieux téléphone à cadran"
                         width={128}
@@ -66,7 +79,15 @@ const WrittingStep = () => {
                     <h1>écris une phrase</h1>
                 </>
             ) : (
-                <h2>Y aura l{"'"}image de ton pote ici!!</h2>
+                <div className="draw-bg">
+                    <Image
+                        id="friends-draw"
+                        src={typeof oldDraw === "string" ? oldDraw : ""}
+                        alt="Dessin fait par votre ami"
+                        width={300}
+                        height={200}
+                    />
+                </div>
             )}
 
             <div className="writting-step__input-container">

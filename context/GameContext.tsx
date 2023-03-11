@@ -13,25 +13,9 @@ type UserDataType = {
     socketId?: string;
 };
 
-type CanvasConfig = {
-    lineWidth?: number;
-    strokeStyle?: string | CanvasGradient | CanvasPattern;
-    fillStyle?: string | CanvasGradient | CanvasPattern;
-    font?: string;
-    textAlign?: CanvasTextAlign;
-    textBaseline?: CanvasTextBaseline;
-    lineCap?: CanvasLineCap;
-    lineJoin?: CanvasLineJoin;
-    miterLimit?: number;
-    shadowColor?: string;
-    shadowBlur?: number;
-    shadowOffsetX?: number;
-    shadowOffsetY?: number;
-};
-
 type RoundDataType = {
     author: UserDataType;
-    content: string | CanvasConfig;
+    content: string;
 };
 
 type SerieType = {

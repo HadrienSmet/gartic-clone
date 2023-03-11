@@ -7,8 +7,17 @@
     align-items: center;
     justify-content: center;
     gap: 50px;
-    > img {
+    #first-round-picture {
         transform: scale(2);
+    }
+    .draw-bg {
+        background-color: $clr-1;
+        width: calc(80% - 200px);
+        border-radius: 20px;
+        img {
+            width: 100%;
+            height: auto;
+        }
     }
     h1 {
         font-size: $font-biggest-size;

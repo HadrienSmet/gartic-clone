@@ -1,42 +1,37 @@
 import { useGameContext } from "@/context/GameContext";
+import { useSocketContext } from "@/context/SocketContext";
+import { useUserContext } from "@/context/UserContext";
+import { useUsersContext } from "@/context/UsersContext";
 import Image from "next/image";
-import {
-    ChangeEvent,
-    MouseEvent,
-    MutableRefObject,
-    useEffect,
-    useRef,
-    useState,
-} from "react";
+import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import { FaDownload, FaVolumeUp } from "react-icons/fa";
 
 type DrawingContentProps = {
     currentColor: string;
 };
 
-type CanvasConfig = {
-    lineWidth?: number;
-    strokeStyle?: string | CanvasGradient | CanvasPattern;
-    fillStyle?: string | CanvasGradient | CanvasPattern;
-    font?: string;
-    textAlign?: CanvasTextAlign;
-    textBaseline?: CanvasTextBaseline;
-    lineCap?: CanvasLineCap;
-    lineJoin?: CanvasLineJoin;
-    miterLimit?: number;
-    shadowColor?: string;
-    shadowBlur?: number;
-    shadowOffsetX?: number;
-    shadowOffsetY?: number;
-};
-
 const DrawingContent = ({ currentColor }: DrawingContentProps) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+    const [isReady, setIsReady] = useState(false);
     const [isDrawing, setIsDrawing] = useState(false);
     const [currentSize, setCurrentSize] = useState(15);
     const [currentOpacity, setCurrentOpacity] = useState(1);
-    const { gameData, setGameData } = useGameContext();
+    const { gameData } = useGameContext();
+    const { userData } = useUserContext();
+    const { usersData } = useUsersContext();
+    const { socket } = useSocketContext();
+    const rightSerie = gameData!.series.findIndex(
+        (serie) =>
+            serie.id ===
+            (gameData!.playerIndex + gameData!.currentRound) %
+                gameData!.players.length
+    );
+    const oldSentence =
+        gameData!.currentRound === 1
+            ? ""
+            : gameData!.series[rightSerie].content[gameData!.currentRound - 2]
+                  .content;
 
     const handleStrokeSize = (e: MouseEvent) => {
         const sizes = document.querySelectorAll(".size");
@@ -76,33 +71,25 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
         ctxRef.current!.stroke();
     };
 
-    const saveContext = (
-        ctxRef: MutableRefObject<CanvasRenderingContext2D | null>
-    ) => {
-        let config: CanvasConfig = {};
-        config.fillStyle = ctxRef.current!.fillStyle;
-        config.strokeStyle = ctxRef.current!.strokeStyle;
-        config.lineWidth = ctxRef.current!.lineWidth;
-        config.lineCap = ctxRef.current!.lineCap;
-        config.lineJoin = ctxRef.current!.lineJoin;
-        config.miterLimit = ctxRef.current!.miterLimit;
-        config.font = ctxRef.current!.font;
-        config.textAlign = ctxRef.current!.textAlign;
-        config.textBaseline = ctxRef.current!.textBaseline;
-        config.shadowColor = ctxRef.current!.shadowColor;
-        config.shadowBlur = ctxRef.current!.shadowBlur;
-        config.shadowOffsetX = ctxRef.current!.shadowOffsetX;
-        config.shadowOffsetY = ctxRef.current!.shadowOffsetY;
-
-        setGameData!({
-            players: gameData!.players,
-            playerIndex: gameData!.playerIndex,
-            gameState: gameData!.gameState,
-            currentRound: gameData!.currentRound,
-            writtingTime: gameData!.writtingTime,
-            drawingTime: gameData!.drawingTime,
-            series: [...gameData!.series],
-        });
+    const saveContext = () => {
+        if (!isReady) {
+            const imageDataUrl = canvasRef.current!.toDataURL("image/png");
+            const dataObject = {
+                author: {
+                    pseudo: userData!.pseudo,
+                    avatar: userData!.avatar,
+                },
+                content: imageDataUrl,
+            };
+            socket!.emit(
+                "player-ready",
+                gameData!.playerIndex,
+                gameData!.currentRound,
+                dataObject,
+                usersData!.roomId
+            );
+        }
+        setIsReady(true);
     };
 
     useEffect(() => {
@@ -145,7 +132,7 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                 <h1>
                     hé, c{"'"}est l{"'"}heure du dessin !
                 </h1>
-                <h2>Y aura la phrase que tu reçois ici</h2>
+                <h2>{oldSentence}</h2>
             </div>
             <div className="drawing-step__content__main">
                 <Image
@@ -238,7 +225,7 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                         <span className="strong-opacity"></span>
                     </div>
                 </div>
-                <button onClick={() => saveContext(ctxRef)}>
+                <button onClick={saveContext}>
                     <Image
                         src="/images/gartic_ready.svg"
                         alt="Symbole illustrant le fait que l'utilisateur est prêt"
