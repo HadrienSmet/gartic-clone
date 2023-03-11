@@ -1,0 +1,78 @@
+.results__contributors-container {
+    margin: 20px;
+    width: calc(33% - 40px);
+    height: calc(100% - 40px);
+    background-color: $first-shade;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    h2 {
+        text-transform: uppercase;
+        color: $fourth-color;
+        letter-spacing: 1.5px;
+        text-shadow: $dark-txt-shadow;
+        font-size: $font-bigger-size;
+    }
+    ul {
+        width: 80%;
+        max-height: calc(100% - 183px);
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        &::-webkit-scrollbar {
+            width: 16px;
+            background-color: transparent;
+            transition: display 0.2s ease-in-out;
+        }
+        &:not([no-y-overflow])::-webkit-scrollbar-thumb {
+            height: 56px;
+            border-radius: 8px;
+            border: 4px solid transparent;
+            background-clip: content-box;
+        }
+        &::-webkit-scrollbar-thumb {
+            height: 56px;
+            border-radius: 8px;
+            border: 4px solid transparent;
+            background-clip: content-box;
+            background-color: rgb(99, 75, 201);
+            &:hover {
+                background-color: lighten(rgb(99, 75, 201), 5);
+            }
+        }
+        li {
+            width: calc(100% - 19px);
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            border: 1px solid rgb(99, 75, 201);
+            margin-right: 5px;
+            border-radius: 45px 8px 8px 45px;
+            background-color: rgba(76, 46, 172, 0.6);
+            &.busy {
+                background-color: $clr-1-op07;
+                border: none;
+            }
+            img {
+                transform: translateY(-4px);
+            }
+            span {
+                color: rgb(99, 75, 201);
+                text-transform: uppercase;
+                padding-left: 15px;
+                font-size: $font-regular-size;
+                letter-spacing: 1px;
+            }
+        }
+    }
+}

@@ -6,9 +6,11 @@ const ResultsContainer = () => {
     const { gameData } = useGameContext();
     return (
         <div className="results-container">
-            {gameData!.series.map((serie) => (
-                <SerieContainer key={serie.id} serieData={serie} />
-            ))}
+            {gameData!.series
+                .sort((a, b) => a.id - b.id)
+                .map((serie) => (
+                    <SerieContainer key={serie.id} serieData={serie} />
+                ))}
         </div>
     );
 };

@@ -1,0 +1,17 @@
+.serie-container {
+    padding: 35px 35px;
+    width: calc(100% - 75px);
+    background-color: $first-shade;
+    border-radius: 30px;
+    margin-bottom: 25px;
+    h2 {
+        margin: 0;
+        color: $clr-1;
+        text-shadow: $regular-txt-shadow;
+        letter-spacing: 2px;
+        font-size: $font-bigger-size;
+        span {
+            text-transform: uppercase;
+        }
+    }
+}

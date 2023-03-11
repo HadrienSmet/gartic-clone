@@ -27,7 +27,10 @@ const RoundContainer = ({ roundData, id }: Props) => {
                     height={200}
                 />
             ) : (
-                <p className="sentence">{roundData.content}</p>
+                <div className="sentence-container">
+                    <p>{roundData.content}</p>
+                    <div className="polygon"></div>
+                </div>
             )}
         </div>
     );
