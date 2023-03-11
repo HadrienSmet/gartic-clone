@@ -62,6 +62,20 @@ const SocketHandler = async (
                     content
                 );
             });
+            socket.on("save-content", (playerIndex, round, content, roomId) => {
+                io.in(roomId).emit(
+                    "player-saved-content",
+                    playerIndex,
+                    round,
+                    content
+                );
+            });
+
+            socket.on("ran-out-of-time", (roomId) => {
+                console.log("no time");
+
+                io.in(roomId).emit("time-to-save-content");
+            });
 
             socket.on("disconnect", () => {
                 const index = players[room].findIndex(

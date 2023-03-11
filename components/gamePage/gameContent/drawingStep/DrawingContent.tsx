@@ -2,6 +2,7 @@ import { useGameContext } from "@/context/GameContext";
 import { useSocketContext } from "@/context/SocketContext";
 import { useUserContext } from "@/context/UserContext";
 import { useUsersContext } from "@/context/UsersContext";
+import { RoundDataType } from "@/types/next";
 import Image from "next/image";
 import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import { FaDownload, FaVolumeUp } from "react-icons/fa";
@@ -17,7 +18,7 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
     const [isDrawing, setIsDrawing] = useState(false);
     const [currentSize, setCurrentSize] = useState(15);
     const [currentOpacity, setCurrentOpacity] = useState(1);
-    const { gameData } = useGameContext();
+    const { gameData, setGameData } = useGameContext();
     const { userData } = useUserContext();
     const { usersData } = useUsersContext();
     const { socket } = useSocketContext();
@@ -71,10 +72,11 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
         ctxRef.current!.stroke();
     };
 
-    const saveContext = () => {
+    const saveDraw = () => {
         if (!isReady) {
             const imageDataUrl = canvasRef.current!.toDataURL("image/png");
             const dataObject = {
+                roundId: gameData!.currentRound,
                 author: {
                     pseudo: userData!.pseudo,
                     avatar: userData!.avatar,
@@ -108,6 +110,32 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
         context!.lineWidth = currentSize;
         ctxRef.current = context;
     }, [currentColor, currentSize, currentOpacity]);
+
+    useEffect(() => {
+        const saveDrawOnTime = () => {
+            const imageDataUrl = canvasRef.current!.toDataURL("image/png");
+            const dataObject: RoundDataType = {
+                roundId: gameData!.currentRound,
+                author: {
+                    pseudo: userData!.pseudo,
+                    avatar: userData!.avatar,
+                },
+                content: imageDataUrl,
+            };
+
+            socket!.emit(
+                "save-content",
+                gameData!.playerIndex,
+                gameData!.currentRound,
+                dataObject,
+                usersData!.roomId
+            );
+        };
+
+        socket!.on("time-to-save-content", () => {
+            saveDrawOnTime();
+        });
+    }, [gameData, socket, userData, usersData]);
 
     return (
         <div className="drawing-step__content">
@@ -225,7 +253,7 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                         <span className="strong-opacity"></span>
                     </div>
                 </div>
-                <button onClick={saveContext}>
+                <button onClick={saveDraw}>
                     <Image
                         src="/images/gartic_ready.svg"
                         alt="Symbole illustrant le fait que l'utilisateur est prêt"

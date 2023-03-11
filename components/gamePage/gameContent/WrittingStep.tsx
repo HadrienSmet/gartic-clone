@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useGameContext } from "@/context/GameContext";
 import { useSocketContext } from "@/context/SocketContext";
 import { useUserContext } from "@/context/UserContext";
@@ -34,12 +34,6 @@ const WrittingStep = () => {
             : gameData!.series[rightSerie].content[gameData!.currentRound - 2]
                   .content;
 
-    useEffect(() => {
-        const newIndex = Math.floor(Math.random() * placeHoldersArray.length);
-        setPlaceHolderIndex(newIndex);
-        setIsReady(false);
-    }, []);
-
     const handleSentence = (e: ChangeEvent) => {
         const target = e.target as HTMLInputElement;
         setSentence(target.value);
@@ -48,6 +42,7 @@ const WrittingStep = () => {
     const saveSentence = () => {
         if (!isReady) {
             const dataObject = {
+                roundId: gameData!.currentRound,
                 author: {
                     pseudo: userData!.pseudo,
                     avatar: userData!.avatar,
@@ -65,6 +60,31 @@ const WrittingStep = () => {
         setIsReady(true);
     };
 
+    useEffect(() => {
+        const newIndex = Math.floor(Math.random() * placeHoldersArray.length);
+        setPlaceHolderIndex(newIndex);
+        setIsReady(false);
+
+        const saveSentenceOnTime = () => {
+            const dataObject = {
+                roundId: gameData!.currentRound,
+                author: {
+                    pseudo: userData!.pseudo,
+                    avatar: userData!.avatar,
+                },
+                content: sentence,
+            };
+            socket!.emit(
+                "save-content",
+                gameData!.playerIndex,
+                gameData!.currentRound,
+                dataObject,
+                usersData!.roomId
+            );
+        };
+
+        socket!.on("time-to-save-content", () => saveSentenceOnTime());
+    }, [gameData, sentence, socket, userData, usersData]);
     return (
         <div className="writting-step">
             {gameData!.currentRound === 1 ? (
@@ -94,7 +114,7 @@ const WrittingStep = () => {
                 <input
                     type="text"
                     placeholder={placeHoldersArray[placeHolderIndex]}
-                    onBlur={(e) => handleSentence(e)}
+                    onChange={(e) => handleSentence(e)}
                 />
                 <button onClick={saveSentence}>
                     <Image

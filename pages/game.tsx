@@ -27,7 +27,12 @@ const game = () => {
             ];
             if (serieId !== -1) {
                 const updatedSeries = [...gameData!.series];
-                updatedSeries[serieId].content.push(content);
+                const isAlready = updatedSeries[serieId].content.find(
+                    (round) => round.roundId === content.roundId
+                );
+                if (isAlready === undefined) {
+                    updatedSeries[serieId].content.push(content);
+                }
                 setGameData!({
                     players: gameData!.players,
                     playersReady: updatedPlayersReady,

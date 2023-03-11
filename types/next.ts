@@ -9,3 +9,20 @@ export type NextApiResponseServerIO = NextApiResponse & {
         };
     };
 };
+
+export type UserDataType = {
+    pseudo: string;
+    avatar: string;
+    socketId?: string;
+};
+
+export type RoundDataType = {
+    roundId: number;
+    author: UserDataType;
+    content: string;
+};
+
+export type SerieType = {
+    id: number;
+    content: RoundDataType[];
+};

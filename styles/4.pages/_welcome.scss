@@ -1,4 +1,5 @@
 @media screen and (min-width: 768px) {
+    .results,
     .game,
     .room,
     .welcome {
@@ -7,6 +8,7 @@
     }
 }
 @media screen and (max-width: 767px) {
+    .results,
     .game,
     .room,
     .welcome {
@@ -14,6 +16,7 @@
         height: 100%;
     }
 }
+.results,
 .game,
 .room,
 .welcome {

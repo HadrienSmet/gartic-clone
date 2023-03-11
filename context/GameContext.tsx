@@ -1,3 +1,4 @@
+import { SerieType, UserDataType } from "@/types/next";
 import {
     createContext,
     Dispatch,
@@ -6,22 +7,6 @@ import {
     useContext,
     useState,
 } from "react";
-
-type UserDataType = {
-    pseudo: string;
-    avatar: string;
-    socketId?: string;
-};
-
-type RoundDataType = {
-    author: UserDataType;
-    content: string;
-};
-
-type SerieType = {
-    id: number;
-    content: RoundDataType[];
-};
 
 type SeriesType = SerieType[];
 
@@ -47,8 +32,8 @@ const defaultValue = {
         playerIndex: 0,
         gameState: "writte",
         currentRound: 1,
-        writtingTime: 600,
-        drawingTime: 1800,
+        writtingTime: 6000,
+        drawingTime: 18000,
         series: [],
     },
     setGameData: () => {},
@@ -70,8 +55,8 @@ const GameContext = ({ children }: Props) => {
         playerIndex: 0,
         gameState: "writte",
         currentRound: 1,
-        writtingTime: 60000000,
-        drawingTime: 18000000,
+        writtingTime: 6000,
+        drawingTime: 18000,
         series: [],
     });
 

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useGameContext } from "@/context/GameContext";
 import { useRouter } from "next/router";
+import { useSocketContext } from "@/context/SocketContext";
+import { useUsersContext } from "@/context/UsersContext";
 
 type TimerProps = {
     totalTime: number;
@@ -9,6 +11,8 @@ type TimerProps = {
 let interval: NodeJS.Timer;
 
 const TimeIndicator = ({ totalTime }: TimerProps) => {
+    const { usersData } = useUsersContext();
+    const { socket } = useSocketContext();
     const { gameData, setGameData } = useGameContext();
     const [timeRemaining, setTimeRemaining] = useState(totalTime);
     const router = useRouter();
@@ -30,18 +34,19 @@ const TimeIndicator = ({ totalTime }: TimerProps) => {
                 if (gameData!.currentRound === gameData!.players.length) {
                     router.push("results");
                 } else {
-                    const nextRound =
-                        gameData!.gameState === "writte" ? "draw" : "writte";
-                    setGameData!({
-                        players: gameData!.players,
-                        playersReady: [],
-                        playerIndex: gameData!.playerIndex,
-                        gameState: nextRound,
-                        currentRound: gameData!.currentRound + 1,
-                        writtingTime: gameData!.writtingTime,
-                        drawingTime: gameData!.drawingTime,
-                        series: gameData!.series,
-                    });
+                    // const nextRound =
+                    //     gameData!.gameState === "writte" ? "draw" : "writte";
+                    // setGameData!({
+                    //     players: gameData!.players,
+                    //     playersReady: [],
+                    //     playerIndex: gameData!.playerIndex,
+                    //     gameState: nextRound,
+                    //     currentRound: gameData!.currentRound + 1,
+                    //     writtingTime: gameData!.writtingTime,
+                    //     drawingTime: gameData!.drawingTime,
+                    //     series: gameData!.series,
+                    // });
+                    // socket!.emit("ran-out-of-time", usersData!.roomId);
                 }
             } else {
                 setTimeRemaining((curr) => curr - 1);
