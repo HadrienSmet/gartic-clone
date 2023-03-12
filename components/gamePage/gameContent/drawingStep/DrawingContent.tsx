@@ -22,6 +22,7 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
     const { userData } = useUserContext();
     const { usersData } = useUsersContext();
     const { socket } = useSocketContext();
+
     const rightSerie = gameData!.series.findIndex(
         (serie) =>
             serie.id ===
@@ -95,6 +96,14 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
     };
 
     useEffect(() => {
+        const canvasWidth = canvasRef.current!.clientWidth;
+        const canvasHeight = canvasRef.current!.clientHeight;
+        canvasRef.current!.width = canvasWidth;
+        canvasRef.current!.height = canvasHeight;
+        const originalWidth = canvasRef.current!.width;
+        const originalHeight = canvasRef.current!.height;
+        const scaleX = canvasWidth / originalWidth;
+        const scaleY = canvasHeight / originalHeight;
         const splittedColor = currentColor.split("(")[1].split(",");
 
         const context = canvasRef.current!.getContext("2d");
@@ -108,6 +117,7 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                 )
             `;
         context!.lineWidth = currentSize;
+        context!.scale(scaleX, scaleY);
         ctxRef.current = context;
     }, [currentColor, currentSize, currentOpacity]);
 
