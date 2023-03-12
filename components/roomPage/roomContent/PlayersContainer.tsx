@@ -1,17 +1,11 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
-// import { useUserContext } from "@/context/UserContext";
 import { useUsersContext } from "@/context/UsersContext";
 
-// const numberArr: number[] = [];
-// for (let i = 1; i < 15; i++) {
-//     numberArr.push(i);
-// }
 const selectChoices = [4, 5, 6, 7, 8, 9, 10, 15, 20, 25];
 
-const PlayersContainer = () => {
-    // const { userData } = useUserContext();
+const usePlayersContainer = () => {
     const [maxPlayers, setMaxPlayers] = useState(4);
     const [maxPlayersArr, setMaxPlayersArr] = useState<number[]>([]);
     const { usersData } = useUsersContext();
@@ -31,6 +25,23 @@ const PlayersContainer = () => {
             }
         }
     }, [maxPlayers]);
+
+    useEffect(() => {
+        if (usersData!.users.length > maxPlayers)
+            setMaxPlayers(usersData!.users.length);
+    }, [usersData, maxPlayers]);
+
+    return {
+        usersData,
+        maxPlayers,
+        maxPlayersArr,
+        handleMaxPlayers,
+    };
+};
+
+const PlayersContainer = () => {
+    const { usersData, maxPlayers, maxPlayersArr, handleMaxPlayers } =
+        usePlayersContainer();
 
     return (
         <div className="players-container">

@@ -1,16 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import Head from "next/head";
-import { io } from "socket.io-client";
+import { useRouter } from "next/router";
+import { io, Socket } from "socket.io-client";
+import { DefaultEventsMap } from "socket.io/dist/typed-events";
 
 import { useUserContext } from "@/context/UserContext";
 import { useUsersContext } from "@/context/UsersContext";
 import { useSocketContext } from "@/context/SocketContext";
+import { useGameContext } from "@/context/GameContext";
 
 import RoomHeader from "@/components/roomPage/RoomHeader";
 import RoomContent from "@/components/roomPage/roomContent/RoomContent";
-import { useGameContext } from "@/context/GameContext";
-import { useRouter } from "next/router";
 
 type Player = {
     pseudo: string;
@@ -18,10 +19,14 @@ type Player = {
     socketId: string;
 };
 
-const room = () => {
+const useRoom = (
+    socket: Socket | undefined,
+    setSocket: Dispatch<
+        SetStateAction<Socket<DefaultEventsMap, DefaultEventsMap> | undefined>
+    >
+) => {
     const { userData } = useUserContext();
     const { usersData, setUsersData } = useUsersContext();
-    const { socket, setSocket } = useSocketContext();
     const { gameData, setGameData } = useGameContext();
     const router = useRouter();
 
@@ -89,6 +94,12 @@ const room = () => {
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+};
+
+const room = () => {
+    const { socket, setSocket } = useSocketContext();
+    useRoom(socket, setSocket);
+
     return (
         <>
             <Head>

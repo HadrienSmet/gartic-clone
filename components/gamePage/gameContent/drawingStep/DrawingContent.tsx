@@ -14,6 +14,8 @@ type DrawingContentProps = {
 const DrawingContent = ({ currentColor }: DrawingContentProps) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+    const scaleXRef = useRef(0);
+    const scaleYRef = useRef(0);
     const [isReady, setIsReady] = useState(false);
     const [isDrawing, setIsDrawing] = useState(false);
     const [currentSize, setCurrentSize] = useState(15);
@@ -102,11 +104,15 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
         canvasRef.current!.height = canvasHeight;
         const originalWidth = canvasRef.current!.width;
         const originalHeight = canvasRef.current!.height;
-        const scaleX = canvasWidth / originalWidth;
-        const scaleY = canvasHeight / originalHeight;
+        scaleXRef.current = canvasWidth / originalWidth;
+        scaleYRef.current = canvasHeight / originalHeight;
+    }, []);
+
+    useEffect(() => {
         const splittedColor = currentColor.split("(")[1].split(",");
 
         const context = canvasRef.current!.getContext("2d");
+        context!.scale(scaleXRef.current, scaleYRef.current);
         context!.lineCap = "round";
         context!.strokeStyle = `
                 rgba(
@@ -117,7 +123,6 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                 )
             `;
         context!.lineWidth = currentSize;
-        context!.scale(scaleX, scaleY);
         ctxRef.current = context;
     }, [currentColor, currentSize, currentOpacity]);
 

@@ -1,14 +1,17 @@
+import { useEffect } from "react";
+
+import { useGameContext } from "@/context/GameContext";
+import { useUsersContext } from "@/context/UsersContext";
+
 import LanguagesModal from "@/components/mui/LanguagesModal";
 import WelcomeContent from "@/components/welcomePage/WelcomeContent/WelcomeContent";
 import WelcomeFooter from "@/components/welcomePage/WelcomeFooter";
 import WelcomeHeader from "@/components/welcomePage/WelcomeHeader";
-import { useGameContext } from "@/context/GameContext";
-import { useUsersContext } from "@/context/UsersContext";
-import { useEffect } from "react";
 
-const Welcome = () => {
+const useWelcome = () => {
     const { setGameData } = useGameContext();
     const { setUsersData } = useUsersContext();
+
     useEffect(() => {
         setGameData!({
             players: [],
@@ -16,8 +19,8 @@ const Welcome = () => {
             playerIndex: 0,
             gameState: "writte",
             currentRound: 1,
-            writtingTime: 60000000,
-            drawingTime: 180000000,
+            writtingTime: 6000000,
+            drawingTime: 18000000,
             series: [],
         });
         setUsersData!({
@@ -32,6 +35,11 @@ const Welcome = () => {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+};
+
+const Welcome = () => {
+    useWelcome();
+
     return (
         <main className="welcome">
             <WelcomeHeader />

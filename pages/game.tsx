@@ -1,23 +1,32 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import GameContent from "@/components/gamePage/gameContent/GameContent";
-import GameHeader from "@/components/gamePage/gameHeader/GameHeader";
+import { useEffect } from "react";
+import Head from "next/head";
+import { useRouter } from "next/router";
+
 import { useGameContext } from "@/context/GameContext";
 import { useSocketContext } from "@/context/SocketContext";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+
+import GameContent from "@/components/gamePage/gameContent/GameContent";
+import GameHeader from "@/components/gamePage/gameHeader/GameHeader";
+
+// const useGame = () => {
+
+//     return { gameData };
+// };
 
 const game = () => {
     const { socket } = useSocketContext();
     const { gameData, setGameData } = useGameContext();
     const router = useRouter();
+
     useEffect(() => {
         const body = document.querySelector("body");
         body!.classList.remove("room-bg");
         body!.classList.add("game-bg");
+    }, []);
 
+    useEffect(() => {
         socket!.on("player-saved-content", (playerIndex, round, content) => {
-            console.log(`Le joueur ${playerIndex} a sauvegardé son contenu`);
-
             const serieId = gameData!.series.findIndex(
                 (serie) =>
                     serie.id ===
@@ -27,6 +36,7 @@ const game = () => {
                 ...gameData!.playersReady,
                 playerIndex,
             ];
+
             if (serieId !== -1) {
                 const updatedSeries = [...gameData!.series];
                 const isAlready = updatedSeries[serieId].content.find(
@@ -64,6 +74,7 @@ const game = () => {
                 });
             }
         });
+        //Handles the behavior when all players are ready for the next round
         if (gameData!.players.length === gameData!.playersReady.length) {
             if (gameData!.currentRound === gameData!.players.length) {
                 router.push("results");
@@ -84,11 +95,30 @@ const game = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gameData!.series, gameData!.playersReady]);
+    // const { gameData } = useGame();
     return (
-        <main className="game">
-            <GameHeader />
-            <GameContent />
-        </main>
+        <>
+            <Head>
+                <title>Gartic Clone - Game - {gameData!.gameState}</title>
+                <meta
+                    name="description"
+                    content={
+                        gameData!.gameState === "draw"
+                            ? "Dessine la situation que ton ami t'as donné!"
+                            : "Décris une situation que ton amis devra décrire!"
+                    }
+                />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1"
+                />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <main className="game">
+                <GameHeader />
+                <GameContent />
+            </main>
+        </>
     );
 };
 

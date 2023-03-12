@@ -9,6 +9,10 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
+            img {
+                height: 15vh;
+                width: auto;
+            }
         }
         &__streamers-container {
             display: flex;
