@@ -34,6 +34,12 @@ const TimeIndicator = ({ totalTime }: TimerProps) => {
                 if (gameData!.currentRound === gameData!.players.length) {
                     router.push("results");
                 } else {
+                    socket!.emit("ran-out-of-time", usersData!.roomId);
+                    console.log(
+                        "Letemps s'est écoulé dans la room: " +
+                            usersData!.roomId
+                    );
+
                     // const nextRound =
                     //     gameData!.gameState === "writte" ? "draw" : "writte";
                     // setGameData!({
@@ -46,7 +52,6 @@ const TimeIndicator = ({ totalTime }: TimerProps) => {
                     //     drawingTime: gameData!.drawingTime,
                     //     series: gameData!.series,
                     // });
-                    // socket!.emit("ran-out-of-time", usersData!.roomId);
                 }
             } else {
                 setTimeRemaining((curr) => curr - 1);

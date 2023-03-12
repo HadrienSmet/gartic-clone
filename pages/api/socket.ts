@@ -43,14 +43,24 @@ const SocketHandler = async (
             io.in(room).emit("players-list", room, players[room]);
 
             socket.on("join-room", (room, previousRoom, userData) => {
+                const index = players[previousRoom].findIndex(
+                    (p) => p.socketId === socket.id
+                );
+                if (index !== -1) players[previousRoom].splice(index, 1);
+                io.in(previousRoom).emit(
+                    "players-list",
+                    previousRoom,
+                    players[previousRoom]
+                );
                 socket.leave(previousRoom);
+
                 socket.join(room);
                 socket.to(room).emit("new-player", userData);
                 players[room].push(player);
                 io.in(room).emit("players-list", room, players[room]);
             });
 
-            socket.on("player-leaving-the-room", (userPseudo, roomId) => {
+            socket.on("player-leaving-the-room", (roomId) => {
                 const index = players[roomId].findIndex(
                     (p) => p.socketId === socket.id
                 );
@@ -81,8 +91,6 @@ const SocketHandler = async (
             });
 
             socket.on("ran-out-of-time", (roomId) => {
-                console.log("no time");
-
                 io.in(roomId).emit("time-to-save-content");
             });
 

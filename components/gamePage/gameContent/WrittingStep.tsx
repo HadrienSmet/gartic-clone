@@ -16,9 +16,10 @@ const placeHoldersArray = [
 
 const WrittingStep = () => {
     const [placeHolderIndex, setPlaceHolderIndex] = useState(0);
-    const [sentence, setSentence] = useState("");
+    // const [sentence, setSentence] = useState("");
     const [isReady, setIsReady] = useState(false);
     const buttonRef = useRef<HTMLButtonElement | null>(null);
+    const inputRef = useRef("");
 
     const { userData } = useUserContext();
     const { usersData } = useUsersContext();
@@ -39,7 +40,8 @@ const WrittingStep = () => {
 
     const handleSentence = (e: ChangeEvent) => {
         const target = e.target as HTMLInputElement;
-        setSentence(target.value);
+        inputRef.current = target.value;
+        // setSentence(() => target.value);
     };
 
     const saveSentence = () => {
@@ -51,7 +53,7 @@ const WrittingStep = () => {
                     pseudo: userData!.pseudo,
                     avatar: userData!.avatar,
                 },
-                content: sentence,
+                content: inputRef.current,
             };
             socket!.emit(
                 "player-ready",
@@ -66,7 +68,9 @@ const WrittingStep = () => {
     useEffect(() => {
         const newIndex = Math.floor(Math.random() * placeHoldersArray.length);
         setPlaceHolderIndex(newIndex);
+    }, []);
 
+    useEffect(() => {
         const saveSentenceOnTime = () => {
             const dataObject = {
                 roundId: gameData!.currentRound,
@@ -74,8 +78,9 @@ const WrittingStep = () => {
                     pseudo: userData!.pseudo,
                     avatar: userData!.avatar,
                 },
-                content: sentence,
+                content: inputRef.current,
             };
+
             socket!.emit(
                 "save-content",
                 gameData!.playerIndex,
@@ -86,7 +91,8 @@ const WrittingStep = () => {
         };
 
         socket!.on("time-to-save-content", () => saveSentenceOnTime());
-    }, [gameData, sentence, socket, userData, usersData]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [inputRef.current]);
 
     useEffect(() => {
         setIsReady(false);

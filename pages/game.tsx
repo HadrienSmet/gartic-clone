@@ -16,6 +16,8 @@ const game = () => {
         body!.classList.add("game-bg");
 
         socket!.on("player-saved-content", (playerIndex, round, content) => {
+            console.log(`Le joueur ${playerIndex} a sauvegardé son contenu`);
+
             const serieId = gameData!.series.findIndex(
                 (serie) =>
                     serie.id ===

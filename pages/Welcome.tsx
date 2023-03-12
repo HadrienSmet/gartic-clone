@@ -3,12 +3,10 @@ import WelcomeContent from "@/components/welcomePage/WelcomeContent/WelcomeConte
 import WelcomeFooter from "@/components/welcomePage/WelcomeFooter";
 import WelcomeHeader from "@/components/welcomePage/WelcomeHeader";
 import { useGameContext } from "@/context/GameContext";
-// import { useSocketContext } from "@/context/SocketContext";
 import { useUsersContext } from "@/context/UsersContext";
 import { useEffect } from "react";
 
 const Welcome = () => {
-    // const { socket } = useSocketContext();
     const { setGameData } = useGameContext();
     const { setUsersData } = useUsersContext();
     useEffect(() => {
@@ -32,6 +30,7 @@ const Welcome = () => {
                 },
             ],
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
         <main className="welcome">
