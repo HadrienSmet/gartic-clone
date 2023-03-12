@@ -1,11 +1,29 @@
+import { useSocketContext } from "@/context/SocketContext";
+import { useUserContext } from "@/context/UserContext";
+import { useUsersContext } from "@/context/UsersContext";
 import Image from "next/image";
 import Link from "next/link";
 import { FaPlay, FaTwitch } from "react-icons/fa";
 
 const RoomHeader = () => {
+    const { userData } = useUserContext();
+    const { usersData } = useUsersContext();
+    const { socket } = useSocketContext();
+
+    const handleLeaveRoom = () => {
+        socket!.emit(
+            "player-leaving-the-room",
+            userData!.pseudo,
+            usersData!.roomId
+        );
+    };
     return (
         <section className="room-header">
-            <Link href={"/"} className="room-header__back-button">
+            <Link
+                href={"/"}
+                className="room-header__back-button"
+                onClick={handleLeaveRoom}
+            >
                 <FaPlay />
                 <span>retour</span>
             </Link>

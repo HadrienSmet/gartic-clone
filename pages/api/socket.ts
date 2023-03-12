@@ -50,6 +50,15 @@ const SocketHandler = async (
                 io.in(room).emit("players-list", room, players[room]);
             });
 
+            socket.on("player-leaving-the-room", (userPseudo, roomId) => {
+                const index = players[roomId].findIndex(
+                    (p) => p.socketId === socket.id
+                );
+                if (index !== -1) players[roomId].splice(index, 1);
+                io.in(roomId).emit("players-list", roomId, players[roomId]);
+                socket.leave(roomId);
+            });
+
             socket.on("start-btn-been-pressed", (roomId, players) => {
                 io.in(roomId).emit("game-starting", players);
             });
