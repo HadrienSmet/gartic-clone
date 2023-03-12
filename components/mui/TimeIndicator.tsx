@@ -31,28 +31,12 @@ const TimeIndicator = ({ totalTime }: TimerProps) => {
         const decreaseRemainingTime = () => {
             if (timeRemaining === 0) {
                 clearInterval(interval);
-                if (gameData!.currentRound === gameData!.players.length) {
-                    router.push("results");
-                } else {
-                    socket!.emit("ran-out-of-time", usersData!.roomId);
-                    console.log(
-                        "Letemps s'est écoulé dans la room: " +
-                            usersData!.roomId
-                    );
-
-                    // const nextRound =
-                    //     gameData!.gameState === "writte" ? "draw" : "writte";
-                    // setGameData!({
-                    //     players: gameData!.players,
-                    //     playersReady: [],
-                    //     playerIndex: gameData!.playerIndex,
-                    //     gameState: nextRound,
-                    //     currentRound: gameData!.currentRound + 1,
-                    //     writtingTime: gameData!.writtingTime,
-                    //     drawingTime: gameData!.drawingTime,
-                    //     series: gameData!.series,
-                    // });
-                }
+                socket!.emit("ran-out-of-time", usersData!.roomId);
+                // if (gameData!.currentRound === gameData!.players.length) {
+                //     router.push("results");
+                // } else {
+                //     socket!.emit("ran-out-of-time", usersData!.roomId);
+                // }
             } else {
                 setTimeRemaining((curr) => curr - 1);
             }
