@@ -110,8 +110,8 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
 
     useEffect(() => {
         const splittedColor = currentColor.split("(")[1].split(",");
-
         const context = canvasRef.current!.getContext("2d");
+
         context!.scale(scaleXRef.current, scaleYRef.current);
         context!.lineCap = "round";
         context!.strokeStyle = `
