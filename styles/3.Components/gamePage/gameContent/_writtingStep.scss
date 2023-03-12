@@ -63,4 +63,12 @@
             }
         }
     }
+    .players-ready {
+        margin-left: 15px;
+        text-transform: uppercase;
+        font-size: $font-regular-size;
+        color: $clr-1;
+        text-shadow: $regular-txt-shadow;
+        letter-spacing: 2px;
+    }
 }

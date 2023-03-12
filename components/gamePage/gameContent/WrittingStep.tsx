@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useGameContext } from "@/context/GameContext";
 import { useSocketContext } from "@/context/SocketContext";
 import { useUserContext } from "@/context/UserContext";
@@ -18,10 +18,13 @@ const WrittingStep = () => {
     const [placeHolderIndex, setPlaceHolderIndex] = useState(0);
     const [sentence, setSentence] = useState("");
     const [isReady, setIsReady] = useState(false);
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
+
     const { userData } = useUserContext();
     const { usersData } = useUsersContext();
     const { gameData } = useGameContext();
     const { socket } = useSocketContext();
+
     const rightSerie = gameData!.series.findIndex(
         (serie) =>
             serie.id ===
@@ -41,6 +44,7 @@ const WrittingStep = () => {
 
     const saveSentence = () => {
         if (!isReady) {
+            setIsReady((curr) => !curr);
             const dataObject = {
                 roundId: gameData!.currentRound,
                 author: {
@@ -57,13 +61,11 @@ const WrittingStep = () => {
                 usersData!.roomId
             );
         }
-        setIsReady(true);
     };
 
     useEffect(() => {
         const newIndex = Math.floor(Math.random() * placeHoldersArray.length);
         setPlaceHolderIndex(newIndex);
-        setIsReady(false);
 
         const saveSentenceOnTime = () => {
             const dataObject = {
@@ -85,6 +87,11 @@ const WrittingStep = () => {
 
         socket!.on("time-to-save-content", () => saveSentenceOnTime());
     }, [gameData, sentence, socket, userData, usersData]);
+
+    useEffect(() => {
+        setIsReady(false);
+    }, []);
+
     return (
         <div className="writting-step">
             {gameData!.currentRound === 1 ? (
@@ -116,15 +123,22 @@ const WrittingStep = () => {
                     placeholder={placeHoldersArray[placeHolderIndex]}
                     onChange={(e) => handleSentence(e)}
                 />
-                <button onClick={saveSentence}>
-                    <Image
-                        src="/images/gartic_ready.svg"
-                        alt="illustration symbolisant que vous êtes prêt"
-                        width={30}
-                        height={30}
-                    />
-                    <span>terminé !</span>
-                </button>
+                {isReady ? (
+                    <p className="players-ready">
+                        {gameData!.playersReady.length}/
+                        {gameData!.players.length} Joueurs prêts
+                    </p>
+                ) : (
+                    <button ref={buttonRef} onClick={saveSentence}>
+                        <Image
+                            src="/images/gartic_ready.svg"
+                            alt="illustration symbolisant que vous êtes prêt"
+                            width={30}
+                            height={30}
+                        />
+                        <span>terminé !</span>
+                    </button>
+                )}
             </div>
         </div>
     );

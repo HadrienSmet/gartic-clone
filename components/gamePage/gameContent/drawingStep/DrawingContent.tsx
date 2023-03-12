@@ -90,8 +90,8 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                 dataObject,
                 usersData!.roomId
             );
+            setIsReady((curr) => !curr);
         }
-        setIsReady(true);
     };
 
     useEffect(() => {
@@ -137,6 +137,10 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
         });
     }, [gameData, socket, userData, usersData]);
 
+    useEffect(() => {
+        setIsReady(false);
+    }, []);
+
     return (
         <div className="drawing-step__content">
             <div className="drawing-step__content__header">
@@ -176,6 +180,7 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                     height={555}
                     onMouseDown={startDrawing}
                     onMouseUp={stopDrawing}
+                    onMouseLeave={stopDrawing}
                     onMouseMove={draw}
                 ></canvas>
             </div>
@@ -253,15 +258,22 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                         <span className="strong-opacity"></span>
                     </div>
                 </div>
-                <button onClick={saveDraw}>
-                    <Image
-                        src="/images/gartic_ready.svg"
-                        alt="Symbole illustrant le fait que l'utilisateur est prêt"
-                        width={40}
-                        height={40}
-                    />
-                    <span>terminé !</span>
-                </button>
+                {isReady ? (
+                    <p className="players-ready">
+                        {gameData!.playersReady.length}/
+                        {gameData!.players.length} Joueurs prêts
+                    </p>
+                ) : (
+                    <button onClick={saveDraw}>
+                        <Image
+                            src="/images/gartic_ready.svg"
+                            alt="Symbole illustrant le fait que l'utilisateur est prêt"
+                            width={40}
+                            height={40}
+                        />
+                        <span>terminé !</span>
+                    </button>
+                )}
             </div>
         </div>
     );
