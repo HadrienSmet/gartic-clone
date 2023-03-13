@@ -36,7 +36,6 @@ const useRoom = (
                 reconnectionDelay: 1000,
                 reconnection: true,
                 reconnectionAttempts: 10,
-                transports: ["websocket"],
                 agent: false,
                 rejectUnauthorized: false,
                 path: "/api/socket",
