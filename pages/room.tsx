@@ -33,7 +33,11 @@ const useRoom = (
     useEffect(() => {
         if (!socket) {
             const newSocket = io("http://localhost:3000", {
+                reconnectionDelay: 1000,
+                reconnection: true,
+                reconnectionAttempts: 10,
                 transports: ["websocket"],
+                agent: false,
                 rejectUnauthorized: false,
                 path: "/api/socket",
                 query: userData,
