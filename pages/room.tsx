@@ -30,23 +30,6 @@ const useRoom = (
     const { gameData, setGameData } = useGameContext();
     const router = useRouter();
 
-    // const socketInitializer = async () => {
-    //     await fetch("/api/socket")
-
-    //     setSocket(io("https://gartic-clone.vercel.app", {
-    //         reconnectionDelay: 1000,
-    //         reconnection: true,
-    //         reconnectionAttempts: 10,
-    //         withCredentials: true,
-    //         rejectUnauthorized: false,
-    //         path: "/api/socket",
-    //         query: userData,
-    //     }))
-    // }
-
-    // useEffect(() => {
-    //     socketInitializer()
-    // })
     const onConnect = () => {
         setUsersData!({
             roomId: socket!.id + "-room",
@@ -97,7 +80,7 @@ const useRoom = (
                 reconnection: true,
                 reconnectionAttempts: 10,
                 // withCredentials: true,
-                // rejectUnauthorized: false,
+                rejectUnauthorized: false,
                 path: "/api/socket",
                 query: userData,
             });
