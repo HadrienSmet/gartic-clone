@@ -27,8 +27,8 @@ const SocketHandler = async (
             cors: {
                 origin: "https://gartic-clone.vercel.app",
                 methods: ["GET", "POST"],
+                credentials: true,
             },
-            transports: ["websocket", "polling"],
             path: "/api/socket",
         });
 

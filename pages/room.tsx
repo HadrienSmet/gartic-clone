@@ -36,9 +36,8 @@ const useRoom = (
                 reconnectionDelay: 1000,
                 reconnection: true,
                 reconnectionAttempts: 10,
-                agent: false,
+                withCredentials: true,
                 rejectUnauthorized: false,
-                transports: ["websocket", "polling"],
                 path: "/api/socket",
                 query: userData,
             });
