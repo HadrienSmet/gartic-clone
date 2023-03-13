@@ -33,6 +33,7 @@ const useRoom = (
     useEffect(() => {
         if (!socket) {
             const newSocket = io("http://localhost:3000", {
+                transports: ["websocket"],
                 path: "/api/socket",
                 query: userData,
             });
