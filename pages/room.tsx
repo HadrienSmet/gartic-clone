@@ -30,67 +30,87 @@ const useRoom = (
     const { gameData, setGameData } = useGameContext();
     const router = useRouter();
 
+    // const socketInitializer = async () => {
+    //     await fetch("/api/socket")
+
+    //     setSocket(io("https://gartic-clone.vercel.app", {
+    //         reconnectionDelay: 1000,
+    //         reconnection: true,
+    //         reconnectionAttempts: 10,
+    //         withCredentials: true,
+    //         rejectUnauthorized: false,
+    //         path: "/api/socket",
+    //         query: userData,
+    //     }))
+    // }
+
+    // useEffect(() => {
+    //     socketInitializer()
+    // })
+    const onConnect = () => {
+        setUsersData!({
+            roomId: socket!.id + "-room",
+            users: [
+                {
+                    pseudo: userData!.pseudo,
+                    avatar: userData!.avatar,
+                    socketId: socket!.id,
+                },
+            ],
+        });
+    };
+    const onNewPlayer = (userData: Player) => {
+        setUsersData!({
+            roomId: usersData!.roomId,
+            users: [...usersData!.users, userData],
+        });
+    };
+
+    const onPlayerList = (room: string, players: Player[]) => {
+        setUsersData!({
+            roomId: room,
+            users: [...players],
+        });
+    };
+    const onGameStarting = (players: Player[]) => {
+        const userIndex = players.findIndex(
+            (player: Player) => player.pseudo === userData!.pseudo
+        );
+
+        setGameData!({
+            players: players,
+            playersReady: gameData!.playersReady,
+            playerIndex: userIndex,
+            gameState: gameData!.gameState,
+            currentRound: gameData!.currentRound,
+            writtingTime: gameData!.writtingTime,
+            drawingTime: gameData!.drawingTime,
+            series: gameData!.series,
+        });
+        router.push("/game");
+    };
+
     useEffect(() => {
         if (!socket) {
             const newSocket = io("https://gartic-clone.vercel.app", {
                 reconnectionDelay: 1000,
                 reconnection: true,
                 reconnectionAttempts: 10,
-                withCredentials: true,
-                rejectUnauthorized: false,
+                // withCredentials: true,
+                // rejectUnauthorized: false,
                 path: "/api/socket",
                 query: userData,
             });
 
-            newSocket.on("connect", () => {
-                setUsersData!({
-                    roomId: newSocket.id + "-room",
-                    users: [
-                        {
-                            pseudo: userData!.pseudo,
-                            avatar: userData!.avatar,
-                            socketId: newSocket.id,
-                        },
-                    ],
-                });
-            });
+            newSocket.on("connect", onConnect);
+            newSocket.on("new-player", onNewPlayer);
+            newSocket.on("players-list", onPlayerList);
+            newSocket.on("game-starting", onGameStarting);
 
-            newSocket.on("new-player", (userData) => {
-                setUsersData!({
-                    roomId: usersData!.roomId,
-                    users: [...usersData!.users, userData],
-                });
-            });
-            newSocket.on("players-list", (room, players) =>
-                setUsersData!({
-                    roomId: room,
-                    users: [...players],
-                })
+            newSocket.on("diconnect", () =>
+                console.log("disconnected to the server")
             );
-            newSocket.on("game-starting", (players) => {
-                const userIndex = players.findIndex(
-                    (player: Player) => player.pseudo === userData!.pseudo
-                );
-
-                setGameData!({
-                    players: players,
-                    playersReady: gameData!.playersReady,
-                    playerIndex: userIndex,
-                    gameState: gameData!.gameState,
-                    currentRound: gameData!.currentRound,
-                    writtingTime: gameData!.writtingTime,
-                    drawingTime: gameData!.drawingTime,
-                    series: gameData!.series,
-                });
-                router.push("/game");
-            });
-
-            newSocket.on("diconnect", () => {
-                console.log("disconnected to the server");
-            });
-            newSocket.on("connect_error", (error) => {
-                console.error(error); // Vérifiez l'erreur de connexion
-            });
+            newSocket.on("connect_error", (error) => console.error(error));
             setSocket(newSocket);
         }
 
