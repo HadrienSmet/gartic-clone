@@ -28,6 +28,7 @@ const SocketHandler = async (
                 origin: "https://gartic-clone.vercel.app",
                 methods: ["GET", "POST"],
             },
+            transports: ["websocket", "polling"],
             path: "/api/socket",
         });
 
