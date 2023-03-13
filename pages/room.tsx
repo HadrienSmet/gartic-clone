@@ -92,7 +92,7 @@ const useRoom = (
 
     useEffect(() => {
         if (!socket) {
-            const newSocket = io("https://gartic-clone.vercel.app", {
+            const newSocket = io("https://hs-gartic-clone.netlify.app/", {
                 reconnectionDelay: 1000,
                 reconnection: true,
                 reconnectionAttempts: 10,
