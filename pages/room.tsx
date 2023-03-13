@@ -34,6 +34,7 @@ const useRoom = (
         if (!socket) {
             const newSocket = io("http://localhost:3000", {
                 transports: ["websocket"],
+                upgrade: false,
                 path: "/api/socket",
                 query: userData,
             });
