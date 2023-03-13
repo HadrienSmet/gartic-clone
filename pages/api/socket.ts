@@ -24,6 +24,10 @@ const SocketHandler = async (
     if (!res.socket.server.io) {
         const httpServer: NetServer = res.socket.server as any;
         const io = new ServerIO(httpServer, {
+            cors: {
+                origin: "https://gartic-clone.vercel.app/",
+                methods: ["GET", "POST"],
+            },
             path: "/api/socket",
         });
 
