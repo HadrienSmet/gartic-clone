@@ -31,22 +31,24 @@ const useRoom = (
     const router = useRouter();
 
     const onConnect = () => {
-        setUsersData!({
-            roomId: socket!.id + "-room",
-            users: [
-                {
-                    pseudo: userData!.pseudo,
-                    avatar: userData!.avatar,
-                    socketId: socket!.id,
-                },
-            ],
-        });
+        if (socket && userData)
+            setUsersData!({
+                roomId: socket.id + "-room",
+                users: [
+                    {
+                        pseudo: userData.pseudo,
+                        avatar: userData.avatar,
+                        socketId: socket.id,
+                    },
+                ],
+            });
     };
     const onNewPlayer = (userData: Player) => {
-        setUsersData!({
-            roomId: usersData!.roomId,
-            users: [...usersData!.users, userData],
-        });
+        if (usersData)
+            setUsersData!({
+                roomId: usersData.roomId,
+                users: [...usersData.users, userData],
+            });
     };
 
     const onPlayerList = (room: string, players: Player[]) => {
@@ -75,13 +77,13 @@ const useRoom = (
 
     useEffect(() => {
         if (!socket) {
-            const newSocket = io("https://hs-gartic-clone.netlify.app/", {
+            const newSocket = io("http://localhost:3001", {
                 reconnectionDelay: 1000,
                 reconnection: true,
                 reconnectionAttempts: 10,
                 // withCredentials: true,
+                transports: ["polling"],
                 rejectUnauthorized: false,
-                path: "/api/socket",
                 query: userData,
             });
 
