@@ -5,6 +5,7 @@
     "scripts": {
         "start:server": "ts-node server.ts",
         "dev": "next dev",
+        "startall": "pnpm run start:server & pnpm run dev",
         "build": "next build",
         "start": "next start",
         "lint": "next lint"
