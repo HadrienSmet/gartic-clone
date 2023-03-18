@@ -1,2 +1,2 @@
 /*
-  Access-Control-Allow-Origin: https://gartic-clone-server.herokuapp.com/
+  Access-Control-Allow-Origin: *
