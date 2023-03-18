@@ -9,11 +9,6 @@ import { useSocketContext } from "@/context/SocketContext";
 import GameContent from "@/components/gamePage/gameContent/GameContent";
 import GameHeader from "@/components/gamePage/gameHeader/GameHeader";
 
-// const useGame = () => {
-
-//     return { gameData };
-// };
-
 const game = () => {
     const { socket } = useSocketContext();
     const { gameData, setGameData } = useGameContext();
@@ -95,7 +90,7 @@ const game = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gameData!.series, gameData!.playersReady]);
-    // const { gameData } = useGame();
+
     return (
         <>
             <Head>
