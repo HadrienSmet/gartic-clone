@@ -1,18 +1,25 @@
+@media screen and (min-width: 1025px) {
+    .user {
+        &__content {
+            justify-content: center;
+        }
+    }
+}
+
 @media screen and (min-width: 768px) {
     .user {
-        width: 60%;
+        width: 55%;
         min-height: 465px;
         &__header {
             span {
                 border-radius: 25px 25px 0 0;
-                font-size: $font-bigger-size;
+                font-size: $font-regular-size;
             }
         }
         &__content {
             width: calc(100% - 80px);
             height: calc(100% - 274px);
             padding: 40px;
-            justify-content: center;
             &__avatar-container {
                 display: flex;
                 justify-content: center;
@@ -49,10 +56,26 @@
             }
         }
     }
+    @media screen and (max-width: 1024px) {
+        .user {
+            &__content {
+                flex-direction: column;
+                &__pseudo-container {
+                    width: 100%;
+                    input {
+                        width: calc(100% - 30px);
+                        font-size: 1.2em;
+                    }
+                    h2 {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
 }
 @media screen and (max-width: 767px) {
     .user {
-        // width: calc(100% - 80px);
         display: flex;
         flex-direction: column;
         align-items: center;

@@ -1,4 +1,4 @@
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1025px) {
     .results,
     .game,
     .room,
@@ -8,8 +8,24 @@
     }
     .welcome {
         min-height: 736px;
+        min-width: 925px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
+
+@media screen and (max-width: 1024px) {
+    @media screen and (min-width: 768px) {
+        .results,
+        .game,
+        .room,
+        .welcome {
+            width: 90%;
+        }
+    }
+}
+
 @media screen and (max-width: 767px) {
     .results,
     .game,
@@ -26,4 +42,5 @@
     border: 4px $first-shade solid;
     box-shadow: inset 0px 2px 0px 0px $clr-1-op015, 0px 3px 0px 0px $clr-1-op015;
     border-radius: 12px;
+    margin-right: 0px !important;
 }
