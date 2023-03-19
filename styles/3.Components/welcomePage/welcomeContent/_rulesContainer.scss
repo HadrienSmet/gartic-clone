@@ -1,7 +1,7 @@
 @media screen and (min-width: 1025px) {
     .rules {
         &-steps-indicator li::before {
-            transform: translate(1px, 2px);
+            // transform: translate(1px, 2px);
         }
     }
 }
@@ -10,7 +10,7 @@
     .rules {
         min-height: 398px;
         display: flex;
-        width: calc(40% + 80px);
+        max-width: calc((70% * 0.45));
         border: 3px solid $third-shade;
         border-radius: 25px;
         margin-bottom: 25px;
@@ -28,15 +28,20 @@
                 font-size: $font-regular-size;
             }
         }
-        &-steps-indicator {
-            li::before {
-                // transform: translate(1px, 2px);
-            }
-        }
     }
     @media screen and (max-width: 1024px) {
-        .rules-steps-indicator li::before {
-            transform: translate(2px, 2px);
+        .rules {
+            &-content {
+                h3 {
+                    font-size: $font-regular-size;
+                }
+                p {
+                    font-size: 18px;
+                }
+            }
+            &-steps-indicator {
+                gap: 15px !important;
+            }
         }
     }
 }
@@ -60,16 +65,10 @@
         &-content {
             h3 {
                 color: lighten($first-color, 20);
-                // color: $fifth-color;
                 font-size: 1em;
             }
             p {
                 font-size: 1em;
-            }
-        }
-        &-steps-indicator {
-            li::before {
-                transform: translate(1px, 1.5px);
             }
         }
     }
@@ -120,17 +119,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 30px;
+            min-width: 30px;
             height: 30px;
             position: relative;
-            &.active svg circle {
-                stroke-dashoffset: 60;
-                animation: circleStrokeAnimation 31s linear;
-            }
+            // &.active svg circle {
+            //     stroke-dashoffset: 60;
+            //     animation: circleStrokeAnimation 31s linear;
+            // }
             &::before {
                 content: "";
                 position: absolute;
-                left: 5px;
+                left: 8px;
                 top: 5px;
                 width: 14px;
                 height: 14px;
@@ -139,8 +138,8 @@
             }
             svg {
                 position: absolute;
-                width: 25px;
-                height: 25px;
+                width: 22px;
+                height: 22px;
                 transform-origin: center;
                 transform: rotate(-90deg) translate(3px, 0px);
                 display: flex;
@@ -153,7 +152,8 @@
                     stroke: $clr-1;
                     stroke-width: 2;
                     stroke-linecap: round;
-                    stroke-dasharray: 330;
+                    // stroke-dasharray: 330;
+                    stroke-dasharray: 0;
                     stroke-dashoffset: 330;
                     transform-origin: center center;
                     transform: translate(1px, 1px);
@@ -164,34 +164,72 @@
 }
 #phone-icon {
     transform: translate(-20px, 10px) rotate(120deg);
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        transform: scale(0.7) translate(-10px, 10px) rotate(120deg);
+    }
 }
 #phoneVolume-icon {
     transform: translateX(20px) rotateY(180deg) rotateZ(-10deg) scale(1.4);
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        transform: translateX(10px) rotateY(180deg) rotateZ(-10deg) scale(0.9);
+    }
 }
 #pen-icon {
     transform: translateY(45px) rotate(270deg);
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        transform: translateY(25px) rotate(270deg) scale(0.8);
+    }
+}
+#pencil-icon {
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        transform: scale(0.8);
+    }
 }
 #brush-icon {
     transform: translateX(-25px) rotateY(180deg) rotateZ(15deg);
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        transform: scale(0.8) translateX(-5px) rotateY(180deg) rotateZ(15deg);
+    }
 }
 #palette-icon {
     transform: rotate(30deg);
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        transform: scale(0.8) rotate(30deg);
+    }
 }
 #meh-icon {
     transform: translate(50%, 45px);
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        transform: scale(0.8) translate(50%, 45px);
+    }
 }
 #bulb-icon {
     transform: translate(30px, -50%) rotate(40deg);
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        transform: scale(0.8) translate(10px, -40%) rotate(40deg);
+    }
 }
 #beam-icon {
     transform: translateY(15px) rotate(-20deg);
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        transform: scale(0.8) translateY(5px) rotate(-20deg);
+    }
 }
 #squint-icon {
     transform: translateY(-15px) rotate(15deg);
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        transform: scale(0.8) translateY(-5px) rotate(15deg);
+    }
 }
 #friends-icon {
     transform: translate(-15px, 35px);
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        transform: scale(0.8) translate(0, 15px);
+    }
 }
 #sphere-icon {
     transform: translateY(-15px) scale(1.4);
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        transform: scale(0.9) translateY(0px);
+    }
 }
