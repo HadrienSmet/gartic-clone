@@ -55,8 +55,8 @@ const GameContext = ({ children }: Props) => {
         playerIndex: 0,
         gameState: "writte",
         currentRound: 1,
-        writtingTime: 6000,
-        drawingTime: 18000,
+        writtingTime: 6000000,
+        drawingTime: 18000000,
         series: [],
     });
 

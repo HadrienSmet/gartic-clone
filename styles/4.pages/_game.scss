@@ -1,3 +1,25 @@
+@media screen and (min-width: 1025px) {
+    .game {
+        width: 70%;
+        height: calc(100svh - 78px);
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    @media screen and (min-width: 768px) {
+        .game {
+            width: 90%;
+            height: calc(100svh - 78px);
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .game {
+        width: 100%;
+        height: calc(100svh - 48px);
+    }
+}
 .game {
     padding: 20px;
 }

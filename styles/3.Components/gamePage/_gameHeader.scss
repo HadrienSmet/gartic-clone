@@ -1,13 +1,39 @@
+@media screen and (min-width: 1025px) {
+    .game-header {
+        width: calc(70% - 80px);
+    }
+}
+@media screen and (max-width: 1024px) {
+    .game-header {
+        width: calc(90% - 80px);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .game-header {
+        padding: 10px 40px;
+        img {
+            transform: translate(-50%);
+        }
+    }
+}
+@media screen and (max-width: 767px) {
+    .game-header {
+        padding: 10px 25px;
+        width: calc(90% - 50px);
+        img {
+            transform: translate(-50%) scale(0.75);
+        }
+    }
+}
+
 .game-header {
     position: absolute;
-    width: calc(70% - 80px);
-    padding: 10px 40px;
     display: flex;
     justify-content: space-between;
     img {
         position: absolute;
         left: 50%;
-        transform: translateX(-50%);
     }
     &__step-indicator {
         color: $clr-1;

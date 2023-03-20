@@ -1,3 +1,35 @@
+@media screen and (min-width: 1025px) {
+    .writting-step {
+        &__input-container {
+            width: calc(100% - 200px);
+        }
+    }
+}
+@media screen and (min-width: 768px) {
+    .writting-step {
+        &__input-container {
+            gap: 25px;
+            width: 90%;
+        }
+    }
+}
+@media screen and (max-width: 767px) {
+    .writting-step {
+        &__input-container {
+            position: relative;
+            flex-direction: column;
+            gap: 25px;
+            width: 90%;
+            input {
+                padding: 20px 25px !important;
+                width: calc(100% - 58px) !important;
+            }
+            button {
+                min-width: 100% !important;
+            }
+        }
+    }
+}
 .writting-step {
     margin-top: 170px;
     height: calc(100% - 170px);
@@ -23,7 +55,6 @@
         font-size: $font-biggest-size;
     }
     &__input-container {
-        width: calc(80% - 200px);
         display: flex;
         justify-content: space-between;
         input {
@@ -50,6 +81,7 @@
             justify-content: center;
             gap: 15px;
             width: 25%;
+            min-width: 200px;
             background-color: $clr-1;
             box-shadow: 0px 10px 0px 1px $third-color;
             border: none;
