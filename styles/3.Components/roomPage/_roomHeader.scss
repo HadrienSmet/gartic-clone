@@ -2,6 +2,7 @@
     .room-header {
         justify-content: space-between;
         height: 138px;
+        padding: 15px 25px;
         &__back-button {
             display: flex;
             align-items: center;
@@ -20,12 +21,16 @@
         &__streamers-container {
             display: flex;
         }
+        &__settings-button {
+            display: none;
+        }
     }
 }
 @media screen and (max-width: 767px) {
     .room-header {
         justify-content: center;
         height: 75px;
+        padding: 0 25px 15px;
         &__back-button {
             display: none;
         }
@@ -52,12 +57,20 @@
             right: 10px;
             font-size: 30px;
         }
+        &__settings-button {
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            font-size: 45px;
+            color: $clr-1;
+            transform: rotate(22.5deg);
+            transform-origin: center;
+        }
     }
 }
 .room-header {
     display: flex;
     width: calc(100% - 50px);
-    padding: 15px 25px;
     font-family: "main-fonts";
     &__back-button {
         cursor: pointer;

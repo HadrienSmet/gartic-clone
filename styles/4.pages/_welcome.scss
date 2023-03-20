@@ -1,10 +1,9 @@
 @media screen and (min-width: 1025px) {
     .results,
     .game,
-    .room,
     .welcome {
         width: 70%;
-        height: calc(100% - 78px);
+        height: calc(100svh - 78px);
     }
     .welcome {
         min-height: 736px;
@@ -19,7 +18,6 @@
     @media screen and (min-width: 768px) {
         .results,
         .game,
-        .room,
         .welcome {
             width: 90%;
         }
@@ -29,10 +27,9 @@
 @media screen and (max-width: 767px) {
     .results,
     .game,
-    .room,
     .welcome {
         width: 100%;
-        height: 100%;
+        height: 100svh;
     }
 }
 .results,

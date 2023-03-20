@@ -3,7 +3,7 @@ import { useUserContext } from "@/context/UserContext";
 import { useUsersContext } from "@/context/UsersContext";
 import Image from "next/image";
 import Link from "next/link";
-import { FaPlay, FaTwitch } from "react-icons/fa";
+import { FaCog, FaPlay, FaTwitch } from "react-icons/fa";
 
 const RoomHeader = () => {
     const { userData } = useUserContext();
@@ -17,6 +17,12 @@ const RoomHeader = () => {
             usersData!.roomId
         );
     };
+
+    const showSettingsContainer = () => {
+        const settings = document.querySelector(".settings-container");
+        if (settings) settings.classList.add("active");
+    };
+
     return (
         <section className="room-header">
             <Link
@@ -49,6 +55,10 @@ const RoomHeader = () => {
                     />
                 </div>
             </div>
+            <FaCog
+                onClick={showSettingsContainer}
+                className="room-header__settings-button"
+            />
         </section>
     );
 };

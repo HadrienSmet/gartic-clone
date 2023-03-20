@@ -1,4 +1,26 @@
+@media screen and (min-width: 1025px) {
+    .room {
+        width: 70%;
+        height: calc(100svh - 78px);
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    @media screen and (min-width: 768px) {
+        .room {
+            width: 90%;
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .room {
+        width: 100%;
+        height: calc(100svh - 48px);
+    }
+}
 .room {
+    min-height: 800px;
     position: relative;
     padding: 20px;
 }

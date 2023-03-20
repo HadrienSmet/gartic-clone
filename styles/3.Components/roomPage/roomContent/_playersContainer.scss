@@ -1,12 +1,48 @@
+@media screen and (min-width: 1025px) {
+    .players-container {
+        h2 {
+            font-size: $font-bigger-size;
+        }
+        &__select-division select {
+            font-size: $font-bigger-size;
+        }
+    }
+}
+@media screen and (max-width: 1024px) {
+    .players-container {
+        h2 {
+            font-size: $font-regular-size;
+        }
+        &__select-division select {
+            font-size: $font-regular-size;
+        }
+    }
+}
+@media screen and (min-width: 768px) {
+    .players-container {
+        width: 33%;
+        max-height: 90%;
+        gap: 15px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .players-container {
+        width: 100%;
+        max-height: calc(100svh - 325px);
+        gap: 5px;
+        h2 {
+            margin: 15px 0;
+        }
+    }
+}
+
 .players-container {
-    width: 33%;
-    height: 100%;
     background-color: $sixth-shade;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
     h2 {
         text-transform: uppercase;
         color: $fourth-color;
@@ -24,7 +60,6 @@
             text-transform: uppercase;
             width: 100%;
             padding: 8px 10px;
-            font-size: $font-bigger-size;
             background-color: transparent;
             color: $clr-1-op06;
             border: 3px solid $clr-1-op06;

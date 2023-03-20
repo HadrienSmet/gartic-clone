@@ -1,10 +1,12 @@
 import Image from "next/image";
 import React, { MouseEvent, useRef, useState } from "react";
+import { FaTimes } from "react-icons/fa";
 import PersonalisationContent from "./PersonalisationContent";
 import PresettingsContent from "./PresettingsContent";
 
 const SettingsContainer = () => {
     const [headerState, setHeaderState] = useState("presetting");
+    const settingsRef = useRef<HTMLDivElement | null>(null);
     const preSettingRef = useRef<HTMLSpanElement | null>(null);
     const personalisationRef = useRef<HTMLSpanElement | null>(null);
 
@@ -16,8 +18,12 @@ const SettingsContainer = () => {
         setHeaderState(target.id);
     };
 
+    const hideSettingsContainer = () => {
+        settingsRef.current!.classList.remove("active");
+    };
+
     return (
-        <div className="settings-container">
+        <div ref={settingsRef} className="settings-container">
             <div className="settings-container__header">
                 <span
                     id="presetting"
@@ -34,6 +40,10 @@ const SettingsContainer = () => {
                 >
                     personnalisations
                 </span>
+                <FaTimes
+                    onClick={hideSettingsContainer}
+                    className="settings-container__hide-button"
+                />
             </div>
             {headerState === "presetting" ? (
                 <PresettingsContent />

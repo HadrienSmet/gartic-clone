@@ -4,7 +4,7 @@ body,
 #__next {
     margin: 0;
     padding: 0;
-    height: 100%;
+    min-height: 100svh;
     width: 100%;
     font-family: "main-fonts";
 }

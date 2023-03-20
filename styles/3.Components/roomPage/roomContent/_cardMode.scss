@@ -1,7 +1,19 @@
+@media screen and (min-width: 1025px) {
+    .card-mode {
+        width: calc(33% - 20px);
+        height: 124px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .card-mode {
+        width: calc(50% - 20px);
+        height: 124px;
+    }
+}
+
 .card-mode {
     cursor: pointer;
-    width: calc(33% - 20px);
-    height: 124px;
     background-color: $clr-1-op07;
     display: flex;
     align-items: center;

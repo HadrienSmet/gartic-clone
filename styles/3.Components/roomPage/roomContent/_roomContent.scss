@@ -1,11 +1,24 @@
+@media screen and (min-width: 768px) {
+    .room-content__right-column {
+        width: 66%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .room-content {
+        flex-direction: column;
+        &__right-column {
+            width: 100%;
+        }
+    }
+}
 .room-content {
-    // position: relative;
+    position: relative;
     display: flex;
     gap: 20px;
     width: 100%;
-    height: calc(100% - 170px);
+    max-height: calc(100svh - 310px);
     &__right-column {
-        width: 66%;
         display: flex;
         align-items: center;
         flex-direction: column;

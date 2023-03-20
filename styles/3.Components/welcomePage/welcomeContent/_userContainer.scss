@@ -22,7 +22,7 @@
         }
         &__content {
             width: calc(100% - 80px);
-            height: calc(100% - 274px);
+            height: calc(100% - 264px);
             padding: 40px;
             &__avatar-container {
                 display: flex;
@@ -165,7 +165,6 @@
         span {
             cursor: pointer;
             width: 100%;
-            // border-radius: 25px 25px 0 0;
             padding: 15px 0px 10px;
             margin-bottom: 6px;
 

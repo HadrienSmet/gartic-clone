@@ -5,7 +5,7 @@ import { FaTimes } from "react-icons/fa";
 const PersonalisationContent = () => {
     return (
         <div className="settings-container__content personalised">
-            <div className="user__content__avatar-container">
+            <div className="settings-container__content__avatar-container">
                 <Image
                     src={`/images/gartic-avatar-7.svg`}
                     alt="character icon"
