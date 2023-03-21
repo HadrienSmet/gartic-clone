@@ -1,10 +1,7 @@
 @media screen and (min-width: 1025px) {
-    .results,
     .welcome {
         width: 70%;
         height: calc(100svh - 78px);
-    }
-    .welcome {
         min-height: 736px;
         min-width: 925px;
         display: flex;
@@ -15,7 +12,6 @@
 
 @media screen and (max-width: 1024px) {
     @media screen and (min-width: 768px) {
-        .results,
         .welcome {
             width: 90%;
         }
@@ -23,18 +19,8 @@
 }
 
 @media screen and (max-width: 767px) {
-    .results,
     .welcome {
         width: 100%;
         height: 100svh;
     }
-}
-.results,
-.game,
-.room,
-.welcome {
-    border: 4px $first-shade solid;
-    box-shadow: inset 0px 2px 0px 0px $clr-1-op015, 0px 3px 0px 0px $clr-1-op015;
-    border-radius: 12px;
-    margin-right: 0px !important;
 }

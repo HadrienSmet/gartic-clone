@@ -1,4 +1,26 @@
+@media screen and (min-width: 1025px) {
+    .results {
+        width: 70%;
+        height: calc(100svh - 78px);
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    @media screen and (min-width: 768px) {
+        .results {
+            width: 90%;
+            height: calc(100svh - 78px);
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .results {
+        width: 100%;
+        height: calc(100svh - 8px);
+        flex-direction: column;
+    }
+}
 .results {
     display: flex;
-    gap: 40px;
 }

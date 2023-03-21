@@ -1,7 +1,18 @@
+@media screen and (min-width: 768px) {
+    .results-container {
+        width: calc(67% - 40px);
+        height: calc(100% - 40px);
+    }
+}
+@media screen and (max-width: 767px) {
+    .results-container {
+        height: calc(100% - 40px);
+        width: calc(100% - 40px);
+    }
+}
+
 .results-container {
     margin: 20px;
-    width: calc(67% - 80px);
-    height: calc(100% - 40px);
     overflow: auto;
     &::-webkit-scrollbar {
         width: 16px;

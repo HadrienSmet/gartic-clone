@@ -45,3 +45,12 @@ ul {
 a {
     text-decoration: none;
 }
+.results,
+.game,
+.room,
+.welcome {
+    border: 4px $first-shade solid;
+    box-shadow: inset 0px 2px 0px 0px $clr-1-op015, 0px 3px 0px 0px $clr-1-op015;
+    border-radius: 12px;
+    margin-right: 0px !important;
+}

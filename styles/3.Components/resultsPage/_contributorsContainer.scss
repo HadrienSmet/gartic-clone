@@ -1,7 +1,25 @@
+@media screen and (min-width: 768px) {
+    .results__contributors-container {
+        width: calc(33% - 40px);
+        height: calc(100% - 40px);
+    }
+    @media screen and (max-width: 1024px) {
+        .results__contributors-container {
+            ul li span {
+                padding-left: 5px !important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .results__contributors-container {
+        width: calc(100% - 40px);
+        height: 40svh;
+    }
+}
 .results__contributors-container {
     margin: 20px;
-    width: calc(33% - 40px);
-    height: calc(100% - 40px);
     background-color: $first-shade;
     border-radius: 20px;
     display: flex;
@@ -14,7 +32,7 @@
         color: $fourth-color;
         letter-spacing: 1.5px;
         text-shadow: $dark-txt-shadow;
-        font-size: $font-bigger-size;
+        font-size: 2vw;
     }
     ul {
         width: 80%;
