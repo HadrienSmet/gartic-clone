@@ -2,6 +2,14 @@
     .game {
         width: 70%;
         height: calc(100svh - 78px);
+        &.draw {
+            min-width: 965px;
+            min-height: 820px;
+            .game-content {
+                min-width: 925px;
+                min-height: 810px;
+            }
+        }
     }
 }
 

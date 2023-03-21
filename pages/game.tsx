@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -13,12 +13,21 @@ const game = () => {
     const { socket } = useSocketContext();
     const { gameData, setGameData } = useGameContext();
     const router = useRouter();
+    const gameContainerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const body = document.querySelector("body");
         body!.classList.remove("room-bg");
         body!.classList.add("game-bg");
     }, []);
+
+    useEffect(() => {
+        if (gameData!.gameState === "draw") {
+            gameContainerRef.current!.classList.add("draw");
+        } else {
+            gameContainerRef.current!.classList.remove("draw");
+        }
+    }, [gameData]);
 
     useEffect(() => {
         socket!.on("player-saved-content", (playerIndex, round, content) => {
@@ -109,7 +118,7 @@ const game = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className="game">
+            <main ref={gameContainerRef} className="game">
                 <GameHeader />
                 <GameContent />
             </main>

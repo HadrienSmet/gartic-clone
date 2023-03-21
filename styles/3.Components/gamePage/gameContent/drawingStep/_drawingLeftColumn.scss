@@ -1,10 +1,84 @@
+@media screen and (min-width: 1025px) {
+    .drawing-step__left-column {
+        h2 {
+            font-size: 7vh;
+        }
+        .color-container {
+            min-width: 100px;
+            .color {
+                width: calc(33% - 8px);
+                min-width: 26px;
+                min-height: 26px;
+                height: calc((70vw * 0.14 - 30px) * 0.33 - 8px);
+            }
+        }
+    }
+}
+@media screen and (max-width: 1024px) {
+    .drawing-step__left-column {
+        h2 {
+            font-size: 50px;
+        }
+    }
+    @media screen and (min-width: 768px) {
+        .drawing-step__left-column {
+            .color-container {
+                min-width: 80px;
+                .color {
+                    width: calc(50% - 8px);
+                    min-width: 30px;
+                    min-height: 30px;
+                    height: calc((95vw * 0.14 - 30px) * 0.5 - 8px);
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 767px) {
+    .drawing-step__left-column {
+        position: relative;
+        .color-container {
+            width: calc(100% - 30px) !important;
+            &__choices {
+                height: 50vh;
+                overflow-y: auto;
+                overflow-x: hidden;
+                &::-webkit-scrollbar {
+                    width: 16px;
+                    background-color: transparent;
+                    transition: display 0.2s ease-in-out;
+                }
+                &:not([no-y-overflow])::-webkit-scrollbar-thumb {
+                    height: 56px;
+                    border-radius: 8px;
+                    border: 4px solid transparent;
+                    background-clip: content-box;
+                }
+                &::-webkit-scrollbar-thumb {
+                    height: 56px;
+                    border-radius: 8px;
+                    border: 4px solid transparent;
+                    background-clip: content-box;
+                    background-color: $nineth-shade;
+                    &:hover {
+                        background-color: lighten($nineth-shade, 5);
+                    }
+                }
+            }
+            .color {
+                width: 100%;
+                height: 25px;
+            }
+        }
+    }
+}
+
 .drawing-step__left-column {
     display: flex;
     flex-direction: column;
     align-items: center;
     h2 {
         color: $clr-1;
-        font-size: 7vh;
         letter-spacing: 3px;
         margin: 0;
     }
@@ -23,15 +97,13 @@
         &__choices {
             margin: 0;
             position: relative;
-            height: 45%;
+            // height: 45%;
             padding: 0px;
             width: 100%;
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             .color {
-                width: calc(33% - 8px);
-                height: calc((70vw * 0.14 - 30px) * 0.33 - 8px);
                 border: 1px solid $clr-1-op07;
                 border-radius: 5px;
             }

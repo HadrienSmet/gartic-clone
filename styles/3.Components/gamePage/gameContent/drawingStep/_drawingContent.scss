@@ -1,3 +1,46 @@
+@media screen and (min-width: 1025px) {
+    .drawing-step__content {
+        &__footer {
+            width: 100%;
+            margin-top: 25px;
+        }
+    }
+}
+@media screen and (max-width: 1024px) {
+    .drawing-step__content {
+        &__header-rings {
+            opacity: 0;
+        }
+        &__footer {
+            position: absolute;
+            left: 50%;
+            bottom: 25px;
+            transform: translateX(-50%);
+            width: 90vw;
+        }
+    }
+}
+@media screen and (max-width: 767px) {
+    .drawing-step__content {
+        &__footer {
+            width: 95vw;
+            .stroke-settings {
+                width: calc(100% - 186px) !important;
+            }
+            button {
+                padding: 15px !important;
+                gap: 5px !important;
+                img {
+                    transform: scale(0.7) !important;
+                }
+                span {
+                    font-size: 16px !important;
+                }
+            }
+        }
+    }
+}
+
 .drawing-step__content {
     &__header {
         padding: 20px;
@@ -42,7 +85,7 @@
     }
     &__main {
         position: relative;
-        height: 65%;
+        height: 60svh;
         min-height: 424px;
         display: flex;
         justify-content: center;
@@ -68,10 +111,19 @@
             right: 0;
             background-color: $third-color;
         }
-        img {
-            pointer-events: none;
+        &__img-container {
             position: absolute;
-            transform: scale(2.5);
+            width: 310px;
+            height: 244px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img {
+                pointer-events: none;
+                position: absolute;
+                transform: scale(2.5);
+            }
         }
         canvas {
             z-index: 1;
@@ -80,27 +132,34 @@
         }
     }
     &__footer {
-        margin-top: 25px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 25px;
+        flex-wrap: wrap;
         .stroke-settings {
+            position: relative;
+            width: calc(100% - 255px);
             display: flex;
             gap: 15px;
             padding: 10px;
             background-color: $seventh-shade;
             border-radius: 10px;
             &__size-modificator {
+                width: 50%;
                 padding: 8px;
                 border: none;
                 display: flex;
-                gap: 20px;
+                justify-content: space-between;
+                align-items: center;
+                overflow-x: auto;
+                gap: 5px;
                 border: 2px solid $eighth-shade;
                 border-radius: 8px;
                 > div {
-                    width: 40px;
-                    height: 40px;
+                    width: 2vw;
+                    min-width: 35px;
+                    height: 2vw;
+                    min-height: 35px;
                     border: 2px solid $eighth-shade;
                     border-radius: 50%;
                     display: flex;
@@ -157,7 +216,8 @@
                 }
             }
             &__opacity-modificator {
-                width: 286px;
+                width: 50%;
+                // min-width: 12vw;
                 padding: 15px;
                 border: 2px solid $eighth-shade;
                 border-radius: 8px;
@@ -254,7 +314,7 @@
             }
         }
         button {
-            width: 100%;
+            // width: 100%;
             padding: 25px;
             display: flex;
             align-items: center;

@@ -2,7 +2,7 @@
     .rules {
         min-height: 398px;
         display: flex;
-        max-width: calc((70% * 0.45));
+        width: calc((70% * 0.45));
         border: 3px solid $third-shade;
         border-radius: 25px;
         margin-bottom: 25px;

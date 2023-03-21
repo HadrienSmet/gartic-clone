@@ -13,7 +13,7 @@
 
 @media screen and (min-width: 768px) {
     .user {
-        min-width: 55%;
+        width: 55%;
         min-height: 465px;
         &__header {
             span {
@@ -44,9 +44,9 @@
                 }
             }
             &__pseudo-container {
-                width: calc(80% - 158px);
+                width: calc(90% - 158px);
                 input {
-                    width: calc(70% - 30px);
+                    width: calc(100% - 30px);
                     font-size: $font-bigger-size;
                 }
             }

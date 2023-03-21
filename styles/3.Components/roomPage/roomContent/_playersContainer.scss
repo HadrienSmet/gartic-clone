@@ -29,10 +29,13 @@
 @media screen and (max-width: 767px) {
     .players-container {
         width: 100%;
-        max-height: calc(100svh - 325px);
+        height: calc(100svh - 325px);
         gap: 5px;
         h2 {
             margin: 15px 0;
+        }
+        ul {
+            height: calc(100svh - 465px) !important;
         }
     }
 }

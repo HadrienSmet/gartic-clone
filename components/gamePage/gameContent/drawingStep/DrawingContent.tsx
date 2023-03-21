@@ -182,13 +182,15 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                 <h2>{oldSentence}</h2>
             </div>
             <div className="drawing-step__content__main">
-                <Image
-                    priority
-                    src={"/images/gartic-bgcanvas.svg"}
-                    alt="logo de Gartic Phone"
-                    width={267}
-                    height={150}
-                />
+                <div className="drawing-step__content__main__img-container">
+                    <Image
+                        priority
+                        src={"/images/gartic-bgcanvas.svg"}
+                        alt="logo de Gartic Phone"
+                        width={267}
+                        height={150}
+                    />
+                </div>
                 <canvas
                     ref={canvasRef}
                     width={940}
