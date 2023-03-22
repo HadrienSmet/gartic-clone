@@ -28,16 +28,25 @@ const colors: string[] = [
     "rgb(255,174,168)",
 ];
 
-const DrawingLeftColumn = ({
-    currentColor,
-    handleCurrentColor,
-}: LeftColumnProps) => {
+const useDrawingLeftColumn = () => {
     const colorModificatorRef = useRef<HTMLDivElement | null>(null);
-    const { gameData } = useGameContext();
 
     const hideColorModal = () => {
         colorModificatorRef.current!.classList.remove("active");
     };
+
+    return {
+        colorModificatorRef,
+        hideColorModal,
+    };
+};
+
+const DrawingLeftColumn = ({
+    currentColor,
+    handleCurrentColor,
+}: LeftColumnProps) => {
+    const { gameData } = useGameContext();
+    const { colorModificatorRef, hideColorModal } = useDrawingLeftColumn();
 
     return (
         <div className="drawing-step__left-column">

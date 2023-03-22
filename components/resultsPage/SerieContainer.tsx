@@ -1,5 +1,4 @@
 import { SerieType } from "@/types/next";
-import React from "react";
 import RoundContainer from "./RoundContainer";
 
 type Props = {

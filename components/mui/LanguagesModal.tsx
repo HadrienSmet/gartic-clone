@@ -1,14 +1,16 @@
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
 
-const LanguagesModal = () => {
+const useLanguagesModal = () => {
     const layoutRef = useRef<HTMLDivElement | null>(null);
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [isBrowser, setIsbrowser] = useState(false);
+
     const removeLanguagesModal = () => {
         layoutRef.current?.classList.remove("active");
         containerRef.current?.classList.remove("active");
     };
+
     const handleMainLanguage = (e: MouseEvent) => {
         const languages = isBrowser
             ? document.querySelectorAll(".language")
@@ -20,9 +22,26 @@ const LanguagesModal = () => {
         });
         target.classList.add("active");
     };
+
     useEffect(() => {
         setIsbrowser(true);
     }, []);
+
+    return {
+        containerRef,
+        layoutRef,
+        handleMainLanguage,
+        removeLanguagesModal,
+    };
+};
+
+const LanguagesModal = () => {
+    const {
+        containerRef,
+        layoutRef,
+        handleMainLanguage,
+        removeLanguagesModal,
+    } = useLanguagesModal();
     return (
         <div ref={layoutRef} className="languages-modal__layout">
             <div ref={containerRef} className="languages-modal__container">

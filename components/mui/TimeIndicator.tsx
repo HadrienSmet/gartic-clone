@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { useGameContext } from "@/context/GameContext";
-import { useRouter } from "next/router";
 import { useSocketContext } from "@/context/SocketContext";
 import { useUsersContext } from "@/context/UsersContext";
 
@@ -10,12 +8,10 @@ type TimerProps = {
 
 let interval: NodeJS.Timer;
 
-const TimeIndicator = ({ totalTime }: TimerProps) => {
+const useTimeIndicator = ({ totalTime }: TimerProps) => {
     const { usersData } = useUsersContext();
     const { socket } = useSocketContext();
-    const { gameData, setGameData } = useGameContext();
     const [timeRemaining, setTimeRemaining] = useState(totalTime);
-    const router = useRouter();
 
     const endAngle = ((timeRemaining / totalTime) * 2 - 0.5) * Math.PI;
     const isClockwise = timeRemaining > totalTime / 2 ? 1 : 0;
@@ -32,11 +28,6 @@ const TimeIndicator = ({ totalTime }: TimerProps) => {
             if (timeRemaining === 0) {
                 clearInterval(interval);
                 socket!.emit("ran-out-of-time", usersData!.roomId);
-                // if (gameData!.currentRound === gameData!.players.length) {
-                //     router.push("results");
-                // } else {
-                //     socket!.emit("ran-out-of-time", usersData!.roomId);
-                // }
             } else {
                 setTimeRemaining((curr) => curr - 1);
             }
@@ -50,6 +41,12 @@ const TimeIndicator = ({ totalTime }: TimerProps) => {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [timeRemaining, totalTime]);
+
+    return { pathData };
+};
+
+const TimeIndicator = ({ totalTime }: TimerProps) => {
+    const { pathData } = useTimeIndicator({ totalTime });
 
     return (
         <svg width="200" height="200">

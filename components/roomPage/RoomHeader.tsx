@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaCog, FaPlay, FaTwitch } from "react-icons/fa";
 
-const RoomHeader = () => {
+const useRoomHeader = () => {
     const { userData } = useUserContext();
     const { usersData } = useUsersContext();
     const { socket } = useSocketContext();
@@ -22,6 +22,15 @@ const RoomHeader = () => {
         const settings = document.querySelector(".settings-container");
         if (settings) settings.classList.add("active");
     };
+
+    return {
+        handleLeaveRoom,
+        showSettingsContainer,
+    };
+};
+
+const RoomHeader = () => {
+    const { handleLeaveRoom, showSettingsContainer } = useRoomHeader();
 
     return (
         <section className="room-header">

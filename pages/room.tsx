@@ -77,8 +77,7 @@ const useRoom = (
 
     useEffect(() => {
         if (!socket) {
-            // const newSocket = io("https://gartic-clone-server.herokuapp.com/", {
-            const newSocket = io("http://localhost:3001", {
+            const newSocket = io("https://gartic-clone-server.herokuapp.com/", {
                 reconnectionDelay: 1000,
                 reconnection: true,
                 reconnectionAttempts: 10,

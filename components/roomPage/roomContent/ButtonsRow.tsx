@@ -1,26 +1,22 @@
 import { ChangeEvent, useRef, useState } from "react";
 import Image from "next/image";
-import { Socket, io } from "socket.io-client";
+import { Socket } from "socket.io-client";
 
 import { FaTimes } from "react-icons/fa";
 import { useUsersContext } from "@/context/UsersContext";
 import { useUserContext } from "@/context/UserContext";
-import { useGameContext } from "@/context/GameContext";
-import { useRouter } from "next/router";
 
 type ButtonsRowProps = {
     socket: Socket | undefined;
 };
 
-const ButtonsRow = ({ socket }: ButtonsRowProps) => {
+const useButtonsRow = ({ socket }: ButtonsRowProps) => {
     const [roomLink, setRoomLink] = useState("");
     const copyRef = useRef<HTMLSpanElement | null>(null);
     const modalRef = useRef<HTMLDivElement | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const { gameData, setGameData } = useGameContext();
     const { usersData } = useUsersContext();
     const { userData } = useUserContext();
-    const router = useRouter();
 
     const handleInvitation = () => {
         navigator.clipboard.writeText(usersData!.roomId);
@@ -55,6 +51,32 @@ const ButtonsRow = ({ socket }: ButtonsRowProps) => {
             usersData?.users
         );
     };
+
+    return {
+        copyRef,
+        modalRef,
+        inputRef,
+        handleInvitation,
+        handleJoinRoom,
+        handleRoomLink,
+        hideMeModal,
+        showMeModal,
+        startGame,
+    };
+};
+
+const ButtonsRow = ({ socket }: ButtonsRowProps) => {
+    const {
+        copyRef,
+        modalRef,
+        inputRef,
+        handleInvitation,
+        handleJoinRoom,
+        handleRoomLink,
+        hideMeModal,
+        showMeModal,
+        startGame,
+    } = useButtonsRow({ socket });
 
     return (
         <div className="room-content__buttons-row">

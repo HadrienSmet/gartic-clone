@@ -1,6 +1,5 @@
 import { useUsersContext } from "@/context/UsersContext";
 import Image from "next/image";
-import React from "react";
 
 const ContributorsContainer = () => {
     const { usersData } = useUsersContext();

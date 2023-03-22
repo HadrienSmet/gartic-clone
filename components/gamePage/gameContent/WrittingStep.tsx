@@ -14,9 +14,8 @@ const placeHoldersArray = [
     "Gollum demande Frodon en mariage",
 ];
 
-const WrittingStep = () => {
+const useWrittingStep = () => {
     const [placeHolderIndex, setPlaceHolderIndex] = useState(0);
-    // const [sentence, setSentence] = useState("");
     const [isReady, setIsReady] = useState(false);
     const buttonRef = useRef<HTMLButtonElement | null>(null);
     const inputRef = useRef("");
@@ -41,7 +40,6 @@ const WrittingStep = () => {
     const handleSentence = (e: ChangeEvent) => {
         const target = e.target as HTMLInputElement;
         inputRef.current = target.value;
-        // setSentence(() => target.value);
     };
 
     const saveSentence = () => {
@@ -97,6 +95,27 @@ const WrittingStep = () => {
     useEffect(() => {
         setIsReady(false);
     }, []);
+
+    return {
+        buttonRef,
+        isReady,
+        oldDraw,
+        placeHolderIndex,
+        handleSentence,
+        saveSentence,
+    };
+};
+
+const WrittingStep = () => {
+    const { gameData } = useGameContext();
+    const {
+        buttonRef,
+        isReady,
+        oldDraw,
+        placeHolderIndex,
+        handleSentence,
+        saveSentence,
+    } = useWrittingStep();
 
     return (
         <div className="writting-step">

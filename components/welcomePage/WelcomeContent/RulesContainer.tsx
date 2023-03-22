@@ -82,20 +82,9 @@ const rulesArray = [
 ];
 
 const useRulesContainer = () => {
-    const firstAnimatedRef = useRef<HTMLLIElement | null>(null);
-    let rulesIndexes;
-    useEffect(() => {
-        firstAnimatedRef.current?.classList.add("active");
-    }, []);
-    return {
-        firstAnimatedRef,
-    };
-};
-
-const RulesContainer = () => {
-    const [ruleIndex, setRuleIndex] = useState(0);
-    const { firstAnimatedRef } = useRulesContainer();
     const rulesRef = useRef<HTMLDivElement | null>(null);
+    const firstAnimatedRef = useRef<HTMLLIElement | null>(null);
+    const [ruleIndex, setRuleIndex] = useState(0);
 
     const handleRuleIndex = (e: MouseEvent) => {
         const target = e.target as Element;
@@ -103,6 +92,14 @@ const RulesContainer = () => {
         const newIndex = parseInt(target.id.split("-")[1]) - 1;
         setRuleIndex(() => newIndex);
     };
+
+    const removeRulesModal = () => {
+        rulesRef.current?.classList.remove("active");
+    };
+
+    useEffect(() => {
+        firstAnimatedRef.current?.classList.add("active");
+    }, []);
 
     useEffect(() => {
         const rulesIndexes = document.querySelectorAll(".rule-index");
@@ -129,9 +126,23 @@ const RulesContainer = () => {
         };
     }, [ruleIndex]);
 
-    const removeRulesModal = () => {
-        rulesRef.current?.classList.remove("active");
+    return {
+        ruleIndex,
+        rulesRef,
+        firstAnimatedRef,
+        handleRuleIndex,
+        removeRulesModal,
     };
+};
+
+const RulesContainer = () => {
+    const {
+        ruleIndex,
+        rulesRef,
+        firstAnimatedRef,
+        handleRuleIndex,
+        removeRulesModal,
+    } = useRulesContainer();
 
     return (
         <div ref={rulesRef} className="rules">

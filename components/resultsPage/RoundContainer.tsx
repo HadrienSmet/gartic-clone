@@ -1,6 +1,5 @@
 import { RoundDataType } from "@/types/next";
 import Image from "next/image";
-import React from "react";
 
 type Props = {
     roundData: RoundDataType;

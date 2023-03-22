@@ -1,5 +1,4 @@
 import { useGameContext } from "@/context/GameContext";
-import React from "react";
 import SerieContainer from "./SerieContainer";
 
 const ResultsContainer = () => {

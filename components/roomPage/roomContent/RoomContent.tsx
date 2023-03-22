@@ -8,11 +8,16 @@ type RoomProps = {
     socket: Socket | undefined;
 };
 
-const RoomContent = ({ socket }: RoomProps) => {
+const useRoomContent = () => {
     useEffect(() => {
         const body = document.querySelector("body");
         body!.classList.add("room-bg");
     }, []);
+};
+
+const RoomContent = ({ socket }: RoomProps) => {
+    useRoomContent();
+
     return (
         <section className="room-content">
             <PlayersContainer />

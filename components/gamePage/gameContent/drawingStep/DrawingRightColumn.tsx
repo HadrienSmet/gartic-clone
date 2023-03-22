@@ -1,15 +1,24 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { FaPencilAlt, FaTimes } from "react-icons/fa";
 import TimeIndicator from "../../../mui/TimeIndicator";
 import { useGameContext } from "@/context/GameContext";
 
-const DrawingRightColumn = () => {
+const useDrawingRightColumn = () => {
     const toolsContainerRef = useRef<HTMLDivElement | null>(null);
-    const { gameData } = useGameContext();
 
     const hideToolModal = () => {
         toolsContainerRef.current!.classList.remove("active");
     };
+
+    return {
+        toolsContainerRef,
+        hideToolModal,
+    };
+};
+
+const DrawingRightColumn = () => {
+    const { gameData } = useGameContext();
+    const { toolsContainerRef, hideToolModal } = useDrawingRightColumn();
 
     return (
         <div className="drawing-step__right-column">

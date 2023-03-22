@@ -1,10 +1,9 @@
-import Image from "next/image";
-import React, { MouseEvent, useRef, useState } from "react";
+import { MouseEvent, useRef, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import PersonalisationContent from "./PersonalisationContent";
 import PresettingsContent from "./PresettingsContent";
 
-const SettingsContainer = () => {
+const useSettingsContainer = () => {
     const [headerState, setHeaderState] = useState("presetting");
     const settingsRef = useRef<HTMLDivElement | null>(null);
     const preSettingRef = useRef<HTMLSpanElement | null>(null);
@@ -21,6 +20,26 @@ const SettingsContainer = () => {
     const hideSettingsContainer = () => {
         settingsRef.current!.classList.remove("active");
     };
+
+    return {
+        headerState,
+        personalisationRef,
+        preSettingRef,
+        settingsRef,
+        handleHeaderBehavior,
+        hideSettingsContainer,
+    };
+};
+
+const SettingsContainer = () => {
+    const {
+        headerState,
+        personalisationRef,
+        preSettingRef,
+        settingsRef,
+        handleHeaderBehavior,
+        hideSettingsContainer,
+    } = useSettingsContainer();
 
     return (
         <div ref={settingsRef} className="settings-container">

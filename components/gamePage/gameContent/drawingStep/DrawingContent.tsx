@@ -29,7 +29,7 @@ const useDrawingContentCanvas = ({ currentColor }: DrawingContentProps) => {
     const [currentSize, setCurrentSize] = useState(15);
     const [currentOpacity, setCurrentOpacity] = useState(1);
 
-    const { gameData, setGameData } = useGameContext();
+    const { gameData } = useGameContext();
     const { userData } = useUserContext();
     const { usersData } = useUsersContext();
     const { socket } = useSocketContext();
