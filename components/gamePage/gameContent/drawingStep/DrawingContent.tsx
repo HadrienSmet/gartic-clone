@@ -5,37 +5,34 @@ import { useUsersContext } from "@/context/UsersContext";
 import { RoundDataType } from "@/types/next";
 import Image from "next/image";
 import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
-import { FaDownload, FaVolumeUp } from "react-icons/fa";
+import {
+    FaDownload,
+    FaPalette,
+    FaPen,
+    FaPencilRuler,
+    FaTimes,
+    FaVolumeUp,
+} from "react-icons/fa";
 
 type DrawingContentProps = {
     currentColor: string;
 };
 
-const DrawingContent = ({ currentColor }: DrawingContentProps) => {
+const useDrawingContentCanvas = ({ currentColor }: DrawingContentProps) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
     const scaleXRef = useRef(0);
     const scaleYRef = useRef(0);
+
     const [isReady, setIsReady] = useState(false);
     const [isDrawing, setIsDrawing] = useState(false);
     const [currentSize, setCurrentSize] = useState(15);
     const [currentOpacity, setCurrentOpacity] = useState(1);
+
     const { gameData, setGameData } = useGameContext();
     const { userData } = useUserContext();
     const { usersData } = useUsersContext();
     const { socket } = useSocketContext();
-
-    const rightSerie = gameData!.series.findIndex(
-        (serie) =>
-            serie.id ===
-            (gameData!.playerIndex + gameData!.currentRound) %
-                gameData!.players.length
-    );
-    const oldSentence =
-        gameData!.currentRound === 1
-            ? ""
-            : gameData!.series[rightSerie].content[gameData!.currentRound - 2]
-                  .content;
 
     const handleStrokeSize = (e: MouseEvent) => {
         const sizes = document.querySelectorAll(".size");
@@ -112,18 +109,42 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
         const splittedColor = currentColor.split("(")[1].split(",");
         const context = canvasRef.current!.getContext("2d");
 
+        const handleResize = () => {
+            const canvasWidth = canvasRef.current!.clientWidth;
+            const canvasHeight = canvasRef.current!.clientHeight;
+            const imageData = context!.getImageData(
+                0,
+                0,
+                canvasRef.current!.width,
+                canvasRef.current!.height
+            );
+
+            canvasRef.current!.width = canvasWidth;
+            canvasRef.current!.height = canvasHeight;
+            const originalWidth = canvasRef.current!.width;
+            const originalHeight = canvasRef.current!.height;
+            scaleXRef.current = canvasWidth / originalWidth;
+            scaleYRef.current = canvasHeight / originalHeight;
+
+            context!.putImageData(imageData, 0, 0);
+        };
+
         context!.scale(scaleXRef.current, scaleYRef.current);
         context!.lineCap = "round";
         context!.strokeStyle = `
-                rgba(
-                    ${splittedColor[0]}, 
-                    ${splittedColor[1]}, 
-                    ${splittedColor[2].split(")")[0]}, 
-                    ${currentOpacity}
-                )
-            `;
+            rgba(
+                ${splittedColor[0]}, 
+                ${splittedColor[1]}, 
+                ${splittedColor[2].split(")")[0]}, 
+                ${currentOpacity}
+            )
+        `;
         context!.lineWidth = currentSize;
         ctxRef.current = context;
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     }, [currentColor, currentSize, currentOpacity]);
 
     useEffect(() => {
@@ -155,6 +176,95 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
     useEffect(() => {
         setIsReady(false);
     }, []);
+
+    return {
+        canvasRef,
+        isReady,
+        draw,
+        saveDraw,
+        startDrawing,
+        stopDrawing,
+        handleStrokeOpacity,
+        handleStrokeSize,
+    };
+};
+
+const useDrawMobileModals = () => {
+    const sizeModificatorRef = useRef<HTMLFieldSetElement | null>(null);
+    const opacityModificatorRef = useRef<HTMLInputElement | null>(null);
+
+    const showModalColors = () => {
+        const colorsContainer = document.querySelector(".color-container");
+        colorsContainer!.classList.add("active");
+    };
+
+    const showModalOpacity = () => {
+        opacityModificatorRef.current!.classList.add("active");
+    };
+
+    const showModalSize = () => {
+        sizeModificatorRef.current!.classList.add("active");
+    };
+
+    const showModalTools = () => {
+        const toolsContainer = document.querySelector(".tools-container");
+        toolsContainer!.classList.add("active");
+    };
+
+    const hideOpacityModal = () => {
+        opacityModificatorRef.current!.classList.remove("active");
+    };
+
+    const hideSizeModal = () => {
+        sizeModificatorRef.current!.classList.remove("active");
+    };
+
+    return {
+        sizeModificatorRef,
+        opacityModificatorRef,
+        showModalColors,
+        showModalOpacity,
+        showModalSize,
+        showModalTools,
+        hideOpacityModal,
+        hideSizeModal,
+    };
+};
+
+const DrawingContent = ({ currentColor }: DrawingContentProps) => {
+    const {
+        canvasRef,
+        isReady,
+        draw,
+        saveDraw,
+        startDrawing,
+        stopDrawing,
+        handleStrokeOpacity,
+        handleStrokeSize,
+    } = useDrawingContentCanvas({ currentColor });
+    const {
+        sizeModificatorRef,
+        opacityModificatorRef,
+        showModalColors,
+        showModalOpacity,
+        showModalSize,
+        showModalTools,
+        hideOpacityModal,
+        hideSizeModal,
+    } = useDrawMobileModals();
+    const { gameData } = useGameContext();
+
+    const rightSerie = gameData!.series.findIndex(
+        (serie) =>
+            serie.id ===
+            (gameData!.playerIndex + gameData!.currentRound) %
+                gameData!.players.length
+    );
+    const oldSentence =
+        gameData!.currentRound === 1
+            ? ""
+            : gameData!.series[rightSerie].content[gameData!.currentRound - 2]
+                  .content;
 
     return (
         <div className="drawing-step__content">
@@ -203,7 +313,14 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
             </div>
             <div className="drawing-step__content__footer">
                 <div className="stroke-settings">
-                    <fieldset className="stroke-settings__size-modificator">
+                    <fieldset
+                        ref={sizeModificatorRef}
+                        className="stroke-settings__size-modificator"
+                    >
+                        <FaTimes
+                            onClick={hideSizeModal}
+                            className="stroke-settings__size-modificator__remover-button"
+                        />
                         <div
                             className="smallest-size size"
                             id="size-5"
@@ -261,7 +378,14 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                             <label htmlFor="biggest-size"></label>
                         </div>
                     </fieldset>
-                    <div className="stroke-settings__opacity-modificator">
+                    <div
+                        ref={opacityModificatorRef}
+                        className="stroke-settings__opacity-modificator"
+                    >
+                        <FaTimes
+                            onClick={hideOpacityModal}
+                            className="stroke-settings__opacity-modificator__remover-button"
+                        />
                         <span className="low-opacity"></span>
                         <input
                             type="range"
@@ -273,6 +397,34 @@ const DrawingContent = ({ currentColor }: DrawingContentProps) => {
                             onChange={(e) => handleStrokeOpacity(e)}
                         />
                         <span className="strong-opacity"></span>
+                    </div>
+                </div>
+                <div className="mobile-settings">
+                    <div
+                        onClick={showModalColors}
+                        className="mobile-settings__button-container color-button-container"
+                    >
+                        <FaPalette />
+                    </div>
+                    <div
+                        onClick={showModalTools}
+                        className="mobile-settings__button-container"
+                    >
+                        <FaPencilRuler />
+                    </div>
+                    <div
+                        onClick={showModalSize}
+                        className="mobile-settings__stroke-button"
+                    >
+                        <FaPen />
+                        <span className="stroke"></span>
+                    </div>
+                    <div
+                        onClick={showModalOpacity}
+                        className="mobile-settings__opacity-button"
+                    >
+                        <FaPen />
+                        <span className="opacity"></span>
                     </div>
                 </div>
                 {isReady ? (

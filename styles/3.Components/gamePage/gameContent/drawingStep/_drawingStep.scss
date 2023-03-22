@@ -1,7 +1,18 @@
+@media screen and (min-width: 768px) {
+    .drawing-step {
+        display: grid;
+        grid-template-columns: 14% 70% 14%;
+        gap: 15px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .drawing-step {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
 .drawing-step {
     height: 100%;
     width: 100%;
-    display: grid;
-    grid-template-columns: 14% 70% 14%;
-    gap: 15px;
 }

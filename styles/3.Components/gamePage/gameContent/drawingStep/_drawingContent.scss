@@ -20,15 +20,160 @@
         }
     }
 }
+@media screen and (min-width: 768px) {
+    .drawing-step__content {
+        &__header {
+            padding: 20px;
+            width: calc(100% - 40px);
+            background-color: $first-color;
+            border-radius: 20px 20px 0 0;
+        }
+        &__main {
+            height: 60svh;
+            canvas {
+                height: 100%;
+            }
+        }
+        &__footer {
+            .mobile-settings {
+                display: none !important;
+            }
+            .stroke-settings {
+                display: flex;
+                position: relative;
+                width: calc(100% - 255px);
+                gap: 15px;
+                padding: 10px;
+                background-color: $seventh-shade;
+                border-radius: 10px;
+                &__size-modificator {
+                    display: flex;
+                    width: 50%;
+                    border: 2px solid $eighth-shade;
+                    &__remover-button {
+                        display: none;
+                    }
+                    > div {
+                        border: 2px solid $eighth-shade;
+                        > label {
+                            background-color: $eighth-shade;
+                        }
+                    }
+                }
+                &__opacity-modificator {
+                    width: 50%;
+                    border: 2px solid $eighth-shade;
+                    display: flex;
+                    &__remover-button {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
 @media screen and (max-width: 767px) {
     .drawing-step__content {
+        width: 100%;
+        &__header {
+            padding: 0;
+            width: 100%;
+        }
+        &__main {
+            max-height: calc(100svh - 391px);
+            canvas {
+                height: calc(100svh - 491px);
+            }
+        }
         &__footer {
             width: 95vw;
+            z-index: 10;
             .stroke-settings {
-                width: calc(100% - 186px) !important;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 2;
+                pointer-events: none;
+                &__size-modificator {
+                    display: none;
+                    &__remover-button {
+                        cursor: pointer;
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        font-size: 25px;
+                        color: $clr-1;
+                    }
+                    &.active {
+                        z-index: 1500000 !important;
+                        pointer-events: all;
+                        padding: 50px 20px 20px;
+                        display: flex;
+                        gap: 15px;
+                        position: absolute;
+                        bottom: 80px;
+                        left: 40px;
+                        transform: none;
+                        background-color: rgba(11, 11, 11, 0.5);
+                        backdrop-filter: blur(5px);
+                        > div {
+                            border: 2px solid rgba(255, 255, 255, 0.6);
+                            label {
+                                background-color: rgba(255, 255, 255, 0.6);
+                            }
+                        }
+                    }
+                }
+                &__opacity-modificator {
+                    display: none;
+                    &__remover-button {
+                        cursor: pointer;
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        font-size: 25px;
+                        color: $clr-1;
+                    }
+                    &.active {
+                        z-index: 1500000 !important;
+                        pointer-events: all;
+                        padding: 50px 20px 20px;
+                        display: flex;
+                        gap: 15px;
+                        position: absolute;
+                        bottom: 80px;
+                        left: 40px;
+                        transform: none;
+                        background-color: rgba(11, 11, 11, 0.5);
+                        backdrop-filter: blur(5px);
+                    }
+                }
+            }
+            .mobile-settings {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                width: calc(100% - 175px);
+                font-size: 25px;
+                > div {
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 40px;
+                    height: 40px;
+                    border: 2px solid $clr-1;
+                    border-radius: 50%;
+                }
+                svg {
+                    position: relative;
+                    color: $clr-1;
+                }
             }
             button {
-                padding: 15px !important;
+                padding: 5px 15px !important;
                 gap: 5px !important;
                 img {
                     transform: scale(0.7) !important;
@@ -37,21 +182,25 @@
                     font-size: 16px !important;
                 }
             }
+            .players-ready {
+                margin: 0;
+                font-size: 12px !important;
+            }
         }
     }
 }
 
 .drawing-step__content {
     &__header {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         padding: 20px;
         width: calc(100% - 40px);
         background-color: $first-color;
         border-radius: 20px 20px 0 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         gap: 10px;
-        position: relative;
         &-rings {
             content: "";
             position: absolute;
@@ -85,7 +234,6 @@
     }
     &__main {
         position: relative;
-        height: 60svh;
         min-height: 424px;
         display: flex;
         justify-content: center;
@@ -128,7 +276,6 @@
         canvas {
             z-index: 1;
             width: 100%;
-            height: 100%;
         }
     }
     &__footer {
@@ -137,34 +284,25 @@
         justify-content: space-between;
         flex-wrap: wrap;
         .stroke-settings {
-            position: relative;
-            width: calc(100% - 255px);
-            display: flex;
-            gap: 15px;
-            padding: 10px;
-            background-color: $seventh-shade;
-            border-radius: 10px;
             &__size-modificator {
-                width: 50%;
                 padding: 8px;
-                border: none;
-                display: flex;
                 justify-content: space-between;
                 align-items: center;
                 overflow-x: auto;
                 gap: 5px;
-                border: 2px solid $eighth-shade;
                 border-radius: 8px;
                 > div {
                     width: 2vw;
                     min-width: 35px;
                     height: 2vw;
                     min-height: 35px;
-                    border: 2px solid $eighth-shade;
                     border-radius: 50%;
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    label {
+                        position: absolute;
+                    }
                     &.active {
                         border-color: $clr-1;
                         label {
@@ -180,48 +318,34 @@
                     pointer-events: none;
                 }
                 > .smallest-size label {
-                    position: absolute;
                     width: 5px;
                     height: 5px;
                     border-radius: 5px;
-                    background-color: $eighth-shade;
                 }
                 > .small-size label {
-                    position: absolute;
                     width: 10px;
                     height: 10px;
                     border-radius: 10px;
-                    background-color: $eighth-shade;
                 }
                 > .medium-size label {
-                    position: absolute;
                     width: 15px;
                     height: 15px;
                     border-radius: 15px;
-                    background-color: $eighth-shade;
                 }
                 > .big-size label {
-                    position: absolute;
                     width: 20px;
                     height: 20px;
                     border-radius: 20px;
-                    background-color: $eighth-shade;
                 }
                 > .biggest-size label {
-                    position: absolute;
                     width: 25px;
                     height: 25px;
                     border-radius: 25px;
-                    background-color: $eighth-shade;
                 }
             }
             &__opacity-modificator {
-                width: 50%;
-                // min-width: 12vw;
                 padding: 15px;
-                border: 2px solid $eighth-shade;
                 border-radius: 8px;
-                display: flex;
                 align-items: center;
                 justify-content: space-between;
                 gap: 8px;

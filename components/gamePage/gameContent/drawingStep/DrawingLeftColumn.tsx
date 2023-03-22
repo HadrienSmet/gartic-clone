@@ -1,5 +1,6 @@
-import { MouseEvent } from "react";
+import { MouseEvent, useRef } from "react";
 import { useGameContext } from "@/context/GameContext";
+import { FaTimes } from "react-icons/fa";
 
 type LeftColumnProps = {
     currentColor: string;
@@ -31,13 +32,23 @@ const DrawingLeftColumn = ({
     currentColor,
     handleCurrentColor,
 }: LeftColumnProps) => {
+    const colorModificatorRef = useRef<HTMLDivElement | null>(null);
     const { gameData } = useGameContext();
+
+    const hideColorModal = () => {
+        colorModificatorRef.current!.classList.remove("active");
+    };
+
     return (
         <div className="drawing-step__left-column">
             <h2>
                 {gameData!.currentRound}/{gameData!.players.length}
             </h2>
-            <div className="color-container">
+            <div ref={colorModificatorRef} className="color-container">
+                <FaTimes
+                    onClick={hideColorModal}
+                    className="color-container__remover"
+                />
                 <ul className="color-container__choices">
                     {colors.map((color) => (
                         <li
