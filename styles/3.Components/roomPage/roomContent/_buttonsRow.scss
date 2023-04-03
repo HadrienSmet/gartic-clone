@@ -6,7 +6,7 @@
         }
     }
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1180px) {
     .room-content__buttons-row {
         button {
             font-size: 16px;
@@ -15,6 +15,24 @@
                 transform: scale(0.8);
             }
         }
+    }
+    @media screen and (min-width: 768px) {
+        // @media screen and (orientation: portrait) {
+        .room-content__buttons-row {
+            position: absolute;
+            width: 90%;
+            left: 0;
+            bottom: -75px;
+        }
+        // }
+        // @media screen and (orientation: landscape) {
+        //     .room-content__buttons-row {
+        //         position: absolute;
+        //         width: 90%;
+        //         left: 0;
+        //         bottom: -60px;
+        //     }
+        // }
     }
 }
 

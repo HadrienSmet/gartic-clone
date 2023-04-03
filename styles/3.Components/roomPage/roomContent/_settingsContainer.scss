@@ -1,14 +1,14 @@
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 1181px) {
     .settings-container {
         &__header span {
             font-size: $font-bigger-size;
         }
     }
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1180px) {
     .settings-container {
         &__header span {
-            font-size: $font-regular-size;
+            font-size: 18px;
         }
     }
 }
@@ -21,6 +21,31 @@
         }
         &__hide-button {
             display: none;
+        }
+    }
+    @media screen and (orientation: portrait) {
+        .settings-container {
+            max-height: calc(100% - 12px) !important;
+            margin-bottom: 25px;
+            &__content {
+                height: calc(100% - 80px);
+                min-height: unset !important;
+                max-height: unset !important;
+            }
+        }
+    }
+    @media screen and (max-width: 1181px) {
+        @media screen and (orientation: landscape) {
+            .settings-container {
+                height: 100%;
+                max-height: unset !important;
+                position: relative;
+                &__content {
+                    min-height: unset !important;
+                    max-height: unset !important;
+                    height: calc(100% - 97px);
+                }
+            }
         }
     }
 }
@@ -46,6 +71,7 @@
             background-color: rgba(10, 10, 10, 0.9) !important;
             backdrop-filter: blur(4px);
             span {
+                font-size: 16px;
                 background-color: transparent !important;
             }
         }
@@ -63,6 +89,9 @@
             backdrop-filter: blur(4px);
             &.personalised {
                 flex-direction: column;
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba(255, 255, 255, 0.25) !important;
             }
         }
     }

@@ -25,7 +25,11 @@
 @media screen and (max-width: 767px) {
     .game {
         width: 100%;
-        height: calc(100svh - 48px);
+    }
+    @media screen and (orientation: portrait) {
+        .game {
+            height: calc(100svh - 48px);
+        }
     }
 }
 .game {

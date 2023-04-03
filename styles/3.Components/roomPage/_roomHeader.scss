@@ -1,8 +1,13 @@
+@media screen and (min-width: 1181px) {
+    .room-header {
+        height: 138px !important;
+    }
+}
 @media screen and (min-width: 768px) {
     .room-header {
         justify-content: space-between;
-        height: 138px;
         padding: 15px 25px;
+        height: 110px;
         &__back-button {
             display: flex;
             align-items: center;

@@ -22,7 +22,29 @@
         padding: 10px 25px;
         width: calc(90% - 50px);
         img {
-            transform: translate(-50%) scale(0.75);
+            transform: translate(-50%, -20%) scale(0.6);
+        }
+        svg {
+            transform: scale(0.4) translate(80%, -80%) !important;
+        }
+    }
+    @media screen and (orientation: portrait) {
+        .game-header {
+            padding: 0;
+            width: 90%;
+            max-height: 150px;
+            &__step-indicator {
+                font-size: 5vh !important;
+            }
+            img {
+                transform: translate(-50%, -20%) scale(0.5);
+            }
+            svg {
+                transform: scale(0.3) translate(110%, -110%) !important;
+            }
+            svg {
+                transform: scale(0.3) translate(110%, -110%) !important;
+            }
         }
     }
 }

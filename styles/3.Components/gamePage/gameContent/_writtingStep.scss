@@ -24,6 +24,12 @@
 }
 @media screen and (max-width: 767px) {
     .writting-step {
+        #first-round-picture {
+            display: none;
+        }
+        h1 {
+            text-align: center;
+        }
         &__input-container {
             position: relative;
             flex-direction: column;

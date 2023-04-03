@@ -2,6 +2,14 @@
     .room-content__right-column {
         width: 66%;
     }
+    @media screen and (max-width: 1024px) {
+        .room-content {
+            max-height: calc(90svh - 220px) !important;
+            &__right-column {
+                max-height: 90%;
+            }
+        }
+    }
 }
 
 @media screen and (max-width: 767px) {
@@ -9,6 +17,11 @@
         flex-direction: column;
         &__right-column {
             width: 100%;
+        }
+    }
+    @media screen and (orientation: landscape) {
+        .room-content {
+            max-height: unset !important;
         }
     }
 }

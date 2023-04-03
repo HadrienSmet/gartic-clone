@@ -14,7 +14,7 @@
             font-size: $font-regular-size;
         }
         &__select-division select {
-            font-size: $font-regular-size;
+            font-size: 18px;
         }
     }
 }
@@ -29,13 +29,22 @@
 @media screen and (max-width: 767px) {
     .players-container {
         width: 100%;
-        height: calc(100svh - 325px);
         gap: 5px;
         h2 {
             margin: 15px 0;
         }
         ul {
             height: calc(100svh - 465px) !important;
+        }
+    }
+    @media screen and (orientation: portrait) {
+        .players-container {
+            height: calc(100svh - 325px);
+        }
+    }
+    @media screen and (orientation: landscape) {
+        .players-container ul {
+            height: unset !important;
         }
     }
 }
