@@ -19,8 +19,8 @@ const useWelcome = () => {
             playerIndex: 0,
             gameState: "writte",
             currentRound: 1,
-            writtingTime: 60000000,
-            drawingTime: 180000000,
+            writtingTime: 60000,
+            drawingTime: 180000,
             series: [],
         });
         setUsersData!({
