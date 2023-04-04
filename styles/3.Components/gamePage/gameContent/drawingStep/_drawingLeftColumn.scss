@@ -1,4 +1,4 @@
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 1081px) {
     .drawing-step__left-column {
         h2 {
             font-size: 7vh;
@@ -14,7 +14,7 @@
         }
     }
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1080px) {
     .drawing-step__left-column {
         h2 {
             font-size: 50px;
@@ -28,7 +28,14 @@
                     width: calc(50% - 8px);
                     min-width: 30px;
                     min-height: 30px;
-                    height: calc((95vw * 0.14 - 30px) * 0.5 - 8px);
+                }
+            }
+        }
+        @media screen and (max-height: 500px) {
+            .drawing-step__left-column {
+                .color-container {
+                    transform: none !important;
+                    top: 30% !important;
                 }
             }
         }

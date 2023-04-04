@@ -35,8 +35,15 @@
                 .tool {
                     width: 100%;
                     min-width: 34px;
-                    min-height: 34px;
-                    height: calc((95vw * 0.14 - 30px) * 0.5 - 8px);
+                    min-height: 35px;
+                }
+            }
+        }
+        @media screen and (max-height: 500px) {
+            .drawing-step__right-column {
+                .tools-container {
+                    transform: none !important;
+                    top: 30% !important;
                 }
             }
         }

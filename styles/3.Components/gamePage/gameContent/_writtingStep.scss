@@ -1,5 +1,8 @@
 @media screen and (min-width: 1025px) {
     .writting-step {
+        .draw-bg {
+            width: calc(80% - 200px);
+        }
         &__input-container {
             width: calc(70vw - 200px);
             flex-wrap: wrap;
@@ -17,6 +20,13 @@
                 width: 90%;
                 input {
                     width: calc(90vw - 420px);
+                }
+            }
+        }
+        @media screen and (max-height: 450px) {
+            .writting-step {
+                #first-round-picture {
+                    display: none;
                 }
             }
         }
@@ -62,7 +72,6 @@
     }
     .draw-bg {
         background-color: $clr-1;
-        width: calc(80% - 200px);
         border-radius: 20px;
         img {
             width: 100%;

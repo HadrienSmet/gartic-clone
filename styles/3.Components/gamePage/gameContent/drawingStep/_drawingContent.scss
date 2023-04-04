@@ -1,5 +1,8 @@
 @media screen and (min-width: 1025px) {
     .drawing-step__content {
+        &__main {
+            height: 60svh;
+        }
         &__footer {
             width: 100%;
             margin-top: 25px;
@@ -19,6 +22,33 @@
             width: 90vw;
         }
     }
+    @media screen and (orientation: portrait) {
+        .drawing-step__content {
+            &__main {
+                height: 60svh;
+            }
+        }
+    }
+    @media screen and (orientation: landscape) {
+        .drawing-step__content {
+            &__main {
+                min-height: unset !important;
+                height: 50svh;
+            }
+        }
+        @media screen and (max-height: 500px) {
+            .drawing-step__content {
+                &__main {
+                    min-height: 424px !important;
+                }
+                &__footer {
+                    position: unset;
+                    transform: translateX(-15%);
+                    margin-top: 35px;
+                }
+            }
+        }
+    }
 }
 @media screen and (min-width: 768px) {
     .drawing-step__content {
@@ -29,7 +59,6 @@
             border-radius: 20px 20px 0 0;
         }
         &__main {
-            height: 60svh;
             canvas {
                 height: 100%;
             }
@@ -78,8 +107,12 @@
         &__header {
             padding: 0;
             width: 100%;
+            &-rings {
+                display: none;
+            }
         }
         &__main {
+            height: 55svh;
             max-height: calc(100svh - 391px);
             canvas {
                 height: calc(100svh - 491px);
@@ -455,7 +488,7 @@
         }
         .players-ready {
             text-transform: uppercase;
-            font-size: $font-regular-size;
+            font-size: 16px;
             color: $clr-1;
             text-shadow: $regular-txt-shadow;
             letter-spacing: 2px;
